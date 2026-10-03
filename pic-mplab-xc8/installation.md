@@ -95,8 +95,8 @@ To test the firmware on real hardware:
 
 ## Support
 
-- **Microchip Community Forum:** https://community.microchip.com
+- **Microchip Community Forum:** https://forum.microchip.com
 - **Stack Overflow:** Tag with `microchip`, `xc8`, `picsimlab`
-- **GitHub Issues:** https://github.com/microchip/mplab-x/issues
+- **Microchip Technical Support:** https://www.microchip.com/support
 
 *Last updated: 2026-03-28*

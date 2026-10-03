@@ -20,6 +20,18 @@
     },
     {
       "pattern": "^https://([a-zA-Z0-9-]+\\.)?allaboutcircuits\\.com"
+    },
+    {
+      "pattern": "^https://([a-zA-Z0-9-]+\\.)?microchip\\.com"
+    },
+    {
+      "pattern": "^https://([a-zA-Z0-9-]+\\.)?microchipdeveloper\\.com"
+    },
+    {
+      "pattern": "^https://([a-zA-Z0-9-]+\\.)?studentcompanion\\.net"
+    },
+    {
+      "pattern": "^https://([a-zA-Z0-9-]+\\.)?circuitdigest\\.com"
     }
   ],
   "timeout": "15s",

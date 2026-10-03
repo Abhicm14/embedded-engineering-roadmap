@@ -40,7 +40,7 @@
   *Topics:* Official webinars and masterclasses on MPLAB X IDE, MCC (MPLAB Code Configurator), XC8 compiler optimizations, and CIPs (Core Independent Peripherals).
 - 📝 👶 [**Microchip Developer Help**](https://microchipdeveloper.com/)  
   *Topics:* Architectural deep-dives on 8-bit PIC peripherals, config bits, interrupt context saving, and hardware design guidelines.
-- 📝 👶 [**Circuit Digest PIC Tutorials**](https://circuitdigest.com/microcontroller-projects/pic-microcontroller-projects)  
+- 📝 👶 [**Circuit Digest PIC Tutorials**](https://circuitdigest.com/pic-microcontroller-projects)  
   *Topics:* Practical circuit schematics and XC8 code walkthroughs for PIC16F877A interfacing with LCDs, motors, sensors, and keypad matrices.
 - 📝 💎 [**StudentCompanion Embedded Electronics**](https://www.studentcompanion.net/)  
   *Topics:* In-depth PIC microcontroller programming tutorials using MPLAB X and XC8 with simulation projects in PICSimLab.

@@ -5,7 +5,7 @@
 [![MPLAB X](https://img.shields.io/badge/MPLAB%20X-v5.35-blue)](https://www.microchip.com/mplab/mplab-x-ide)
 [![XC8](https://img.shields.io/badge/XC8-v2.36-green)](https://www.microchip.com/mplab/compilers)
 [![PICSimLab](https://img.shields.io/badge/PICSimLab-v0.7-orange)](https://picsimlab.sourceforge.net/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](../LICENSE)
 
 ## 📖 Overview
 
