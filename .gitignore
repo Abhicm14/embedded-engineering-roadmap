@@ -44,3 +44,11 @@ p7_test
 app_userspace
 test_*
 .local/
+
+# Microchip XC8 intermediates
+*.p1
+*.pre
+*.as
+*.lst
+*.rlf
+startup.s

@@ -1,6 +1,6 @@
 # 🏛️ Broad Embedded Systems Topic Taxonomy
 
-> Reference taxonomy covering the complete breadth of the embedded engineering discipline organized under the three pillars of **SOFTWARE**, **HARDWARE**, and **SOFT SKILLS** (inspired by Roadmap B).
+> Reference taxonomy covering the complete breadth of the embedded engineering discipline organized under the three pillars of **SOFTWARE**, **HARDWARE**, and **SOFT SKILLS**.
 
 ---
 

@@ -36,3 +36,14 @@
   *Covers:* 3-axis gyroscope, 3-axis accelerometer, I2C slave interface (`0x68`/`0x69`), and FIFO buffer.
 - 📑 💎 [**Texas Instruments SN65HVD230 3.3V CAN Transceiver Datasheet**](https://www.ti.com/product/SN65HVD230)  
   *Covers:* High-speed CAN differential signaling, slope control resistor, loopback mode, and electrical protection specs.
+
+---
+
+## 4. Microchip PIC Silicon & Compiler References
+
+- 📑 💎 [**PIC16F87X Data Sheet (DS39582C / DS30292)**](https://www.microchip.com/)  
+  *Covers:* 40-pin 8-bit CMOS Flash microcontrollers (PIC16F877A). Complete register descriptions for TRIS, PORT, OPTION_REG, INTCON, ADCON0/1, CCP1/2, SSPCON, and USART.
+- 📑 💎 [**PICmicro Mid-Range MCU Family Reference Manual (DS33023A)**](https://www.microchip.com/)  
+  *Covers:* Deep architectural hardware guide for all mid-range PIC devices: instruction pipeline timing, interrupt latency, reset sources, and EEPROM controller.
+- 📑 💎 [**MPLAB XC8 C Compiler User's Guide (DS50002737)**](https://www.microchip.com/mplab/compilers)  
+  *Covers:* Microchip ANSI C compiler command-line flags, pointer qualifiers, interrupt vector syntax (`__interrupt()`), `#pragma config` bit definitions, and assembly embedding.

@@ -1,12 +1,12 @@
 # 💎 Quality-Rated Embedded Systems Resource Hub
 
-> A comprehensive, rigorously curated catalog of textbooks, online courses, software tools, YouTube channels, technical blogs, and official manufacturer datasheets (modeled on Roadmap B).
+> A comprehensive, rigorously curated catalog of textbooks, online courses, software tools, YouTube channels, technical blogs, and official manufacturer datasheets.
 
 ---
 
 ## 🏷️ Rating & Convention Legend
 
-Every entry in this resource hub is tagged using the Roadmap B taxonomy convention:
+Every entry in this resource hub is tagged using the standard taxonomy convention:
 
 ### 1. Resource Type:
 - 📘 **Book / Textbook**

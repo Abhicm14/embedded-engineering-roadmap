@@ -1,6 +1,6 @@
 # 🧠 Comprehensive Soft-Skills & Engineering Practices
 
-> Non-technical excellence: engineering communication, systematic debugging methodologies, cross-discipline collaboration, and career development (adapted from Roadmap B taxonomy).
+> Non-technical excellence: engineering communication, systematic debugging methodologies, cross-discipline collaboration, and career development.
 
 ---
 

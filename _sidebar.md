@@ -32,10 +32,18 @@
   - [Intermediate Projects (3-5)](projects/intermediate.md)
   - [Advanced Projects (6-7)](projects/advanced.md)
 
+- **🔌 PIC Microcontrollers (XC8)**
+  - [PIC Track Overview](pic-mplab-xc8/README.md)
+  - [Installation Guide](pic-mplab-xc8/installation.md)
+  - [Beginner Steps (1-3)](pic-mplab-xc8/beginner.md)
+  - [Intermediate Steps (4-8)](pic-mplab-xc8/intermediate.md)
+  - [Advanced Steps (9-13)](pic-mplab-xc8/advanced.md)
+
 - **⚡ Cheatsheets**
   - [Cheatsheets Overview](cheatsheets/README.md)
   - [Embedded C](cheatsheets/c-cheatsheet.md)
   - [Bitwise Operations](cheatsheets/bitwise-cheatsheet.md)
+  - [PIC XC8 Cheatsheet](cheatsheets/pic-xc8-cheatsheet.md)
   - [Protocols Comparison](cheatsheets/protocols-comparison.md)
   - [Cortex-M Faults](cheatsheets/cortex-m-faults.md)
   - [Common I2C Addresses](cheatsheets/common-i2c-addresses.md)
@@ -46,7 +54,6 @@
   - [Code Examples Index](code-examples/README.md)
 
 - **📜 Meta**
-  - [Credits & Attribution](CREDITS.md)
   - [Contributing](CONTRIBUTING.md)
   - [Code of Conduct](CODE_OF_CONDUCT.md)
   - [License](LICENSE)

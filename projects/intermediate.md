@@ -117,3 +117,34 @@ float PID_Update(PID_Controller_t *pid, float setpoint, float measured, float dt
                       ▼
               [ SPI NOR Flash ]
 ```
+
+---
+
+## 🔌 PIC Intermediate Track: Projects P3, P4 & P5
+
+### Project P3: Multi-Channel ADC Voltmeter & 16x2 Character LCD
+- **Platform:** PIC16F877A on breadboard or PICSimLab (Board 1 with LCD HD44780).
+- **Core Focus:** 10-bit Successive Approximation ADC configuration (`ADCON0`, `ADCON1`), acquisition delay (`Tacq`), and 4-bit nibble LCD driver on `PORTD`.
+- **Hardware Architecture:**
+  - Potentiometer connected to `RA0/AN0` (Pin 2).
+  - HD44780 16x2 LCD: `RS` on `RD2`, `EN` on `RD3`, `D4:D7` on `RD4:RD7`.
+- **Implementation Guide & Code:**
+  - Step-by-Step Tutorial: [PIC Peripherals Mastery (Steps 4–8)](../pic-mplab-xc8/intermediate.md)
+  - Standalone Code: [`code-examples/xc8/adc_voltage.c`](../code-examples/xc8/adc_voltage.c)
+  - LCD Driver: [`code-examples/xc8/lcd_hello.c`](../code-examples/xc8/lcd_hello.c)
+
+### Project P4: CCP1 Hardware PWM Dimmer & Motor Speed Controller
+- **Platform:** PIC16F877A Capture/Compare/PWM (CCP1) module driven by Timer2.
+- **Core Focus:** Calculating PR2 period register, 10-bit duty cycle resolution (`CCPR1L` and `CCP1CONbits.CCP1X/Y`), and generating flicker-free 1 kHz PWM.
+- **Hardware Architecture:**
+  - Output pin: `RC2/CCP1` (Pin 17) driving LED or low-side N-channel MOSFET motor stage.
+- **Implementation Guide & Code:**
+  - Standalone Code: [`code-examples/xc8/pwm_dimmer.c`](../code-examples/xc8/pwm_dimmer.c)
+
+### Project P5: Hardware I2C Master Digital Sensor Monitor
+- **Platform:** PIC16F877A MSSP hardware peripheral in I2C Master mode.
+- **Core Focus:** Clock generation via `SSPADD`, start/stop state machine, ACK polling, and I2C transaction framing.
+- **Hardware Architecture:**
+  - `RC3` (SCL) and `RC4` (SDA) with 4.7kΩ pull-up resistors connected to Microchip TC74 or LM75 I2C temperature sensor.
+- **Implementation Guide & Code:**
+  - Standalone Code: [`code-examples/xc8/i2c_temp.c`](../code-examples/xc8/i2c_temp.c)

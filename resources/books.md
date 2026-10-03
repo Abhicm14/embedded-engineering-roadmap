@@ -1,6 +1,6 @@
 # 📘 Curated Embedded Systems Books
 
-> Evaluated textbooks categorized by domain and rated using the Roadmap B convention (👶 Beginner-friendly, 💎 In-depth reference).
+> Evaluated textbooks categorized by domain and rated for engineering depth (👶 Beginner-friendly, 💎 In-depth reference).
 
 ---
 
@@ -54,3 +54,14 @@
   *Focus:* The bible of electronic circuit design. Transistors, op-amps, passive filters, power regulation, high-speed signal integrity, and low-noise measurements.
 - 📘 👶 [**Practical Electronics for Inventors (4th Edition)**](https://www.amazon.com/Practical-Electronics-Inventors-Fourth-Scherz/dp/1259587541) by Paul Scherz & Simon Monk  
   *Focus:* Intuitive, visually rich explanations of passive components, diodes, MOSFETs, regulators, sensors, and practical workbench debugging.
+
+---
+
+## 6. PIC Microcontrollers & XC8
+
+- 📘 👶 [**Designing Embedded Systems with PIC Microcontrollers (2nd Edition)**](https://www.elsevier.com/books/designing-embedded-systems-with-pic-microcontrollers/wilmshurst/978-1-85617-623-1) by Tim Wilmshurst  
+  *Focus:* Clear, practical introduction to PIC architecture, GPIO, interrupt servicing, timers, CCP modules, and serial communications using C.
+- 📘 💎 [**Programming and Customizing the PIC Microcontroller (3rd Edition)**](https://www.amazon.com/Programming-Customizing-Microcontroller-Myke-Predko/dp/0071472878) by Myke Predko  
+  *Focus:* In-depth hardware interfacing reference covering register maps, assembly/C translation, ICSP timing specs, and peripheral electrical characteristics.
+- 📘 👶 [**Embedded C Programming and the Microchip PIC**](https://www.cengage.com/) by Richard Barnett, Larry O'Cull, Donald Cox  
+  *Focus:* Focuses on register-level C programming for 8-bit PIC microcontrollers, ADC conversion, sensor interfacing, and timing state machines.

@@ -83,3 +83,27 @@ SPI Flash Layout:
 - **Physical Wiring:** Differential twisted pair (`CAN_H`, `CAN_L`) with $120\,\Omega$ termination resistors.
 - **Filter Bank:** Hardware filters configured so the CPU only wakes on diagnostic query IDs (`0x7DF` functional, `0x7E0` ECU physical).
 - **OBD-II Engine:** Parses Service 01 PIDs: Engine RPM (`0x0C`), Vehicle Speed (`0x0D`), and Engine Coolant Temperature (`0x05`).
+
+---
+
+## 🔌 PIC Advanced Track: Capstone Projects P6 & P7
+
+### Project P6: Closed-Loop PID Temperature Controller with LCD & EEPROM
+- **Platform:** Microchip PIC16F877A with external 4 MHz crystal on breadboard or PICSimLab.
+- **Core Focus:** Closed-loop discrete PID control, 10-bit ADC sampling with moving average filter, CCP1 hardware PWM heater drive, on-chip 256-byte Data EEPROM setpoint persistence with mandatory unlock sequence (`0x55`/`0xAA`), and 16x2 character LCD interface.
+- **Architecture:**
+  - Sensor input: 10k NTC thermistor / analog voltage on `RA0/AN0`.
+  - Actuator output: CCP1 PWM on `RC2` driving a heating element or fan stage.
+  - User controls: Pushbuttons on `RB1` and `RB2` to adjust target temperature setpoint, persisted across resets in internal EEPROM.
+- **Implementation Guide & Code:**
+  - Comprehensive Guide: [PIC Systems & Hardware Interfacing (Steps 9–13)](../pic-mplab-xc8/advanced.md)
+
+### Project P7: PIC16F877A to PC Serial Telemetry & Control Bridge
+- **Platform:** PIC16F877A USART module connected to host PC running a Python telemetry visualizer.
+- **Core Focus:** Interrupt-driven serial framing, multi-channel analog sensor acquisition, formatted ASCII telemetry stream, and remote command parser.
+- **Features:**
+  - Streams periodic formatted sensor packets: `$SENS,AN0,AN1,AN2,SWITCHES*CHECKSUM\r\n`.
+  - Python host application charts real-time voltages and sends remote commands (`$CMD,SET_PWM,75*`) to control local PIC outputs.
+- **Implementation Guide & Code:**
+  - UART Driver: [`code-examples/xc8/uart_echo.c`](../code-examples/xc8/uart_echo.c)
+  - Capstone Details: [PIC Track Advanced Guide](../pic-mplab-xc8/advanced.md#step-13-capstone-projects)

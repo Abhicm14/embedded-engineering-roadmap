@@ -45,3 +45,16 @@
   *Platform:* Packet analyzer for Ethernet, TCP/IP, MQTT, CoAP, and Bluetooth HCI packet streams.
 - 🔗 👶 [**Serial Studio**](https://serial-studio.github.io/)  
   *Platform:* Multi-channel data dashboard for plotting live telemetry received over UART from microcontrollers.
+
+---
+
+## 5. Microchip PIC Ecosystem & Toolchains
+
+- 🔗 👶 [**MPLAB X IDE**](https://www.microchip.com/mplab/mplab-x-ide) *(Microchip)*  
+  *Platform:* Integrated development environment based on NetBeans for 8-bit, 16-bit, and 32-bit PIC and AVR microcontrollers.
+- 🔗 💎 [**MPLAB XC8 C Compiler**](https://www.microchip.com/mplab/compilers) *(Microchip)*  
+  *Platform:* Highly optimizing ANSI C compiler for 8-bit PIC devices (PIC10/12/16/18) with free license tier for students.
+- 🔗 👶 [**PICSimLab (PIC Simulator Laboratory)**](https://picsimlab.sourceforge.net/) *(Open Source)*  
+  *Platform:* Real-time hardware emulator supporting PIC16F877A, PIC18F4550, and Arduino boards with interactive breadboards, LCDs, keypads, potentiometers, and virtual serial loopbacks.
+- 🔗 👶 [**MPLAB IPE (Integrated Programming Environment)**](https://www.microchip.com/mplab/mplab-integrated-programming-environment)  
+  *Platform:* Dedicated standalone production programmer GUI for PICkit 3, PICkit 4, and ICD 4 hardware programmers.

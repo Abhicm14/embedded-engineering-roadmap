@@ -17,26 +17,15 @@
 
 ## 🧭 Table of Contents
 
-- [Why This Roadmap Exists](#-why-this-roadmap-exists)
 - [The 3 Pillars of Embedded Systems Taxonomy](#-the-3-pillars-of-embedded-systems-taxonomy)
 - [The 4-Pillar, 8-Step Guided Learning Path](#-the-4-pillar-8-step-guided-learning-path)
 - [The 6-Month Study Plan](#-the-6-month-study-plan)
 - [The 7 Production-Grade Portfolio Projects](#-the-7-production-grade-portfolio-projects)
 - [Student Starter Hardware Lab (Under $50)](#-student-starter-hardware-lab-under-50)
 - [Curated Resources & Cheatsheets](#-curated-resources--cheatsheets)
+- [PIC Microcontrollers Track](#-pic-microcontrollers-with-mplab-x-xc8--picsimlab)
 - [Repository Structure](#-repository-structure)
-- [Credits & Attribution](#-credits--attribution)
 - [License](#-license)
-
----
-
-## 🎯 Why This Roadmap Exists
-
-Most embedded learning paths suffer from two fatal flaws:
-1. **Academic Abstraction:** University courses that teach 8051 or Arduino sketches where all physical registers, memory maps, vector tables, and DMA are hidden behind `digitalWrite()` and `delay()`.
-2. **Scattered Professional Chaos:** Random forum posts, uncurated 1,500-page vendor reference manuals, and outdated kernel guides with no progressive step-by-step roadmap.
-
-This curriculum synthesizes the structured pedagogical sequence of **Roadmap A** (from C fundamentals to Linux and specialization capstones) with the comprehensive topic breadth and quality-rated resource hub of **Roadmap B**.
 
 ---
 
@@ -152,11 +141,29 @@ You do **not** need expensive commercial equipment to complete this roadmap. Her
 - **[Cheatsheets (`cheatsheets/`)](cheatsheets/README.md):**
   - [Embedded C](cheatsheets/c-cheatsheet.md)
   - [Bitwise Operations](cheatsheets/bitwise-cheatsheet.md)
+  - [PIC XC8 Cheatsheet](cheatsheets/pic-xc8-cheatsheet.md)
   - [Protocols Comparison](cheatsheets/protocols-comparison.md)
   - [Cortex-M Faults](cheatsheets/cortex-m-faults.md)
   - [Common I2C Addresses](cheatsheets/common-i2c-addresses.md)
   - [Interview Checklist](cheatsheets/interview-checklist.md)
   - [Top 15 Common Mistakes](cheatsheets/common-mistakes.md)
+
+---
+
+## 🔌 PIC Microcontrollers with MPLAB X, XC8 & PICSimLab
+
+> A complete beginner-to-advanced guide for PIC microcontrollers using MPLAB X IDE, the XC8 compiler, and PICSimLab simulator. Follows the core rule: **understand the register, not just the API**.
+
+[![MPLAB X](https://img.shields.io/badge/MPLAB%20X-v5.35-blue)](https://www.microchip.com/mplab/mplab-x-ide)
+[![XC8](https://img.shields.io/badge/XC8-v2.36-green)](https://www.microchip.com/mplab/compilers)
+[![PICSimLab](https://img.shields.io/badge/PICSimLab-v0.7-orange)](https://picsimlab.sourceforge.net/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
+This track teaches PIC microcontroller programming at the register level, focusing on the PIC16F877A as a learning platform. You'll progress from basic LED blinking to advanced topics like PID control and real-world hardware interfacing.
+
+**Core Philosophy**: Every line of code is explained in terms of register manipulation, timing diagrams, and electrical characteristics—not just API calls.
+
+[📘 Full PIC Track Guide](./pic-mplab-xc8/README.md)
 
 ---
 
@@ -177,18 +184,25 @@ embedded-engineering-roadmap/
 │       ├── software.md
 │       ├── hardware.md
 │       └── soft-skills.md
-├── resources/                        # Quality-Rated Resource Hub (Roadmap B conventions)
+├── pic-mplab-xc8/                    # PIC Microcontroller Track (MPLAB X, XC8, PICSimLab)
+│   ├── README.md                     # Overview, toolchain, and 13-step learning sequence
+│   ├── installation.md               # MPLAB X / XC8 / PICSimLab setup guide
+│   ├── beginner.md                   # Steps 1-3: blink, GPIO, timers
+│   ├── intermediate.md               # Steps 4-8: ADC, PWM, UART, SPI/I2C, LCD
+│   └── advanced.md                   # Steps 9-13: low-power, interrupts, capstone
+├── resources/                        # Quality-Rated Resource Hub
 │   ├── books.md
 │   ├── courses.md
 │   ├── tools-and-software.md
 │   ├── youtube-and-blogs.md
 │   └── datasheets-and-reference.md
-├── projects/                         # The 7 Production Portfolio Projects
-│   ├── beginner.md                   # Projects 1 & 2
-│   ├── intermediate.md               # Projects 3, 4 & 5
-│   └── advanced.md                   # Projects 6 & 7 + Automotive CAN
+├── projects/                         # Portfolio Projects
+│   ├── beginner.md                   # Projects 1 & 2 + PIC Beginner Projects
+│   ├── intermediate.md               # Projects 3, 4 & 5 + PIC Intermediate Projects
+│   └── advanced.md                   # Projects 6 & 7, CAN Node + PIC Advanced Projects
 ├── code-examples/                    # Commented, runnable code templates
 │   ├── c/                            # Ring buffer, FSM, debounce, CRC, bit-ops, parser
+│   ├── xc8/                          # PIC16F877A XC8 register-level examples (8 files)
 │   ├── arduino/                      # Arduino framework blinky
 │   ├── stm32/                        # STM32 register-level blinky
 │   ├── esp32/                        # ESP32 FreeRTOS Wi-Fi blinky
@@ -196,6 +210,7 @@ embedded-engineering-roadmap/
 ├── cheatsheets/                      # High-density reference cards
 │   ├── c-cheatsheet.md
 │   ├── bitwise-cheatsheet.md
+│   ├── pic-xc8-cheatsheet.md         # PIC16F877A registers, configuration, peripherals
 │   ├── protocols-comparison.md
 │   ├── cortex-m-faults.md
 │   ├── common-i2c-addresses.md
@@ -203,7 +218,6 @@ embedded-engineering-roadmap/
 │   └── common-mistakes.md
 ├── .github/                          # CI workflow and issue templates
 ├── SETUP.md                          # Local preview and toolchain installation guide
-├── CREDITS.md                        # Acknowledgments of Roadmap A and Roadmap B
 ├── CONTRIBUTING.md                   # Contributor guidelines
 ├── CODE_OF_CONDUCT.md               # Contributor Covenant v2.1
 ├── LICENSE                           # MIT License
@@ -213,16 +227,6 @@ embedded-engineering-roadmap/
 
 ---
 
-## 📜 Credits & Attribution
+## 📜 License
 
-This curriculum merges pedagogical principles from two prominent source roadmaps:
-1. **Roadmap A (The Pedagogical Path):** 4 pillars, 8 steps, 6-month plan, 7 projects, and the core teaching rule.
-2. **Roadmap B (Maysam / m3y54m):** [Embedded-Engineering-Roadmap](https://github.com/m3y54m/Embedded-Engineering-Roadmap) (CC BY-SA 4.0), inspiring the 3-pillar taxonomy breadth and quality-rated resource tagging conventions.
-
-See [`CREDITS.md`](CREDITS.md) for full attribution details.
-
----
-
-## 📄 License
-
-Original written tutorials, project guides, cheatsheets, and code examples are licensed under the [MIT License](LICENSE). Content influenced by Roadmap B acknowledges its CC BY-SA 4.0 attribution.
+Original written tutorials, project guides, cheatsheets, and code examples are licensed under the [MIT License](LICENSE).

@@ -1,6 +1,6 @@
 # 💻 Comprehensive Software Taxonomy for Embedded Systems
 
-> Broad taxonomy tree of software domains, languages, tools, stacks, and standards (adapted from Roadmap B taxonomy).
+> Broad taxonomy tree of software domains, languages, tools, stacks, and standards.
 
 ---
 

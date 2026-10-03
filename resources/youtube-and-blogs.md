@@ -31,3 +31,16 @@
   *Topics:* Industry-standard free training slides and technical deep-dives on Linux Kernel development, Device Trees, U-Boot, and Buildroot.
 - 📝 👶 [**All About Circuits**](https://www.allaboutcircuits.com/)  
   *Topics:* Clear, comprehensive tutorials on analog circuit theory, semiconductor physics, and digital signal fundamentals.
+
+---
+
+## 3. Microchip PIC Channels & Tutorials
+
+- 🎞️ 👶 [**Microchip Technology YouTube Channel**](https://www.youtube.com/@MicrochipTechnology)  
+  *Topics:* Official webinars and masterclasses on MPLAB X IDE, MCC (MPLAB Code Configurator), XC8 compiler optimizations, and CIPs (Core Independent Peripherals).
+- 📝 👶 [**Microchip Developer Help**](https://microchipdeveloper.com/)  
+  *Topics:* Architectural deep-dives on 8-bit PIC peripherals, config bits, interrupt context saving, and hardware design guidelines.
+- 📝 👶 [**Circuit Digest PIC Tutorials**](https://circuitdigest.com/microcontroller-projects/pic-microcontroller-projects)  
+  *Topics:* Practical circuit schematics and XC8 code walkthroughs for PIC16F877A interfacing with LCDs, motors, sensors, and keypad matrices.
+- 📝 💎 [**StudentCompanion Embedded Electronics**](https://www.studentcompanion.net/)  
+  *Topics:* In-depth PIC microcontroller programming tutorials using MPLAB X and XC8 with simulation projects in PICSimLab.

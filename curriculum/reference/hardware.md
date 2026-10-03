@@ -1,6 +1,6 @@
 # 🔌 Comprehensive Hardware Taxonomy for Embedded Systems
 
-> Broad taxonomy tree of electrical physics, circuit design, PCB engineering, test gear, and FPGA digital synthesis (adapted from Roadmap B taxonomy).
+> Broad taxonomy tree of electrical physics, circuit design, PCB engineering, test gear, and FPGA digital synthesis.
 
 ---
 

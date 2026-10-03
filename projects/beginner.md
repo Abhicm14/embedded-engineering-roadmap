@@ -103,3 +103,27 @@
 ### 3. Code Implementation Reference
 - Ring buffer implementation: [`code-examples/c/circular_buffer.c`](../code-examples/c/circular_buffer.c)
 - Command parser engine: [`code-examples/c/command_parser.c`](../code-examples/c/command_parser.c)
+
+---
+
+## 🔌 PIC Beginner Track: Projects P1 & P2
+
+### Project P1: PIC16F877A Debounced Switch & LED Pattern Controller
+- **Platform:** Microchip PIC16F877A on breadboard or PICSimLab (Board 1 / PICGenios).
+- **Core Focus:** Pure register-level GPIO configuration (`TRISB`, `PORTB`, `OPTION_REG.nRBPU`), non-blocking switch debouncing state machine, and hardware Timer0 overflow timebase.
+- **Hardware Architecture:**
+  - `RB0` (Pin 33): Active-high LED with 330Ω resistor to GND.
+  - `RB1` (Pin 34): Pushbutton connected to GND (utilizes internal weak pull-up via `OPTION_REGbits.nRBPU = 0`).
+- **Implementation Guide & Code:**
+  - Step-by-Step Tutorial: [PIC Foundations (Steps 1–3)](../pic-mplab-xc8/beginner.md)
+  - Standalone Code: [`code-examples/xc8/button_led.c`](../code-examples/xc8/button_led.c)
+  - Hardware Timer Example: [`code-examples/xc8/timer_blink.c`](../code-examples/xc8/timer_blink.c)
+
+### Project P2: PIC16F877A Interactive UART Serial CLI
+- **Platform:** PIC16F877A USART hardware module connected to PC via USB-UART adapter (or PICSimLab virtual serial port).
+- **Core Focus:** Full-duplex USART configuration (`TXSTA`, `RCSTA`, `SPBRG`), receiver overrun (`OERR`) error handling, and terminal command dispatch.
+- **Baud Rate:** 9600 baud, 8-N-1 (`BRGH = 1`, `SPBRG = 25` at 4 MHz crystal, 0.16% error).
+- **Commands Supported:** `HELP`, `LED ON`, `LED OFF`, `STATUS`.
+- **Implementation Guide & Code:**
+  - Standalone Code: [`code-examples/xc8/uart_echo.c`](../code-examples/xc8/uart_echo.c)
+  - Cheatsheet: [PIC XC8 Cheatsheet](../cheatsheets/pic-xc8-cheatsheet.md)

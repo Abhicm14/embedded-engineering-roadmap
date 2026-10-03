@@ -32,6 +32,10 @@
 └─────────────────────────────────────────────────────────────────────────────────────────────────┘
 ```
 
+> [!TIP]
+> **Alternative 8-Bit Architecture Path: PIC Microcontrollers**  
+> If your curriculum or industry focus starts with 8-bit Harvard microcontrollers before 32-bit ARM Cortex-M, explore our dedicated [**PIC Microcontroller Track (`pic-mplab-xc8/`)**](pic-mplab-xc8/README.md). It covers the Microchip PIC16F877A, MPLAB X IDE, XC8 compiler, and PICSimLab simulation across 13 progressive register-level steps.
+
 ---
 
 ## 📋 The Clickable 8-Step Progress Checklist
