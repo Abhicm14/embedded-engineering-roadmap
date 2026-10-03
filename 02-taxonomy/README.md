@@ -20,7 +20,7 @@ Embedded engineering lives at the precise intersection of physical reality and a
              │ • Embedded C/C++    ││ • Digital Circuits  ││ • Datasheet Analysis│
              │ • Assembly & Startup││ • Analog & Power    ││ • Systematic Debug  │
              │ • Memory & Linkers  ││ • MCU Architectures ││ • Git & Code Reviews│
-             │ • RTOS & Multitask  ││ • Schematics & PCB  ││ • System Design    │
+             │ • RTOS & Multitask  ││ • Schematics & PCB  ││ • System Design     │
              │ • Linux & Drivers   ││ • Signal Integrity  ││ • Tech Writing      │
              │ • Protocols & Stacks││ • Lab Instruments   ││ • Cross-Discipline  │
              └─────────────────────┘└─────────────────────┘└─────────────────────┘
