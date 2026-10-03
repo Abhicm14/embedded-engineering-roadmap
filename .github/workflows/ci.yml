@@ -1,4 +1,4 @@
-name: Embedded CI & Verification
+name: Embedded CI & Automated Verification
 
 on:
   push:
@@ -7,73 +7,58 @@ on:
     branches: [ main ]
 
 jobs:
-  build-and-verify:
+  verify-code-examples:
+    name: Build & Run C Unit Tests
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Install Toolchains
+      - name: Install Toolchains & Compilers
         run: |
           sudo apt-get update
           sudo apt-get install -y gcc gcc-arm-none-eabi make
 
-      - name: Test Bit Manipulation Snippets
+      - name: Test Circular Buffer
         run: |
-          gcc -Wall -Wextra -Werror -std=c99 06-code-examples/bit-manipulation-snippets/main.c -o bit_test
-          ./bit_test
+          gcc -Wall -Wextra -Werror -std=c99 code-examples/c/circular_buffer.c -o test_cb
+          ./test_cb
 
-      - name: Test Lock-Free Ring Buffer FIFO
+      - name: Test Finite State Machine
         run: |
-          gcc -Wall -Wextra -Werror -std=c99 06-code-examples/ring-buffer-uart/main.c -o ring_test
-          ./ring_test
+          gcc -Wall -Wextra -Werror -std=c99 code-examples/c/fsm.c -o test_fsm
+          ./test_fsm
 
-      - name: Test FreeRTOS Producer-Consumer Pattern
+      - name: Test Switch Debouncer
         run: |
-          gcc -Wall -Wextra -Werror -std=c99 06-code-examples/freertos-producer-consumer/main.c -o rtos_test
-          ./rtos_test
+          gcc -Wall -Wextra -Werror -std=c99 code-examples/c/debounce.c -o test_debounce
+          ./test_debounce
 
-      - name: Test Project 2 (I2C Sensor & Ring Buffer)
+      - name: Test CRC Calculations
         run: |
-          gcc -Wall -Wextra -Werror -std=c99 \
-            04-portfolio-projects/project-02-i2c-sensor-uart-dma/ring_buffer.c \
-            04-portfolio-projects/project-02-i2c-sensor-uart-dma/bmp280.c \
-            04-portfolio-projects/project-02-i2c-sensor-uart-dma/main.c \
-            -I 04-portfolio-projects/project-02-i2c-sensor-uart-dma/ \
-            -o p2_test
-          ./p2_test
+          gcc -Wall -Wextra -Werror -std=c99 code-examples/c/crc.c -o test_crc
+          ./test_crc
 
-      - name: Test Project 3 (FreeRTOS Multitasking Logger)
+      - name: Test Bitwise Operations
         run: |
-          gcc -Wall -Wextra -Werror -std=c99 \
-            04-portfolio-projects/project-03-freertos-data-logger/main.c \
-            -I 04-portfolio-projects/project-03-freertos-data-logger/ \
-            -o p3_test
-          ./p3_test
+          gcc -Wall -Wextra -Werror -std=c99 code-examples/c/bit_ops.c -o test_bitops
+          ./test_bitops
 
-      - name: Test Project 4 (Automotive CAN OBD-II Node)
+      - name: Test Command Parser
         run: |
-          gcc -Wall -Wextra -Werror -std=c99 \
-            04-portfolio-projects/project-04-automotive-can-node/obd2_parser.c \
-            04-portfolio-projects/project-04-automotive-can-node/main.c \
-            -I 04-portfolio-projects/project-04-automotive-can-node/ \
-            -o p4_test
-          ./p4_test
+          gcc -Wall -Wextra -Werror -std=c99 code-examples/c/command_parser.c -o test_parser
+          ./test_parser
 
-      - name: Test Project 6 (Secure IoT OTA Manager)
-        run: |
-          gcc -Wall -Wextra -Werror -std=c99 \
-            04-portfolio-projects/project-06-secure-iot-mqtt-ota/ota_manager.c \
-            04-portfolio-projects/project-06-secure-iot-mqtt-ota/main.c \
-            -I 04-portfolio-projects/project-06-secure-iot-mqtt-ota/ \
-            -o p6_test
-          ./p6_test
+  markdown-link-check:
+    name: Check Markdown Links
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
 
-      - name: Test Project 7 (TinyML DSP Feature Extraction)
-        run: |
-          gcc -Wall -Wextra -Werror -std=c99 \
-            04-portfolio-projects/project-07-tinyml-gesture-classifier/imu_dsp.c \
-            04-portfolio-projects/project-07-tinyml-gesture-classifier/main.c \
-            -I 04-portfolio-projects/project-07-tinyml-gesture-classifier/ \
-            -lm -o p7_test
-          ./p7_test
+      - name: Run Markdown Link Checker
+        uses: gaurav-nelson/github-action-markdown-link-check@v1
+        with:
+          use-quiet-mode: 'yes'
+          check-modified-files-only: 'no'
+          config-file: '.github/linkcheck.json'
