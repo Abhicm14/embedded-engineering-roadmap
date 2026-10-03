@@ -16,7 +16,7 @@ Thank you for your interest in improving the **Embedded Engineering Roadmap**! T
 ## 📜 Contribution Guidelines
 
 - **Code Quality:** All C code must follow the C99 or C11 standard, compile with `-Wall -Wextra -Werror`, avoid compiler-specific non-standard extensions without guards, and include descriptive comments.
-- **Resource Recommendations:** Please submit resource suggestions using our [Resource Suggestion Issue Template](.github/ISSUE_TEMPLATE/resource_suggestion.md) with our standard 4-dimension rating rubric.
+- **Resource Recommendations:** Please submit topic or resource suggestions using our [Topic Request Issue Template](.github/ISSUE_TEMPLATE/topic_request.md).
 - **Git Commit Etiquette:** Use clear, conventional commit messages:
   - `feat: add SPI DMA ring buffer driver example`
   - `docs: update Cortex-M4 vector table cheatsheet`
