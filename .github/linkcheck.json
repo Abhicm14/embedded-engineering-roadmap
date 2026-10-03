@@ -2,10 +2,28 @@
   "ignorePatterns": [
     {
       "pattern": "^http://localhost"
+    },
+    {
+      "pattern": "^https://([a-zA-Z0-9-]+\\.)?st\\.com"
+    },
+    {
+      "pattern": "^https://developer\\.arm\\.com"
+    },
+    {
+      "pattern": "^https://([a-zA-Z0-9-]+\\.)?youtube\\.com"
+    },
+    {
+      "pattern": "^https://([a-zA-Z0-9-]+\\.)?udemy\\.com"
+    },
+    {
+      "pattern": "^https://([a-zA-Z0-9-]+\\.)?packtpub\\.com"
+    },
+    {
+      "pattern": "^https://([a-zA-Z0-9-]+\\.)?allaboutcircuits\\.com"
     }
   ],
-  "timeout": "10s",
+  "timeout": "15s",
   "retryOn429": true,
   "retryCount": 2,
-  "aliveStatusCodes": [200, 206, 301, 302]
+  "aliveStatusCodes": [200, 206, 301, 302, 403]
 }

@@ -42,3 +42,5 @@ p4_test
 p6_test
 p7_test
 app_userspace
+test_*
+.local/
