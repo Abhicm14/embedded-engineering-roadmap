@@ -1,0 +1,44 @@
+# Compiled Object files, ELF, BIN, HEX
+*.o
+*.obj
+*.elf
+*.bin
+*.hex
+*.srec
+*.map
+*.d
+
+# Build directories
+build/
+bin/
+obj/
+
+# Linux Kernel Build
+*.ko
+*.mod.c
+*.mod
+*.order
+*.symvers
+.tmp_versions/
+.cache.mk
+
+# IDE & Editor cache
+.vscode/
+.idea/
+*.swp
+*~
+.DS_Store
+Thumbs.db
+*.mxproject
+*.launch
+
+# Test executables
+bit_test
+ring_test
+rtos_test
+p2_test
+p3_test
+p4_test
+p6_test
+p7_test
+app_userspace

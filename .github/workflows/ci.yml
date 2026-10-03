@@ -1,0 +1,79 @@
+name: Embedded CI & Verification
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-and-verify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Install Toolchains
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y gcc gcc-arm-none-eabi make
+
+      - name: Test Bit Manipulation Snippets
+        run: |
+          gcc -Wall -Wextra -Werror -std=c99 06-code-examples/bit-manipulation-snippets/main.c -o bit_test
+          ./bit_test
+
+      - name: Test Lock-Free Ring Buffer FIFO
+        run: |
+          gcc -Wall -Wextra -Werror -std=c99 06-code-examples/ring-buffer-uart/main.c -o ring_test
+          ./ring_test
+
+      - name: Test FreeRTOS Producer-Consumer Pattern
+        run: |
+          gcc -Wall -Wextra -Werror -std=c99 06-code-examples/freertos-producer-consumer/main.c -o rtos_test
+          ./rtos_test
+
+      - name: Test Project 2 (I2C Sensor & Ring Buffer)
+        run: |
+          gcc -Wall -Wextra -Werror -std=c99 \
+            04-portfolio-projects/project-02-i2c-sensor-uart-dma/ring_buffer.c \
+            04-portfolio-projects/project-02-i2c-sensor-uart-dma/bmp280.c \
+            04-portfolio-projects/project-02-i2c-sensor-uart-dma/main.c \
+            -I 04-portfolio-projects/project-02-i2c-sensor-uart-dma/ \
+            -o p2_test
+          ./p2_test
+
+      - name: Test Project 3 (FreeRTOS Multitasking Logger)
+        run: |
+          gcc -Wall -Wextra -Werror -std=c99 \
+            04-portfolio-projects/project-03-freertos-data-logger/main.c \
+            -I 04-portfolio-projects/project-03-freertos-data-logger/ \
+            -o p3_test
+          ./p3_test
+
+      - name: Test Project 4 (Automotive CAN OBD-II Node)
+        run: |
+          gcc -Wall -Wextra -Werror -std=c99 \
+            04-portfolio-projects/project-04-automotive-can-node/obd2_parser.c \
+            04-portfolio-projects/project-04-automotive-can-node/main.c \
+            -I 04-portfolio-projects/project-04-automotive-can-node/ \
+            -o p4_test
+          ./p4_test
+
+      - name: Test Project 6 (Secure IoT OTA Manager)
+        run: |
+          gcc -Wall -Wextra -Werror -std=c99 \
+            04-portfolio-projects/project-06-secure-iot-mqtt-ota/ota_manager.c \
+            04-portfolio-projects/project-06-secure-iot-mqtt-ota/main.c \
+            -I 04-portfolio-projects/project-06-secure-iot-mqtt-ota/ \
+            -o p6_test
+          ./p6_test
+
+      - name: Test Project 7 (TinyML DSP Feature Extraction)
+        run: |
+          gcc -Wall -Wextra -Werror -std=c99 \
+            04-portfolio-projects/project-07-tinyml-gesture-classifier/imu_dsp.c \
+            04-portfolio-projects/project-07-tinyml-gesture-classifier/main.c \
+            -I 04-portfolio-projects/project-07-tinyml-gesture-classifier/ \
+            -lm -o p7_test
+          ./p7_test
