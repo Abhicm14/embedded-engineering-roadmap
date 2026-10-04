@@ -41,9 +41,11 @@ Before writing code for STM32, PIC, ESP32, or AVR, review our dedicated foundati
 - [The 4-Pillar, 8-Step Guided Learning Path](#-the-4-pillar-8-step-guided-learning-path)
 - [The 6-Month Study Plan](#-the-6-month-study-plan)
 - [The 7 Production-Grade Portfolio Projects](#-the-7-production-grade-portfolio-projects)
-- [Student Starter Hardware Lab (Under $50)](#-student-starter-hardware-lab-under-50)
+- [Student Starter Hardware Lab Equipment](#-student-starter-hardware-lab-equipment)
 - [Curated Resources & Cheatsheets](#-curated-resources--cheatsheets)
 - [PIC Microcontrollers Track](#-pic-microcontrollers-with-mplab-x-xc8--picsimlab)
+- [Simulation-First Workflow](#-simulation-first-workflow)
+- [Personal Coding Workspace (`my-code/`)](#-personal-coding-workspace-my-code)
 - [Repository Structure](#-repository-structure)
 - [License](#-license)
 
@@ -129,24 +131,23 @@ Each project includes architecture diagrams, hardware pinouts, register-level an
 
 ---
 
-## 🛒 Student Starter Hardware Lab (Under $50)
+## 🛒 Student Starter Hardware Lab Equipment
 
-You do **not** need expensive commercial equipment to complete this roadmap. Here is the recommended student workbench:
+You do **not** need expensive commercial equipment to complete this roadmap. Here is the recommended student workbench setup:
 
-| Item | Specification | Approx Cost | Purpose |
-| :--- | :--- | :--- | :--- |
-| **Microcontroller Board** | STM32F401CCU6 "Black Pill" | ~$4.50 | ARM Cortex-M4 with FPU, 84 MHz, 256KB Flash, USB-C |
-| **Debug Probe** | ST-Link V2 Clone | ~$3.00 | SWD hardware flashing and GDB step-by-step debugging |
-| **Logic Analyzer** | 8-Channel 24 MHz USB (Saleae-compatible) | ~$7.00 | Decoding UART, SPI, and I2C waveforms in PulseView |
-| **USB-to-UART Adapter** | CP2102 or CH340 with 3.3V jumper | ~$2.50 | Interactive serial CLI terminal output to host PC |
-| **Digital Multimeter** | Auto-ranging DMM (e.g. AN8002) | ~$14.00 | Continuity testing, power rail checks, current measurement |
-| **Environmental Sensor** | Bosch BMP280 (I2C + SPI) | ~$2.00 | Real hardware registers and calibration compensation |
-| **Motion Sensor** | InvenSense MPU-6050 (6-Axis IMU) | ~$2.50 | I2C motion tracking and TinyML gesture inferencing |
-| **Prototyping Kit** | 830-pt breadboard + jumper wire bundle | ~$5.50 | Solderless rapid hardware prototyping |
-| **Discrete Components** | Resistors, LEDs, Pushbuttons | ~$4.00 | Current limiting, pull-ups, and debounce circuits |
-| **TOTAL** | | **~$45.00** | **Complete hardware development lab!** |
+| Item | Specification | Purpose |
+| :--- | :--- | :--- |
+| **Microcontroller Board** | STM32F401CCU6 "Black Pill" | ARM Cortex-M4 with FPU, 84 MHz, 256KB Flash, USB-C |
+| **Debug Probe** | ST-Link V2 Clone | SWD hardware flashing and GDB step-by-step debugging |
+| **Logic Analyzer** | 8-Channel 24 MHz USB (Saleae-compatible) | Decoding UART, SPI, and I2C waveforms in PulseView |
+| **USB-to-UART Adapter** | CP2102 or CH340 with 3.3V jumper | Interactive serial CLI terminal output to host PC |
+| **Digital Multimeter** | Auto-ranging DMM (e.g. AN8002) | Continuity testing, power rail checks, current measurement |
+| **Environmental Sensor** | Bosch BMP280 (I2C + SPI) | Real hardware registers and calibration compensation |
+| **Motion Sensor** | InvenSense MPU-6050 (6-Axis IMU) | I2C motion tracking and TinyML gesture inferencing |
+| **Prototyping Kit** | 830-pt breadboard + jumper wire bundle | Solderless rapid hardware prototyping |
+| **Discrete Components** | Resistors, LEDs, Pushbuttons | Current limiting, pull-ups, and debounce circuits |
 
-*Note: Every peripheral lab up to Month 4 can also be completed for $0 using the [Wokwi Web Simulator](https://wokwi.com/) or [QEMU](https://www.qemu.org/).*
+*Note: Every peripheral lab can also be completed entirely in software simulation using [PICSimLab](https://lcgamboa.github.io/picsimlab_docs/), [Wokwi Web Simulator](https://wokwi.com/), or [QEMU](https://www.qemu.org/). See our [Simulation-First Workflow Guide](guides/simulation-first-workflow.md).*
 
 ---
 
@@ -183,7 +184,34 @@ This track teaches PIC microcontroller programming at the register level, focusi
 
 **Core Philosophy**: Every line of code is explained in terms of register manipulation, timing diagrams, and electrical characteristics—not just API calls.
 
-[📘 Full PIC Track Guide](./pic-mplab-xc8/README.md)
+[📘 Full PIC Track Guide](./pic-mplab-xc8/README.md)  
+[📖 How to Read Any Datasheet & Write Custom Drivers](./pic-mplab-xc8/datasheet-driver-guide.md)
+
+---
+
+## 🖥️ Simulation-First Workflow
+
+Before flashing physical microcontrollers, verify your drivers in software simulation:
+- **PIC16F877A:** [PICSimLab Simulator](https://lcgamboa.github.io/picsimlab_docs/) (Board 1: PICGenios / Breadboard)
+- **Arduino Mega 2560:** [Wokwi Mega 2560](https://wokwi.com/projects/new/arduino-mega) (54 I/O pins, 4 hardware UARTs)
+- **ESP8266:** [Wokwi ESP8266](https://wokwi.com/projects/new/esp8266) (Virtual Wi-Fi and IoT protocols)
+- **ESP32:** [Wokwi ESP32](https://wokwi.com/projects/new/esp32) (Dual-core FreeRTOS + Wi-Fi + Logic Analyzer)
+- **STM32 Cortex-M4:** [Wokwi STM32](https://wokwi.com/) & [QEMU](https://www.qemu.org/) (Bare-metal startup & GDB)
+
+👉 Read our complete [**Simulation-First Workflow Guide (`guides/simulation-first-workflow.md`)**](guides/simulation-first-workflow.md).
+
+---
+
+## 🛠️ Personal Coding Workspace (`my-code/`)
+
+A dedicated space in this repository for you to write, build, and save your own peripheral drivers and projects:
+- [**`my-code/pic16f877a/`**](my-code/pic16f877a/README.md): Write your own PIC16F877A drivers using starter templates.
+- [**`my-code/arduino-mega2560/`**](my-code/arduino-mega2560/README.md): ATmega2560 bare-metal AVR and Arduino sketches.
+- [**`my-code/esp8266/`**](my-code/esp8266/README.md): ESP8266 Wi-Fi and IoT communication projects.
+- [**`my-code/esp32/`**](my-code/esp32/README.md): ESP32 dual-core FreeRTOS and BLE implementations.
+- [**`my-code/stm32/`**](my-code/stm32/README.md): STM32 bare-metal C drivers and linker scripts.
+
+👉 Check out the [**Workspace Master Guide (`my-code/README.md`)**](my-code/README.md).
 
 ---
 
@@ -192,7 +220,7 @@ This track teaches PIC microcontroller programming at the register level, focusi
 ```
 embedded-engineering-roadmap/
 ├── curriculum/                       # The 8-Step Progressive Learning Path
-│   ├── 01-c-embedded-c/              # Step 1: C, memory model, volatile, bitwise, MISRA
+│   ├── 01-c-embedded-c/              # Step 1: C, memory model, volatile, advanced pointers
 │   ├── 02-electronics-computer-fundamentals/ # Step 2: Circuits, gates, CPU, scopes, DMM
 │   ├── 03-stm32-microcontrollers/    # Step 3: Cortex-M, vector table, startup, linkers
 │   ├── 04-essential-mcu-peripherals/ # Step 4: GPIO, Timers, PWM, UART, SPI, I2C, ADC
@@ -206,10 +234,20 @@ embedded-engineering-roadmap/
 │       └── soft-skills.md
 ├── pic-mplab-xc8/                    # PIC Microcontroller Track (MPLAB X, XC8, PICSimLab)
 │   ├── README.md                     # Overview, toolchain, and 13-step learning sequence
+│   ├── datasheet-driver-guide.md     # How to read any datasheet and write custom drivers
 │   ├── installation.md               # MPLAB X / XC8 / PICSimLab setup guide
 │   ├── beginner.md                   # Steps 1-3: blink, GPIO, timers
 │   ├── intermediate.md               # Steps 4-8: ADC, PWM, UART, SPI/I2C, LCD
 │   └── advanced.md                   # Steps 9-13: low-power, interrupts, capstone
+├── guides/                           # Engineering Guides & Workflows
+│   └── simulation-first-workflow.md  # Software simulation guide (PIC, Mega, ESP, STM32)
+├── my-code/                          # Personal User Coding Workspace (Write Your Own Code)
+│   ├── README.md                     # Workspace guidelines & instructions
+│   ├── pic16f877a/                   # PIC16F877A custom driver templates & user drivers
+│   ├── arduino-mega2560/             # ATmega2560 sketches & bare-metal AVR projects
+│   ├── esp8266/                      # ESP8266 Wi-Fi & IoT sketches
+│   ├── esp32/                        # ESP32 FreeRTOS multi-core projects
+│   └── stm32/                        # STM32 bare-metal C drivers & linker scripts
 ├── resources/                        # Quality-Rated Resource Hub
 │   ├── books.md
 │   ├── courses.md
@@ -220,7 +258,7 @@ embedded-engineering-roadmap/
 │   ├── beginner.md                   # Projects 1 & 2 + PIC Beginner Projects
 │   ├── intermediate.md               # Projects 3, 4 & 5 + PIC Intermediate Projects
 │   └── advanced.md                   # Projects 6 & 7, CAN Node + PIC Advanced Projects
-├── code-examples/                    # Commented, runnable code templates
+├── code-examples/                    # Reference code templates & step-by-step breakdowns
 │   ├── c/                            # Ring buffer, FSM, debounce, CRC, bit-ops, parser
 │   ├── xc8/                          # PIC16F877A XC8 register-level examples (8 files)
 │   ├── arduino/                      # Arduino framework blinky

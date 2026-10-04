@@ -81,7 +81,7 @@ REG = (REG & ~MASK) | (VALUE & MASK);
 ```
 
 ### 1.4 Fixed-Point Arithmetic vs Floating-Point
-Many lower-cost microcontrollers (ARM Cortex-M0/M0+, PIC16/18, AVR) **do not have a hardware Floating-Point Unit (FPU)**.
+Many entry-level microcontrollers (ARM Cortex-M0/M0+, PIC16/18, AVR) **do not have a hardware Floating-Point Unit (FPU)**.
 - Performing software floating-point operations (`float a = b * 3.14159f;`) pulls in thousands of bytes of software emulation runtime library code and consumes hundreds of CPU clock cycles.
 - **Master Fixed-Point scaling**: Store millivolts ($2500\text{ mV}$) instead of volts ($2.50\text{ V}$), millidegrees ($25340\text{ m}^\circ\text{C}$) instead of degrees ($25.34^\circ\text{C}$), and scale by powers of 2 (e.g. Q15 or Q31 formats) so operations can be computed with fast integer shifts.
 

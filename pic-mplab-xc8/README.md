@@ -13,6 +13,11 @@ This track teaches PIC microcontroller programming at the register level, focusi
 
 **Core Philosophy**: Every line of code is explained in terms of register manipulation, timing diagrams, and electrical characteristics—not just API calls.
 
+> [!IMPORTANT]
+> **Writing Your Own Drivers from the Datasheet:**  
+> Before writing code, study our dedicated master guide: [**📖 How to Read Any Silicon Datasheet & Write Custom Peripheral Drivers (`datasheet-driver-guide.md`)**](datasheet-driver-guide.md). It breaks down the universal 7-step datasheet navigation method and provides register blueprints for every peripheral.  
+> Ready to write your own drivers? Use your personal workspace: [**`my-code/pic16f877a/`**](../my-code/pic16f877a/README.md).
+
 ## 🛠️ Toolchain
 
 - **MPLAB X IDE v5.35** (~1GB) - Integrated development environment

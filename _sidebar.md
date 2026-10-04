@@ -35,10 +35,20 @@
 
 - **🔌 PIC Microcontrollers (XC8)**
   - [PIC Track Overview](pic-mplab-xc8/README.md)
+  - [📖 Datasheet & Driver Guide](pic-mplab-xc8/datasheet-driver-guide.md)
   - [Installation Guide](pic-mplab-xc8/installation.md)
   - [Beginner Steps (1-3)](pic-mplab-xc8/beginner.md)
   - [Intermediate Steps (4-8)](pic-mplab-xc8/intermediate.md)
   - [Advanced Steps (9-13)](pic-mplab-xc8/advanced.md)
+
+- **🖥️ Simulation & Personal Workspaces**
+  - [Simulation-First Workflow](guides/simulation-first-workflow.md)
+  - [My Code Workspace](my-code/README.md)
+  - [• PIC16F877A Drivers](my-code/pic16f877a/README.md)
+  - [• Arduino Mega 2560](my-code/arduino-mega2560/README.md)
+  - [• ESP8266 Wi-Fi](my-code/esp8266/README.md)
+  - [• ESP32 FreeRTOS](my-code/esp32/README.md)
+  - [• STM32 Cortex-M4](my-code/stm32/README.md)
 
 - **⚡ Cheatsheets**
   - [Cheatsheets Overview](cheatsheets/README.md)
@@ -59,3 +69,4 @@
   - [Contributing](CONTRIBUTING.md)
   - [Code of Conduct](CODE_OF_CONDUCT.md)
   - [License](LICENSE)
+

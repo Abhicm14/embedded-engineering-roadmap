@@ -35,4 +35,4 @@ When asked: *"Design a connected battery-powered asset tracker"* or *"Design a m
 2. **Hardware Architecture (10 mins):** Choose MCU vs Linux SoC, power management (LDO vs Buck), battery chemistry, sensors, and transceivers.
 3. **Firmware Architecture (15 mins):** Bare-metal vs FreeRTOS, task priority matrix, IPC mechanisms, watchdog strategy, fault detection.
 4. **Failure Modes & Edge Cases (10 mins):** What happens if the flash is corrupted? Brown-out detection? Power loss mid-write?
-5. **Trade-offs (5 mins):** Cost vs reliability, bandwidth vs battery lifetime.
+5. **Trade-offs (5 mins):** Hardware complexity vs reliability, bandwidth vs battery lifetime.
