@@ -1,4 +1,5 @@
 - [🏠 Home](README.md)
+- [🧠 Prerequisites (Start Here)](PREREQUISITES.md)
 - [🗺️ Complete Roadmap](ROADMAP.md)
 - [⚙️ Setup & Toolchains](SETUP.md)
 
@@ -51,7 +52,8 @@
   - [Common Mistakes](cheatsheets/common-mistakes.md)
 
 - **💻 Code Examples**
-  - [Code Examples Index](code-examples/README.md)
+  - [Code Construction & Catalog](code-examples/README.md)
+  - [PIC XC8 Step-by-Step Guide](code-examples/xc8/README.md)
 
 - **📜 Meta**
   - [Contributing](CONTRIBUTING.md)

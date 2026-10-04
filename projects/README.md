@@ -16,6 +16,12 @@
 | **Advanced** | **6. Connected IoT Node** | ESP32 / STM32+WiFi | TLS 1.3 encryption, MQTT pub/sub, Dual-bank Flash A/B fail-safe OTA updates. | [`advanced.md`](advanced.md#project-6-connected-iot-node) |
 | **Advanced** | **7. TinyML Edge Device** | Cortex-M4F / IMU | TensorFlow Lite Micro, CMSIS-NN Quantized INT8, real-time gesture classification. | [`advanced.md`](advanced.md#project-7-tinyml-edge-device) |
 
+> [!TIP]
+> **Looking for 8-Bit Architecture Projects?**  
+> Check out the [**PIC Microcontroller Projects**](beginner.md#pic-beginner-projects) covering the PIC16F877A, including Digital I/O, Timers, ADC, PWM, UART, I2C, and EEPROM storage.
+>
+> 🛑 **Construction Rule:** Build every project using the [**7-Step Code Construction Workflow**](../code-examples/README.md#the-7-step-code-construction-methodology). Do not copy-paste code; write it register-by-register after inspecting the hardware schematic and datasheet.
+
 ---
 
 ## 🏆 Recommended Final Portfolio Showcase

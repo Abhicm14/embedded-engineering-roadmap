@@ -1,7 +1,8 @@
 # 📘 Step 1: C & Embedded C
 
 > **Pillar:** FOUNDATION (C + Electronics)  
-> **Core Rule:** *"Do not learn peripherals only as APIs. Understand the register, electrical signal, timing diagram, protocol transaction and failure modes behind each API call."*
+> **Core Rule:** *"Do not learn peripherals only as APIs. Understand the register, electrical signal, timing diagram, protocol transaction and failure modes behind each API call."*  
+> **Prerequisites:** Review [**`PREREQUISITES.md`**](../../PREREQUISITES.md) before writing code. Always construct firmware using the **7-Step Code Construction Workflow** ([`code-examples/README.md`](../../code-examples/README.md)) — never copy-paste blindly.
 
 ---
 

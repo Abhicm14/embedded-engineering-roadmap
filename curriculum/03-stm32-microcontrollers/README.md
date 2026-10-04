@@ -1,7 +1,8 @@
 # 🦾 Step 3: STM32 & Microcontroller Architecture
 
 > **Pillar:** FIRMWARE (STM32 + Peripherals)  
-> **Core Rule:** *"Do not learn peripherals only as APIs. Understand the register, electrical signal, timing diagram, protocol transaction and failure modes behind each API call."*
+> **Core Rule:** *"Do not learn peripherals only as APIs. Understand the register, electrical signal, timing diagram, protocol transaction and failure modes behind each API call."*  
+> **Prerequisites:** Ensure you have mastered [**`PREREQUISITES.md`**](../../PREREQUISITES.md). Every driver must follow the [**7-Step Code Construction Workflow**](../../code-examples/README.md#the-7-step-code-construction-methodology).
 
 ---
 

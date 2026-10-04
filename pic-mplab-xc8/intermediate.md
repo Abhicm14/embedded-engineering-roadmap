@@ -1,724 +1,405 @@
 # 🟡 Intermediate Steps: PIC Peripherals Mastery
 
-> Steps 4-8 cover essential peripherals: ADC, PWM, UART, SPI/I2C, and LCD interfacing.
+> Steps 4–8 cover essential microcontroller peripherals: 10-bit Successive Approximation ADC, Hardware PWM via CCP1, USART Serial Communications, Hardware I2C Master, and Keypad Matrix Interfacing.
 
-## Step 4: ADC & LCD Display
+---
+
+## 🧭 Foundational Prerequisites
+
+Before attempting peripheral driver development, ensure you have completed:
+1. [**Foundational Prerequisites (`PREREQUISITES.md`)**](../PREREQUISITES.md): Number systems, bitwise manipulation, open-drain vs push-pull, and ISR rules.
+2. [**Beginner Steps (`beginner.md`)**](beginner.md): GPIO direction, hardware delays, and Timer0 interrupt flow.
+3. [**XC8 Step-by-Step Code Construction Guide**](../code-examples/xc8/README.md): Detailed step-by-step assembly guides for all peripheral drivers.
+4. [**PIC16F87XA Datasheet (DS39582C)**](../resources/datasheets-and-reference.md#4-microchip-pic-silicon--compiler-references): Sections 8 (CCP), 9 (MSSP), 10 (USART), 11 (ADC).
+
+---
+
+## Step 4: 10-Bit ADC & 16x2 Character LCD Display
 
 ### Goal
-Read analog voltage from a potentiometer (simulated via PICSimLab slider) and display the value on a character LCD.
-
-### Prerequisites
-- Completion of Beginner Steps
-- Understanding of PIC16F877A ADC module
-- Familiarity with LCD HD44780 timing (datasheet review recommended)
+Read analog voltage from a potentiometer on RA0/AN0, convert the 10-bit reading to millivolts without floating-point arithmetic, and format the output on an HD44780 16x2 character LCD in 4-bit mode.
 
 ### Concept Explanation
 
-#### ADC Successive Approximation
-- PIC16F877A has 8-channel, 10-bit ADC
-- Conversion time: Minimum 1.6µs (Tad), 11Tad per conversion
-- **Result registers**: ADRESH (high byte), ADRESL (low byte)
-- **Control registers**: ADCON0 (select channel, start conversion), ADCON1 (port config), ADCON2 (clock/justification)
+#### Successive Approximation Register (SAR) ADC
+- PIC16F877A includes an 8-channel, 10-bit SAR analog-to-digital converter.
+- **Conversion Clock ($T_{AD}$)**: Minimum $1.6\,\mu\text{s}$ required by silicon physics. At $F_{OSC} = 4\text{ MHz}$, selecting $F_{OSC}/8$ gives $T_{AD} = 2\,\mu\text{s}$ (safe).
+- **Acquisition Delay ($T_{ACQ}$)**: The internal holding capacitor ($C_{HOLD} = 120\text{ pF}$) requires at least $19.7\,\mu\text{s}$ to charge to the input voltage level through the source impedance before setting the `GO_nDONE` bit.
+- **Registers**:
+  - `ADCON0`: Clock select (`ADCS1:0`), channel select (`CHS2:0`), start bit (`GO_nDONE`), and module enable (`ADON`).
+  - `ADCON1`: Result formatting (`ADFM = 1` for right-justified) and port configuration (`PCFG3:0` to select which pins are analog vs digital).
 
-#### LCD HD44780 Interface (4-bit mode)
-- Saves 4 GPIO pins vs 8-bit mode
-- Requires precise timing: Enable pulse >450ns
-- Initialization sequence: Critical for proper operation
-- **Commands**: 0x38 (8-bit init), 0x0C (display on, cursor off), 0x06 (increment cursor)
-- **Data**: Send high nibble then low nibble with enable toggle
+#### HD44780 4-Bit Nibble Protocol
+- Sending an 8-bit command or ASCII character requires splitting the byte into an upper 4-bit nibble and a lower 4-bit nibble.
+- Strobe `EN` high for $> 450\text{ ns}$ to latch each nibble into the LCD display controller.
 
-### Minimal XC8 Snippet
+---
+
+### 🔨 How to Write This Code Step-by-Step
+
+1. **Step 1: Define Pin Mappings**
+   Define `LCD_RS` as `PORTDbits.RD2`, `LCD_EN` as `PORTDbits.RD3`, and `LCD_D4:D7` as `PORTDbits.RD4:RD7` (standard PICSimLab Board 1 mapping).
+2. **Step 2: Configure ADC Registers in `ADC_Init()`**
+   - In `ADCON1`, set `ADFM = 1` (right-justified) and `PCFG3:PCFG0 = 1110` (only AN0 is analog, rest digital, $V_{REF+} = V_{DD}$, $V_{REF-} = V_{SS}$).
+   - In `ADCON0`, set `ADCS1:0 = 01` ($F_{OSC}/8$), `CHS2:0 = 000` (AN0), and `ADON = 1`.
+   - Set `TRISAbits.TRISA0 = 1` (Input).
+3. **Step 3: Implement Acquisition and Read Function**
+   In `ADC_Read()`: Wait acquisition delay `__delay_us(20);`, set `ADCON0bits.GO_nDONE = 1;`, poll `while(ADCON0bits.GO_nDONE);`, and return `((unsigned int)ADRESH << 8) | ADRESL;`.
+4. **Step 4: Scale Millivolts Without Floating-Point Math**
+   Compute millivolts using integer math: `unsigned long mv = ((unsigned long)raw * 5000UL) / 1023UL;`. Extract volts (`mv / 1000`) and decimals (`mv % 1000`).
+5. **Step 5: Output to LCD**
+   Send command `0xC0` to move cursor to line 2, and print characters using `LCD_Char((char)('0' + digit));`.
+
+---
+
+### Annotated Reference Implementation
+*Standalone File:* [`code-examples/xc8/adc_voltage.c`](../code-examples/xc8/adc_voltage.c)
+
 ```c
 #include <xc.h>
 
-#pragma config FOSC = INTOSCIO, WDTE = OFF, PWRTE = ON, BOREN = ON
+#pragma config FOSC = HS, WDTE = OFF, PWRTE = ON, BOREN = ON
 #pragma config LVP = OFF, CPD = OFF, CP = OFF
 #define _XTAL_FREQ 4000000
 
-// Define LCD pins
-#define LCD_RS LATD0
-#define LCD_EN LATD1
-#define LCD_D4 LATD2
-#define LCD_D5 LATD3
-#define LCD_D6 LATD4
-#define LCD_D7 LATD5
-#define LCD_TRIS TRISD
+#define LCD_RS PORTDbits.RD2
+#define LCD_EN PORTDbits.RD3
+#define LCD_D4 PORTDbits.RD4
+#define LCD_D5 PORTDbits.RD5
+#define LCD_D6 PORTDbits.RD6
+#define LCD_D7 PORTDbits.RD7
 
-void LCD_Init(void);
-void LCD_Cmd(unsigned char cmd);
-void LCD_Data(unsigned char data);
-void LCD_String(const char *str);
-void ADC_Init(void);
-unsigned int ADC_Read(void);
+void LCD_PulseEnable(void) {
+    LCD_EN = 1; __delay_us(5); LCD_EN = 0; __delay_us(50);
+}
 
-void main(void) {
-    unsigned int adc_value;
-    char buffer[16];
-    
-    // Configure PORTD for LCD (lower 6 bits output)
-    LCD_TRIS = 0x00;
-    TRISA0 = 1;   // RA0/AN0 as input (potentiometer)
-    
-    LCD_Init();
-    ADC_Init();
-    
-    LCD_Cmd(0x80);  // First line
-    LCD_String("ADC Value:");
-    
-    while(1) {
-        adc_value = ADC_Read();  // Read channel 0 (AN0)
-        
-        // Convert ADC value to string (0-1023)
-        if (adc_value > 999) {
-            buffer[0] = '1';
-            buffer[1] = (adc_value / 100) % 10 + '0';
-            buffer[2] = (adc_value / 10) % 10 + '0';
-            buffer[3] = adc_value % 10 + '0';
-            buffer[4] = '\0';
-        } else if (adc_value > 99) {
-            buffer[0] = '0';
-            buffer[1] = (adc_value / 100) % 10 + '0';
-            buffer[2] = (adc_value / 10) % 10 + '0';
-            buffer[3] = adc_value % 10 + '0';
-            buffer[4] = '\0';
-        } else if (adc_value > 9) {
-            buffer[0] = '0';
-            buffer[1] = '0';
-            buffer[2] = (adc_value / 10) % 10 + '0';
-            buffer[3] = adc_value % 10 + '0';
-            buffer[4] = '\0';
-        } else {
-            buffer[0] = '0';
-            buffer[1] = '0';
-            buffer[2] = '0';
-            buffer[3] = adc_value % 10 + '0';
-            buffer[4] = '\0';
-        }
-        
-        LCD_Cmd(0xC0);  // Second line
-        LCD_String(buffer);
-        __delay_ms(200);
-    }
+void LCD_SendNibble(unsigned char n) {
+    LCD_D4 = (n >> 0) & 1; LCD_D5 = (n >> 1) & 1;
+    LCD_D6 = (n >> 2) & 1; LCD_D7 = (n >> 3) & 1;
+    LCD_PulseEnable();
+}
+
+void LCD_Command(unsigned char cmd) {
+    LCD_RS = 0;
+    LCD_SendNibble(cmd >> 4);
+    LCD_SendNibble(cmd & 0x0F);
+    if (cmd == 0x01 || cmd == 0x02) __delay_ms(2);
+}
+
+void LCD_Char(char data) {
+    LCD_RS = 1;
+    LCD_SendNibble(data >> 4);
+    LCD_SendNibble(data & 0x0F);
+}
+
+void LCD_Print(const char *str) {
+    while (*str) LCD_Char(*str++);
+}
+
+void LCD_Init(void) {
+    TRISD = 0x00; PORTD = 0x00; __delay_ms(20);
+    LCD_RS = 0;
+    LCD_SendNibble(0x03); __delay_ms(5);
+    LCD_SendNibble(0x03); __delay_us(150);
+    LCD_SendNibble(0x03);
+    LCD_SendNibble(0x02); // 4-bit mode
+    LCD_Command(0x28); LCD_Command(0x0C); LCD_Command(0x06); LCD_Command(0x01);
 }
 
 void ADC_Init(void) {
-    ADCON0 = 0x01;             // ADC on, Fosc/16
-    ADCON1 = 0x80;             // Right justified, VDD reference
-    ADCON2 = 0x92;             // Right justified, 12Tosc, Fosc/32
-    TRISA0 = 1;                // AN0 as input
-    ANSEL0 = 1;                // AN0 as analog
+    TRISAbits.TRISA0 = 1;
+    ADCON1 = 0b10001110; // Right-justified, AN0 analog, VDD/VSS ref
+    ADCON0 = 0b01000001; // Fosc/8, Channel 0, ADC ON
 }
 
 unsigned int ADC_Read(void) {
-    GO_nDONE = 1;              // Start conversion
-    while(GO_nDONE);           // Wait for completion
-    return ((ADRESH << 8) + ADRESL);
+    __delay_us(20);              // Acquisition delay (Tacq >= 19.7 us)
+    ADCON0bits.GO_nDONE = 1;     // Start conversion
+    while (ADCON0bits.GO_nDONE); // Wait for hardware to clear bit
+    return ((unsigned int)ADRESH << 8) | ADRESL;
 }
 
-// LCD Functions (4-bit mode)
-void LCD_Init(void) {
-    __delay_ms(20);            // Power-on delay
-    LCD_Cmd(0x02);             // Return home
-    LCD_Cmd(0x28);             // 4-bit mode, 2 lines, 5x8 font
-    LCD_Cmd(0x0C);             // Display on, cursor off
-    LCD_Cmd(0x06);             // Increment cursor
-    LCD_Cmd(0x01);             // Clear display
-    __delay_ms(2);
-}
+void main(void) {
+    LCD_Init();
+    ADC_Init();
+    LCD_Command(0x80);
+    LCD_Print("PIC16F877A ADC");
 
-void LCD_Cmd(unsigned char cmd) {
-    LCD_RS = 0;                // Command mode
-    
-    // High nibble
-    LCD_D4 = (cmd & 0x10) >> 4;
-    LCD_D5 = (cmd & 0x20) >> 5;
-    LCD_D6 = (cmd & 0x40) >> 6;
-    LCD_D7 = (cmd & 0x80) >> 7;
-    LCD_EN = 1;
-    __delay_us(1);
-    LCD_EN = 0;
-    
-    // Low nibble
-    LCD_D4 = (cmd & 0x01);
-    LCD_D5 = (cmd & 0x02) >> 1;
-    LCD_D6 = (cmd & 0x04) >> 2;
-    LCD_D7 = (cmd & 0x08) >> 3;
-    LCD_EN = 1;
-    __delay_us(1);
-    LCD_EN = 0;
-    __delay_ms(2);
-}
+    while (1) {
+        unsigned int raw = ADC_Read();
+        unsigned long mv = ((unsigned long)raw * 5000UL) / 1023UL;
+        unsigned int volts = (unsigned int)(mv / 1000);
+        unsigned int decimals = (unsigned int)(mv % 1000);
 
-void LCD_Data(unsigned char data) {
-    LCD_RS = 1;                // Data mode
-    
-    // High nibble
-    LCD_D4 = (data & 0x10) >> 4;
-    LCD_D5 = (data & 0x20) >> 5;
-    LCD_D6 = (data & 0x40) >> 6;
-    LCD_D7 = (data & 0x80) >> 7;
-    LCD_EN = 1;
-    __delay_us(1);
-    LCD_EN = 0;
-    
-    // Low nibble
-    LCD_D4 = (data & 0x01);
-    LCD_D5 = (data & 0x02) >> 1;
-    LCD_D6 = (data & 0x04) >> 2;
-    LCD_D7 = (data & 0x08) >> 3;
-    LCD_EN = 1;
-    __delay_us(1);
-    LCD_EN = 0;
-    __delay_us(100);
-}
+        LCD_Command(0xC0);
+        LCD_Print("Volt: ");
+        LCD_Char((char)('0' + volts));
+        LCD_Char('.');
+        LCD_Char((char)('0' + (decimals / 100)));
+        LCD_Char((char)('0' + ((decimals / 10) % 10)));
+        LCD_Char((char)('0' + (decimals % 10)));
+        LCD_Print(" V   ");
 
-void LCD_String(const char *str) {
-    while(*str) {
-        LCD_Data(*str++);
+        __delay_ms(250);
     }
 }
 ```
-
-### PICSimLab Procedure
-1. **Select LCD board**: Boards → PIC16F877A → LCD + Keypad + Potentiometer
-2. **Wire connections**: Confirm RA0 → Potentiometer, PORTD → LCD
-3. **Build and load**: Create project, compile, debug in PICSimLab
-4. **Adjust pot**: Use virtual potentiometer slider and observe LCD updates
-
-### Expected Result
-- LCD displays "ADC Value:" on first line
-- Numeric value (0-1023) updates on second line as potentiometer changes
-- No garbled characters (indicates proper timing)
-
-### Common Pitfalls
-| Issue | Cause | Solution |
-|-------|-------|----------|
-| Blank LCD | Initialization failed | Add 20ms delay before init |
-| Garbled chars | LCD timing off | Verify enable pulse width |
-| Always reads 1023 | Analog input not configured | Set ANSEL0 = 1 |
-| Stale readings | Missing acquisition delay | Add delay before GO_nDONE |
-| Wrong channel | Channel bits not cleared | Clear CHS[2:0] before setting |
-
-### 🔗 Next Step
-[Step 5: PWM via CCP](#step-5-pwm-via-ccp)
-
-> **Register Focus**: ADCON0, ADCON1, ADCON2 for ADC; TRISD, LATD for LCD; ANSEL for analog functions.
 
 ---
 
-## Step 5: PWM via CCP
+## Step 5: Hardware PWM via CCP1
 
 ### Goal
-Generate PWM signals using the Capture/Compare/PWM (CCP) module for LED dimming or motor speed control.
-
-### Prerequisites
-- Completion of Step 4
-- Understanding of CCP module operation
-- Familiarity with Timer2 and PWM timing
+Generate a hardware-timed, flicker-free 1 kHz Pulse Width Modulation (PWM) signal on RC2 using the Capture/Compare/PWM (CCP1) module and Timer2.
 
 ### Concept Explanation
 
-#### CCP Module (PIC16F877A)
-- Capture/Compare/PWM (CCP1 and CCP2 modules)
-- Configurable in PWM mode using CCPxCON registers
-- 10-bit resolution for PWM duty cycle (CCPR1L:CCPxCON<5:4>)
-- Controlled by Timer2 or Timer1
-- Configurable output polarity and enable
-
-#### PWM Timing Formula
-```
-PWM_Frequency = Fosc / (4 * (PR2+1) * (TMR2_Prescaler))
-Duty_Cycle = (CCPR1L << 2) / (4 * (PR2+1))  // 10-bit resolution
-```
-
-### Minimal XC8 Snippet
-```c
-#include <xc.h>
-
-#pragma config FOSC = INTOSCIO, WDTE = OFF, PWRTE = ON, BOREN = ON
-#pragma config LVP = OFF, CPD = OFF, CP = OFF
-#define _XTAL_FREQ 4000000
-
-void main(void) {
-    // Configure RB0 as output for LED (CCP1 output)
-    TRISB0 = 0;
-    RB0 = 0;
-    
-    // Set PWM period
-    // For 1kHz PWM: PR2 = (Fosc/4/1000) - 1 = (4000000/4/1000) - 1 = 999
-    // Use 1:16 prescaler for easier PR2 calculation
-    PR2 = 0x3C;                // PWM period = 1kHz with 1:16 prescaler
-    
-    // Configure CCP1 for PWM
-    CCP1CON = 0x0C;            // PWM mode
-    CCPR1L = 0x00;             // 0% duty cycle
-    
-    // Configure Timer2
-    T2CON = 0x07;              // Timer2 on, 1:16 prescaler
-    
-    // Configure RC1 (LCD backlight PWM)
-    TRISC1 = 0;                // RC1 as output
-    PR1 = 0x3C;                // Same period
-    CCP2CON = 0x0C;            // PWM mode for CCP2
-    CCPR2L = 0x00;             // 0% duty cycle initially
-    T1CON = 0x00;              // Timer1 on, 1:16 prescaler
-    
-    while(1) {
-        // Gradually increase LED brightness
-        for(int duty = 0; duty <= 0xFF; duty++) {
-            CCPR1L = duty >> 2;  // Set duty cycle (0-100%)
-            __delay_ms(10);
-        }
-        
-        // Gradually decrease LED brightness
-        for(int duty = 0xFF; duty >= 0; duty--) {
-            CCPR1L = duty >> 2;  // Set duty cycle (0-100%)
-            __delay_ms(10);
-        }
-    }
-}
-```
-
-### PICSimLab Procedure
-1. **Select PWM board**: Boards → PIC16F877A → LCD + Keypad + Potentiometer
-2. **Wire LED**: Connect LED to RB0 (CCP1 output)
-3. **Build and debug**: Create project and load into PICSimLab
-4. **Observe PWM**: Use oscilloscope in PICSimLab to see PWM waveform
-
-### Expected Result
-- LED brightness varies smoothly from 0% to 100% and back
-- PWM frequency should be stable at configured rate (e.g., 1kHz)
-- Use PICSimLab's built-in oscilloscope to visualize PWM signal
-
-### Common Pitfalls
-| Issue | Cause | Solution |
-|-------|-------|----------|
-| PWM doesn't work | CCP1CON not set to PWM mode | Set CCP1CON = 0x0C |
-| Wrong frequency | Incorrect PR2 value | Calculate PR2 = (Fosc/4/1000/prescale) - 1 |
-| LED always on/off | CCPR1L not set correctly | Set CCPR1L = duty >> 2 |
-| No output | Timer2 not enabled | Set T2CON = 0x07 |
-
-### 🔗 Next Step
-[Step 6: UART Communication](#step-6-uart-communication)
-
-> **Register Focus**: CCP1CON, CCPR1L for PWM; PR2, T2CON for timing; TRISB0/RC1 for outputs.
+#### CCP Hardware Architecture & PWM Period
+- The CCP1 hardware module on pin **RC2 (Pin 17)** operates independently of the CPU core once initialized.
+- **Timebase:** Driven by **Timer2**.
+- **Period Register (`PR2`):**
+  $$\text{PWM Period} = (PR2 + 1) \times 4 \times T_{OSC} \times (\text{TMR2 Prescaler})$$
+- At $F_{OSC} = 4\text{ MHz}$ ($T_{OSC} = 0.25\,\mu\text{s}$) with Timer2 Prescaler = 4:
+  $$1000\,\mu\text{s} = (PR2 + 1) \times 4 \times 0.25\,\mu\text{s} \times 4 = (PR2 + 1) \times 4\,\mu\text{s} \implies PR2 = 249$$
+- **10-Bit Duty Cycle Resolution:**
+  - Upper 8 bits are loaded into `CCPR1L`.
+  - Lower 2 bits are loaded into `CCP1CON<5:4>` (`CCP1X` and `CCP1Y`).
 
 ---
 
-## Step 6: UART Communication
+### 🔨 How to Write This Code Step-by-Step
 
-### Goal
-Implement UART (Universal Asynchronous Receiver/Transmitter) for serial communication at 9600 baud.
+1. **Step 1: Configure Output Pin Direction**
+   Set `TRISCbits.TRISC2 = 0;` (RC2 is physical CCP1 output).
+2. **Step 2: Load the Period Register**
+   Set `PR2 = 249;` to set frequency to 1.0 kHz.
+3. **Step 3: Enable PWM Mode in `CCP1CON`**
+   Set `CCP1CON = 0b00001100;` (Bits 3:0 = 1100 sets PWM mode).
+4. **Step 4: Configure and Enable Timer2**
+   Set `T2CON = 0b00000101;` (`T2CKPS1:0 = 01` sets 1:4 prescaler, `TMR2ON = 1` starts timer).
+5. **Step 5: Write the Duty Cycle Setter**
+   In `PWM1_Set_Duty(unsigned int duty)`:
+   - Write upper 8 bits: `CCPR1L = (unsigned char)(duty >> 2);`.
+   - Write lower 2 bits: `CCP1CONbits.CCP1X = (duty >> 1) & 1;` and `CCP1CONbits.CCP1Y = duty & 1;`.
+6. **Step 6: Create Fading Loop in `main()`**
+   Sweep duty from 0 to 1000 in increments of 10 with a 15 ms delay between steps.
 
-### Prerequisites
-- Completion of Steps 1-5
-- Understanding of UART framing (start/stop bits)
-- Familiarity with PIC16F877A's EUSART module
+---
 
-### Concept Explanation
+### Annotated Reference Implementation
+*Standalone File:* [`code-examples/xc8/pwm_dimmer.c`](../code-examples/xc8/pwm_dimmer.c)
 
-#### PIC16F877A EUSART Module
-- Enhanced UART with reception and transmission buffers
-- Controlled by TXSTA and RCSTA registers
-- Baud rate set via SPBRG register
-- Interrupt-driven operation available
-
-#### Baud Rate Calculation
-```
-Baud Rate = Fosc / (64 * (SPBRG + 1))  // High speed mode
-Baud Rate = Fosc / (16 * (SPBRG + 1))  // Low speed mode
-```
-For 4MHz oscillator and 9600 baud (high speed mode):
-```
-SPBRG = (4000000 / (64 * 9600)) - 1 = 6
-```
-
-### Minimal XC8 Snippet
 ```c
 #include <xc.h>
 
-#pragma config FOSC = INTOSCIO, WDTE = OFF, PWRTE = ON, BOREN = ON
+#pragma config FOSC = HS, WDTE = OFF, PWRTE = ON, BOREN = ON
 #pragma config LVP = OFF, CPD = OFF, CP = OFF
 #define _XTAL_FREQ 4000000
 
-void UART_Init(void);
-void UART_Write(char data);
-char UART_Read(void);
+void PWM1_Init_1kHz(void) {
+    TRISCbits.TRISC2 = 0;       // RC2/CCP1 as output
+    PR2 = 249;                  // 1 kHz period at 4 MHz with 1:4 prescaler
+    CCP1CON = 0b00001100;       // PWM mode
+    CCPR1L = 0;                 // Start with 0% duty
+    T2CON = 0b00000101;         // Timer2 ON, Prescaler 1:4
+}
+
+void PWM1_Set_Duty(unsigned int duty) {
+    if (duty > 1000) duty = 1000;
+    CCPR1L = (unsigned char)(duty >> 2);
+    CCP1CONbits.CCP1X = (duty >> 1) & 1;
+    CCP1CONbits.CCP1Y = duty & 1;
+}
 
 void main(void) {
-    char received_char;
-    
-    // Initialize UART with 9600 baud
-    UART_Init();
-    
-    while(1) {
-        // Check if data is available
-        if (PIR1bits.RCIF) {
-            // Read received character
-            received_char = UART_Read();
-            
-            // Echo back the character
-            UART_Write(received_char);
+    PWM1_Init_1kHz();
+    while (1) {
+        for (unsigned int d = 0; d <= 1000; d += 10) {
+            PWM1_Set_Duty(d);
+            __delay_ms(15);
+        }
+        for (int d = 1000; d >= 0; d -= 10) {
+            PWM1_Set_Duty((unsigned int)d);
+            __delay_ms(15);
         }
     }
 }
+```
+
+---
+
+## Step 6: Full-Duplex USART Serial Communication
+
+### Goal
+Configure the Universal Synchronous Asynchronous Receiver Transmitter (USART) for 9600 baud, 8-N-1 communication with a host PC, handling receiver overrun errors.
+
+### Concept Explanation
+
+#### Hardware Architecture & Baud Generation
+- Pin **RC6** is physical USART TX (Pin 25, Output).
+- Pin **RC7** is physical USART RX (Pin 26, Input).
+- **High-Speed Baud Formula (`BRGH = 1`):**
+  $$\text{Baud} = \frac{F_{OSC}}{16 \times (SPBRG + 1)} \implies SPBRG = \frac{4000000}{16 \times 9600} - 1 = 25.04 \approx 25$$
+  Actual Baud = $9615.38$ baud ($+0.16\%$ error rate, well within the $\pm 2\%$ RS-232 tolerance window).
+- **Overrun Error (`OERR`):** If a third byte arrives before `RCREG` is read, hardware halts reception. Firmware must reset `CREN` to clear the error.
+
+---
+
+### 🔨 How to Write This Code Step-by-Step
+
+1. **Step 1: Set Pin Directions**
+   `TRISCbits.TRISC6 = 0;` (TX output) and `TRISCbits.TRISC7 = 1;` (RX input).
+2. **Step 2: Load Baud Rate Register**
+   Set `SPBRG = 25;`.
+3. **Step 3: Configure Transmit Control Register (`TXSTA`)**
+   Set `TXSTA = 0b00100100;` (`TXEN = 1` enables transmitter, `BRGH = 1` enables high-speed multiplier).
+4. **Step 4: Configure Receive Control Register (`RCSTA`)**
+   Set `RCSTA = 0b10010000;` (`SPEN = 1` enables serial port, `CREN = 1` enables continuous receiver).
+5. **Step 5: Write Transmit and Receive Drivers**
+   - Transmit: Poll `while(!PIR1bits.TXIF);`, then write `TXREG = c;`.
+   - Receive: If `RCSTAbits.OERR` is set, clear via `RCSTAbits.CREN = 0; RCSTAbits.CREN = 1;`. Then poll `while(!PIR1bits.RCIF);` and return `RCREG;`.
+
+---
+
+### Annotated Reference Implementation
+*Standalone File:* [`code-examples/xc8/uart_echo.c`](../code-examples/xc8/uart_echo.c)
+
+```c
+#include <xc.h>
+
+#pragma config FOSC = HS, WDTE = OFF, PWRTE = ON, BOREN = ON
+#pragma config LVP = OFF, CPD = OFF, CP = OFF
+#define _XTAL_FREQ 4000000
 
 void UART_Init(void) {
-    // Set baud rate for 9600 with 4MHz oscillator
-    // SPBRG = (Fosc/(64 * Baud)) - 1 = (4000000/(64*9600)) - 1 = 6
-    SPBRG = 6;                 // Baud rate 9600
-    
-    // Configure UART (8-bit, asynchronous, continuous receive)
-    TXSTA = 0b00100000;        // Enable transmission, 8-bit, high speed
-    RCSTA = 0b10010000;         // Enable reception, 8-bit, continuous
-    
-    // Configure pins
-    TRISC6 = 0;                // TX pin as output (RC6)
-    TRISC7 = 1;                // RX pin as input (RC7)
-    
-    // Enable interrupts
-    PIE1bits.RCIE = 1;         // Enable receive interrupt
-    INTCONbits.GIE = 1;         // Enable global interrupts
+    TRISCbits.TRISC6 = 0;       // RC6 = TX
+    TRISCbits.TRISC7 = 1;       // RC7 = RX
+    SPBRG = 25;                 // 9600 baud at 4 MHz (BRGH=1)
+    TXSTA = 0b00100100;         // TXEN=1, BRGH=1
+    RCSTA = 0b10010000;         // SPEN=1, CREN=1
 }
 
-void UART_Write(char data) {
-    // Wait for transmit buffer to be empty
-    while (TXSTA & 0x20) {   // TXIF flag (bit 5)
-        ;
-    }
-    
-    // Write data to transmit buffer
-    TXREG = data;
+void UART_Write(char c) {
+    while (!PIR1bits.TXIF);
+    TXREG = c;
+}
+
+void UART_Print(const char *str) {
+    while (*str) UART_Write(*str++);
 }
 
 char UART_Read(void) {
-    // Wait for data to be received
-    while (!(PIR1bits.RCIF)) {
-        ;
+    if (RCSTAbits.OERR) {
+        RCSTAbits.CREN = 0;     // Reset receiver on overrun
+        RCSTAbits.CREN = 1;
     }
-    
-    // Read data from receive buffer
-    return RCREG;
+    while (!PIR1bits.RCIF);     // Wait for character
+    return RCREG;               // Reading RCREG clears RCIF flag
+}
+
+void main(void) {
+    UART_Init();
+    __delay_ms(100);
+    UART_Print("\r\nPIC16F877A UART Ready\r\n> ");
+
+    while (1) {
+        char ch = UART_Read();
+        UART_Write(ch);         // Echo back
+        if (ch == '\r') {
+            UART_Write('\n');
+            UART_Print("> ");
+        }
+    }
 }
 ```
 
-### PICSimLab Procedure
-1. **Select UART board**: Boards → PIC16F877A → LCD + Keypad + Potentiometer
-2. **Connect UART**: Use virtual terminal in PICSimLab
-3. **Build and debug**: Create project and load into PICSimLab
-4. **Test communication**: Send characters via terminal and observe echo
-
-### Expected Result
-- Received characters are transmitted back (echo)
-- UART communication at 9600 baud works correctly
-- No data loss during transmission
-
-### Common Pitfalls
-| Issue | Cause | Solution |
-|-------|-------|----------|
-| Baud rate incorrect | Wrong SPBRG value | Use SPBRG = 6 for 9600 baud @ 4MHz |
-| No echo | Transmission not enabled | Set TXSTA = 0b00100000 |
-| Characters garbled | Wrong UART configuration | Ensure 8N1 (8-bit, no parity, 1 stop) |
-| No data received | Receive interrupt not enabled | Enable PIE1bits.RCIE and INTCONbits.GIE |
-
-### 🔗 Next Step
-[Step 7: SPI & I2C Communication](#step-7-spi-i2c-communication)
-
-> **Register Focus**: TXSTA, RCSTA, SPBRG for UART; TRISC6/RC7 for pins.
-
 ---
 
-## Step 7: SPI & I2C Communication
+## Step 7: Hardware I2C Master Digital Sensor Interface
 
 ### Goal
-Implement SPI and I2C protocols for communication with external devices.
-
-### Prerequisites
-- Completion of Steps 1-6
-- Understanding of synchronous vs asynchronous communication
-- Basic knowledge of SPI and I2C protocols
+Configure the Master Synchronous Serial Port (MSSP) as an I2C bus master to query a digital thermal sensor (Microchip TC74 / LM75) at 100 kHz.
 
 ### Concept Explanation
 
-#### SPI (Serial Peripheral Interface)
-- Full-duplex, synchronous serial communication
-- Master-slave architecture
-- Uses MOSI, MISO, SCK, and SS lines
-- 4 clock phases (Mode 0, 1, 2, 3)
-
-#### I2C (Inter-Integrated Circuit)
-- Half-duplex, synchronous serial communication
-- Multi-master, multi-slave architecture
-- Uses SDA (data) and SCL (clock) lines
-- Built-in addressing and data framing
-
-### Minimal XC8 Snippets
-```c
-// I2C Initialization
-void I2C_Init(void) {
-    // Set I2C module to master mode
-    SSPCON1 = 0b00110000;      // I2C Master, clock = Fosc/(4 * (SSPADD + 1))
-    SSPADD = 0x0F;              // Set clock rate for 100kHz
-    
-    // Configure pins
-    TRISC3 = 1;                // SDA as input (RC3)
-    TRISC4 = 1;                // SCL as input (RC4)
-}
-
-void I2C_Start(void) {
-    // Send start condition
-    SSPCON2bits.SEN = 1;       // Start condition enable
-    while (SSPCON2bits.SEN);  // Wait for start condition to complete
-}
-
-void I2C_Stop(void) {
-    // Send stop condition
-    SSPCON2bits.PEN = 1;       // Stop condition enable
-    while (SSPCON2bits.PEN);  // Wait for stop condition to complete
-}
-
-void I2C_Write(char data) {
-    // Write data to I2C bus
-    SSPBUF = data;              // Load data into buffer
-    while (!SSPSTATbits.BF);   // Wait for buffer to be full
-}
-
-char I2C_Read(char ack) {
-    // Read data from I2C bus
-    char data = SSPBUF;         // Read data from buffer
-    
-    // Send ACK or NACK
-    if (ack) {
-        SSPCON2bits.ACKDT = 0; // ACK
-        SSPCON2bits.ACKEN = 1; // Acknowledge sequence
-    } else {
-        SSPCON2bits.ACKDT = 1; // NACK
-        SSPCON2bits.ACKEN = 1; // Acknowledge sequence
-    }
-    
-    while (SSPCON2bits.ACKEN); // Wait for acknowledge
-    
-    return data;
-}
-
-// SPI Initialization
-void SPI_Init(void) {
-    // Set SPI module to master mode
-    SSPCON1 = 0b00100011;      // SPI Master, clock = Fosc/(4 * (SSPADD + 1))
-    SSPADD = 0x0F;              // Set clock rate for 1MHz
-    
-    // Configure pins
-    TRISC5 = 0;                // SCK as output (RC5)
-    TRISC6 = 0;                // MOSI as output (RC6)
-    TRISC7 = 1;                // MISO as input (RC7)
-}
-
-void SPI_Write(char data) {
-    // Write data to SPI bus
-    SSPBUF = data;              // Load data into buffer
-    while (!SSPSTATbits.BF);   // Wait for buffer to be full
-}
-
-char SPI_Read(void) {
-    // Read data from SPI bus
-    while (!SSPSTATbits.BF);   // Wait for buffer to be full
-    return SSPBUF;              // Read data from buffer
-}
-```
-
-### PICSimLab Procedure
-1. **Select I2C/SPI board**: Boards → PIC16F877A → LCD + Keypad + Potentiometer
-2. **Connect devices**: Use built-in I2C sensor (e.g., temperature sensor)
-3. **Build and debug**: Create project and load into PICSimLab
-4. **Monitor communication**: Use PICSimLab's I2C/SPI monitor
-
-### Expected Result
-- I2C communication works with external sensors (e.g., temperature sensor)
-- SPI communication works with external devices (e.g., memory, ADC)
-- Data is correctly transmitted and received
-
-### Common Pitfalls
-| Issue | Cause | Solution |
-|-------|-------|----------|
-| I2C not responding | Wrong slave address | Check I2C slave address format (7-bit or 10-bit) |
-| SPI not working | Wrong SPI mode | Set correct SPI mode (Mode 0: CPOL=0, CPHA=0) |
-| Data corruption | Wrong clock polarity | Set correct clock polarity and phase |
-| Hardware not connected | Wrong pin connections | Verify SDA/SCL and MOSI/MISO connections |
-
-### 🔗 Next Step
-[Step 8: Character LCD & Keypad Interface](#step-8-character-lcd--keypad-interface)
-
-> **Register Focus**: SSPCON1, SSPADD for SPI/I2C timing; TRISC3-4 for I2C; TRISC5-7 for SPI.
+#### MSSP I2C Protocol Engine
+- Pin **RC3** is serial clock (`SCL`, Pin 18).
+- Pin **RC4** is serial data (`SDA`, Pin 23).
+- **Open-Drain Requirement:** Both pins must have physical $4.7\text{ k}\Omega$ pull-up resistors to 5V, and `TRISCbits` must be set to `1` (Inputs) to let open-drain hardware control bus lines.
+- **Clock Divider Register (`SSPADD`):**
+  $$\text{Clock} = \frac{F_{OSC}}{4 \times (SSPADD + 1)} \implies SSPADD = \frac{4000000}{4 \times 100000} - 1 = 9$$
+- **Bus Idle Check:** Before initiating a Start, Stop, or Byte transfer, firmware must verify that the bus is not busy:
+  ```c
+  while ((SSPCON2 & 0x1F) || (SSPSTATbits.R_nW));
+  ```
 
 ---
 
-## Step 8: Character LCD & Keypad Interface
+### 🔨 How to Write This Code Step-by-Step
+
+1. **Step 1: Set Pin Directions for I2C Open-Drain**
+   Set `TRISCbits.TRISC3 = 1;` and `TRISCbits.TRISC4 = 1;`.
+2. **Step 2: Configure Clock Rate**
+   Set `SSPADD = 9;` for 100 kHz standard mode.
+3. **Step 3: Configure Control Registers**
+   Set `SSPSTATbits.SMP = 1;` (Standard speed slew rate) and `SSPCON = 0b00101000;` (`SSPEN = 1`, `SSPM3:0 = 1000` for Master mode).
+4. **Step 4: Implement Bus Control Functions**
+   Write `I2C_WaitIdle()`, `I2C_Start()`, `I2C_RepeatedStart()`, `I2C_Stop()`, `I2C_Write()`, and `I2C_Read()`.
+5. **Step 5: Write Sensor Query Routine**
+   Start $\to$ Send `(0x48 << 1) | 0` (Write) $\to$ Send command `0x00` $\to$ Repeated Start $\to$ Send `(0x48 << 1) | 1` (Read) $\to$ Read byte with NACK $\to$ Stop.
+
+---
+
+### Annotated Reference Implementation
+*Standalone File:* [`code-examples/xc8/i2c_temp.c`](../code-examples/xc8/i2c_temp.c)
+
+---
+
+## Step 8: 4x4 Matrix Keypad Scanning
 
 ### Goal
-Interface with a character LCD (HD44780) and 4x4 keypad using GPIO.
-
-### Prerequisites
-- Completion of Steps 1-7
-- Understanding of LCD timing and keypad scanning
-- Experience with GPIO control
+Interface a 16-key matrix keypad using 8 GPIO pins (4 rows, 4 columns) with minimal pin count using row-scanning and internal weak pull-ups.
 
 ### Concept Explanation
 
-#### HD44780 Character LCD (4-bit mode)
-- 16x2 or 20x4 character display
-- 5x8 dot character matrix
-- Communicates via 4-bit data bus (D4-D7) + control lines (RS, E, R/W)
-- Requires precise timing for command/data transmission
-
-#### 4x4 Keypad Scanning
-- 4 rows + 4 columns = 8 GPIO pins
-- Scan rows sequentially to detect column presses
-- Debounce keypad inputs
-- Map key positions to characters
-
-### Minimal XC8 Snippets
-```c
-// LCD Functions (4-bit mode)
-void LCD_Init(void) {
-    __delay_ms(20);            // Power-on delay
-    LCD_Cmd(0x02);             // Return home
-    LCD_Cmd(0x28);             // 4-bit mode, 2 lines, 5x8 font
-    LCD_Cmd(0x0C);             // Display on, cursor off
-    LCD_Cmd(0x06);             // Increment cursor
-    LCD_Cmd(0x01);             // Clear display
-    __delay_ms(2);
-}
-
-void LCD_Cmd(unsigned char cmd) {
-    LCD_RS = 0;                // Command mode
-    
-    // High nibble
-    LCD_D4 = (cmd & 0x10) >> 4;
-    LCD_D5 = (cmd & 0x20) >> 5;
-    LCD_D6 = (cmd & 0x40) >> 6;
-    LCD_D7 = (cmd & 0x80) >> 7;
-    LCD_EN = 1;
-    __delay_us(1);
-    LCD_EN = 0;
-    
-    // Low nibble
-    LCD_D4 = (cmd & 0x01);
-    LCD_D5 = (cmd & 0x02) >> 1;
-    LCD_D6 = (cmd & 0x04) >> 2;
-    LCD_D7 = (cmd & 0x08) >> 3;
-    LCD_EN = 1;
-    __delay_us(1);
-    LCD_EN = 0;
-    __delay_ms(2);
-}
-
-void LCD_String(const char *str) {
-    while(*str) {
-        LCD_Data(*str++);
-    }
-}
-
-// Keypad Scanning
-char Read_Keypad(void) {
-    char row, col;
-    
-    // Define row and column pins
-    #define ROW1 PORTA0
-    #define ROW2 PORTA1
-    #define ROW3 PORTA2
-    #define ROW4 PORTA3
-    #define COL1 PORTB0
-    #define COL2 PORTB1
-    #define COL2 PORTB2
-    #define COL3 PORTB3
-    
-    // Scan rows
-    TRISA = 0b11110000;       // Rows as inputs
-    TRISB = 0b11110000;       // Columns as inputs
-    
-    if (ROW1 == 0) { col = 0; }
-    if (ROW2 == 0) { col = 1; }
-    if (ROW3 == 0) { col = 2; }
-    if (ROW4 == 0) { col = 3; }
-    
-    return col;
-}
+#### Matrix Multiplexing Principle
+Instead of dedicating 16 individual microcontroller pins to 16 buttons, a matrix organizes switches at the intersections of 4 output rows and 4 input columns:
+```
+           Col 0 (RB4)   Col 1 (RB5)   Col 2 (RB6)   Col 3 (RB7)  [Inputs with Pull-Ups]
+               │             │             │             │
+  Row 0 (RB0) ─┼──[ '1' ]────┼──[ '2' ]────┼──[ '3' ]────┼──[ 'A' ]
+               │             │             │             │
+  Row 1 (RB1) ─┼──[ '4' ]────┼──[ '5' ]────┼──[ '6' ]────┼──[ 'B' ]
+               │             │             │             │
+  Row 2 (RB2) ─┼──[ '7' ]────┼──[ '8' ]────┼──[ '9' ]────┼──[ 'C' ]
+               │             │             │             │
+  Row 3 (RB3) ─┼──[ '*' ]────┼──[ '0' ]────┼──[ '#' ]────┼──[ 'D' ]
+ [Outputs]
 ```
 
-### PICSimLab Procedure
-1. **Select LCD+Keypad board**: Boards → PIC16F877A → LCD + Keypad + Potentiometer
-2. **Connect LCD**: Use built-in LCD on the board
-3. **Connect keypad**: Use built-in keypad on the board
-4. **Build and debug**: Create project and load into PICSimLab
-5. **Test interface**: Enter characters via keypad and see on LCD
-
-### Expected Result
-- LCD displays characters entered via keypad
-- Keypad scan detects button presses correctly
-- Character display works on LCD
-
-### Common Pitfalls
-| Issue | Cause | Solution |
-|-------|-------|----------|
-| LCD not responding | Wrong initialization sequence | Use correct initialization sequence |
-| Keypad not detecting presses | Wrong pin configuration | Set correct pins as inputs/outputs |
-| Characters not showing | Timing issues | Ensure proper delays for LCD timing |
-| Ghosting on keypad | Row/column scanning issues | Implement proper scan timing |
-
-### 🔗 Next Step
-[Advanced Steps](./advanced.md)
-
-> **Register Focus**: TRISD, LATD for LCD control; PORTA, PORTB for keypad scanning; GPIO timing.
+- Rows are driven sequentially LOW one by one while keeping other rows HIGH.
+- Columns are read. If a button in the active row is pressed, that column line is pulled LOW.
 
 ---
 
-## Summary & Checklist
+### 🔨 How to Write This Code Step-by-Step
 
-### Beginner Section Checklist
-- [ ] Create first MPLAB X project for PIC16F877A
-- [ ] Configure `#pragma config` bits correctly
-- [ ] Implement LED blink with `__delay_ms()`
-- [ ] Measure timing with oscilloscope (simulated/virtual)
-- [ ] Understand TRIS vs PORT vs LAT registers
-- [ ] Implement button debouncing in firmware
-- [ ] Use Timer0 with overflow interrupt for precise timing
-- [ ] Replace software delays with hardware timer ISR
+1. **Step 1: Set Port Directions**
+   Configure lower nibble `RB0:RB3` as outputs (Rows) and upper nibble `RB4:RB7` as inputs (Columns): `TRISB = 0xF0;`.
+2. **Step 2: Enable Internal Pull-Ups**
+   Clear `OPTION_REGbits.nRBPU = 0;` so columns idle at logic HIGH without external resistors.
+3. **Step 3: Define Character Keymap**
+   Declare a $4 \times 4$ constant lookup array `const char keymap[4][4] = {{'1','2','3','A'}, ...};`.
+4. **Step 4: Scan Rows Sequentially**
+   Drive Row 0 LOW (`PORTB = 0xFE;`). Delay $10\,\mu\text{s}$ for line stabilization. Read columns `(PORTB >> 4) & 0x0F`. If a bit is 0, return the corresponding keymap character. Repeat for Rows 1, 2, and 3.
 
-### Intermediate Section Checklist
-- [ ] Read analog voltage via ADC and display on LCD
-- [ ] Generate PWM signals using CCP module
-- [ ] Implement UART serial communication at 9600 baud
-- [ ] Communicate with I2C temperature sensor (simulated)
-- [ ] Interface 4-bit character LCD in simulation
-- [ ] Scan 4x4 keypad matrix using GPIO
-- [ ] Troubleshoot common peripheral configuration issues
+---
 
-### Advanced Section Checklist
-- [ ] Implement sleep modes and watchdog timer
-- [ ] Design interrupt-driven architecture with context saving
-- [ ] Use analog comparators for zero-crossing detection
-- [ ] Store calibration data in internal EEPROM
-- [ ] Program real PIC16F877A via PICkit and ICSP
-- [ ] Build capstone: PID temperature controller OR UART-to-Python bridge
-- [ ] Document register-level understanding in project report
+## 🏁 Intermediate Verification Checklist
 
-### Code Examples Included
-- [`blink.c`](../code-examples/xc8/blink.c) - Basic LED blink
-- [`button_led.c`](../code-examples/xc8/button_led.c) - Button-controlled LED with debounce
-- [`timer_blink.c`](../code-examples/xc8/timer_blink.c) - Timer0 interrupt-driven blinking
-- [`adc_voltage.c`](../code-examples/xc8/adc_voltage.c) - ADC with LCD display
-- [`pwm_dimmer.c`](../code-examples/xc8/pwm_dimmer.c) - PWM LED dimmer
-- [`uart_echo.c`](../code-examples/xc8/uart_echo.c) - UART echo functionality
-- [`i2c_temp.c`](../code-examples/xc8/i2c_temp.c) - I2C communication with sensor
-- [`lcd_hello.c`](../code-examples/xc8/lcd_hello.c) - LCD initialization and display
-
-### Project References
-- **[Project 1: GPIO Control Board](../projects/beginner.md#project-1-gpio-control-board-bare-metal-systick-fsm)**
-- **[Project 2: UART Command Console](../projects/beginner.md#project-2-uart-command-console-ring-buffer--shell)**
-- **[Project 3: Sensor Data Logger](../projects/intermediate.md#project-3-sensor-data-logger-i2cspiadctimers)**
-- **[Project 4: PWM Motor Controller](../projects/intermediate.md#project-4-pwm-fanmotor-controller-pwmadcinterrupts)**
-- **[Project 5: FreeRTOS Environmental Monitor](../projects/intermediate.md#project-5-freertos-environmental-monitor-rtosconcurrency)**
-- **[Project 6: Connected IoT Node](../projects/advanced.md#project-6-connected-iot-node-networkingiotsecurityota)**
-- **[Project 7: TinyML Edge Device](../projects/advanced.md#project-7-tinyml-edge-device-tinymloptimization)**
-
-> **Remember**: The goal isn't to memorize register addresses—it's to understand how to *find* and *interpret* them in any datasheet. This skill transfers across all microcontroller architectures.
+- [ ] 10-Bit ADC verified: Voltage scales linearly from 0.00 V to 5.00 V on LCD.
+- [ ] CCP1 PWM verified: 1 kHz frequency confirmed on oscilloscope/PICSimLab.
+- [ ] USART serial echo verified at 9600 baud with no dropped bytes.
+- [ ] I2C transactions verified: Start, ACK, data read, and Stop frames observed cleanly.
+- [ ] 4x4 Keypad verified: All 16 keys detect reliably without ghosting.
+- [ ] Proceed to [**Advanced Steps (Steps 9–13)**](advanced.md).

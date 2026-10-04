@@ -4,6 +4,16 @@
 
 ---
 
+## 🧭 Foundational Prerequisites
+
+Before working on advanced power modes and non-volatile storage, ensure you have reviewed:
+1. [**Foundational Prerequisites (`PREREQUISITES.md`)**](../PREREQUISITES.md): Computer architecture, CPU registers, stack pointers, and interrupt hygiene.
+2. [**Intermediate Steps (`intermediate.md`)**](intermediate.md): ADC, PWM, USART, and I2C drivers.
+3. [**XC8 Step-by-Step Code Construction Guide**](../code-examples/xc8/README.md): Systematic step-by-step firmware development.
+4. [**PICmicro Mid-Range MCU Family Reference Manual (DS33023A)**](../resources/datasheets-and-reference.md#4-microchip-pic-silicon--compiler-references): Sections 7 (Interrupts), 8 (Data EEPROM), 14 (Special Features of the CPU).
+
+---
+
 ## Step 9: Low-Power Sleep Modes & Watchdog Timer (WDT)
 
 ### Goal
@@ -38,7 +48,28 @@ The Watchdog Timer runs independently from an internal, dedicated on-chip RC osc
   - During Sleep: Causes the device to wake up and resume execution.
 - Status register flags: `STATUSbits.nTO` (Time-Out bit, active low) and `STATUSbits.nPD` (Power-Down bit, active low) allow the firmware to determine whether a reset was caused by power-on, brown-out, or WDT.
 
-### Minimal XC8 Snippet
+---
+
+### 🔨 How to Write This Code Step-by-Step
+
+1. **Step 1: Enable Hardware Watchdog in Configuration Fuses**
+   Set `#pragma config WDTE = ON` and `#pragma config FOSC = HS`.
+2. **Step 2: Assign Prescaler to WDT in `OPTION_REG`**
+   - Set `OPTION_REGbits.PSA = 1;` (Prescaler assigned to WDT, not Timer0).
+   - Set `OPTION_REGbits.PS2:PS0 = 111;` (1:128 division $\implies \sim 2.3\text{ s}$ timeout).
+   - Set `OPTION_REGbits.nRBPU = 0;` (Enable PORTB pull-ups).
+3. **Step 3: Implement Wake-Up Visual Confirmation**
+   Configure `TRISBbits.TRISB0 = 0;`. Pulse `PORTBbits.RB0 = 1` for 200 ms to confirm reset/boot.
+4. **Step 4: Execute Sleep Sequence**
+   - Call `CLRWDT();` to reset the watchdog timer.
+   - Execute `SLEEP();` to enter low-power mode.
+   - **Crucial Rule:** Always place a `NOP();` immediately after `SLEEP()` per Microchip errata recommendations to prevent instruction pre-fetch hazards.
+5. **Step 5: Handle Post-Wake Activity**
+   Pulse `PORTBbits.RB0 = 1` for 100 ms to indicate CPU resumption.
+
+---
+
+### Annotated Reference Implementation
 ```c
 #include <xc.h>
 
@@ -48,19 +79,19 @@ The Watchdog Timer runs independently from an internal, dedicated on-chip RC osc
 #define _XTAL_FREQ 4000000
 
 void main(void) {
-    // Configure RB0 as output (LED indicator), RB1 as wake-up button input
-    TRISB0 = 0;
+    // 1. Configure RB0 as output (LED indicator), RB1 as input
+    TRISBbits.TRISB0 = 0;
     PORTBbits.RB0 = 0;
-    TRISB1 = 1;
+    TRISBbits.TRISB1 = 1;
 
-    // Configure OPTION_REG: Assign prescaler to WDT (1:128 timeout ~2.3s)
+    // 2. Configure OPTION_REG: Assign prescaler to WDT (1:128 timeout ~2.3s)
     OPTION_REGbits.nRBPU = 0;   // Enable PORTB internal pull-ups
     OPTION_REGbits.PSA = 1;     // Prescaler assigned to WDT
     OPTION_REGbits.PS2 = 1;
     OPTION_REGbits.PS1 = 1;
     OPTION_REGbits.PS0 = 1;
 
-    // Blink LED to indicate wake-up / boot
+    // 3. Blink LED to indicate initial boot
     PORTBbits.RB0 = 1;
     __delay_ms(200);
     PORTBbits.RB0 = 0;
@@ -70,7 +101,7 @@ void main(void) {
         
         // Enter ultra-low-power sleep
         SLEEP();
-        NOP();                  // Always follow SLEEP with NOP per datasheet recommendation
+        NOP();                  // Mandatory NOP per datasheet recommendation
         
         // Execution resumes here after WDT timeout or external pin change!
         PORTBbits.RB0 = 1;
@@ -126,7 +157,21 @@ In mid-range PIC16 devices, hardware only automatically saves the program counte
   3. Set a `volatile` state flag and defer heavy processing to the `main()` superloop.
   4. Always manually clear the triggering interrupt flag (e.g. `PIR1bits.RCIF`, `INTCONbits.T0IF`, `INTCONbits.INTF`); failure to clear causes an infinite interrupt loop!
 
-### XC8 Interrupt Demultiplexer Example
+---
+
+### 🔨 How to Write This Code Step-by-Step
+
+1. **Step 1: Declare Volatile Global Communication Variables**
+   Declare `volatile unsigned char rx_byte;`, `volatile unsigned char rx_flag;`, and `volatile unsigned int tick_count;`.
+2. **Step 2: Write Interrupt Dispatcher in `void __interrupt() isr(void)`**
+   - Check source 1 (UART RX): `if (PIR1bits.RCIF && PIE1bits.RCIE)`. Handle `OERR` if set. Read `RCREG` (which automatically clears `RCIF`) and set `rx_flag = 1`.
+   - Check source 2 (Timer0): `if (INTCONbits.T0IF && INTCONbits.T0IE)`. **Manually clear `INTCONbits.T0IF = 0;`**. Increment `tick_count`.
+3. **Step 3: Enable Peripheral and Global Interrupts in `main()`**
+   Set `PIE1bits.RCIE = 1;`, `INTCONbits.T0IE = 1;`, `INTCONbits.PEIE = 1;`, and `INTCONbits.GIE = 1;`.
+
+---
+
+### Annotated Reference Implementation
 ```c
 #include <xc.h>
 
@@ -194,7 +239,27 @@ Microchip Silicon Hardware verifies strict 2-cycle key match ──────�
                         Hardware initiates EEPROM write (~4 ms)
 ```
 
-### Complete EEPROM Read & Write Driver
+---
+
+### 🔨 How to Write This Code Step-by-Step
+
+1. **Step 1: Write `EEPROM_Read(address)`**
+   - Load `EEADR = address;`.
+   - Clear `EECON1bits.EEPGD = 0;` (Select Data EEPROM, not Program Flash).
+   - Set `EECON1bits.RD = 1;` (Initiate read strobe).
+   - Return `EEDATA;` (Data is valid on next instruction cycle).
+2. **Step 2: Write `EEPROM_Write(address, data)`**
+   - Load `EEADR = address;` and `EEDATA = data;`.
+   - Clear `EECON1bits.EEPGD = 0;` and set `EECON1bits.WREN = 1;` (Write enable).
+   - **Critical Section:** Save interrupt state (`gie_status = INTCONbits.GIE; INTCONbits.GIE = 0;`).
+   - Write mandatory unlock sequence: `EECON2 = 0x55; EECON2 = 0xAA;`.
+   - Start write: `EECON1bits.WR = 1;`.
+   - Restore interrupt state: `INTCONbits.GIE = gie_status;`.
+   - Wait for completion: `while (EECON1bits.WR);`. Clear `EECON1bits.WREN = 0;`.
+
+---
+
+### Annotated Reference Implementation
 ```c
 #include <xc.h>
 

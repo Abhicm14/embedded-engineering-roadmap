@@ -32,6 +32,10 @@
 └─────────────────────────────────────────────────────────────────────────────────────────────────┘
 ```
 
+> [!IMPORTANT]
+> **Step 0: Prerequisites — What to Master Before Writing Code**  
+> Before touching registers or writing firmware, study the [**Prerequisites Guide (`PREREQUISITES.md`)**](PREREQUISITES.md). It covers the foundational mathematics, electrical circuit laws, computer architecture models, embedded C safety rules, and the **7-Step Code Construction Workflow** (never copy-paste code).
+
 > [!TIP]
 > **Alternative 8-Bit Architecture Path: PIC Microcontrollers**  
 > If your curriculum or industry focus starts with 8-bit Harvard microcontrollers before 32-bit ARM Cortex-M, explore our dedicated [**PIC Microcontroller Track (`pic-mplab-xc8/`)**](pic-mplab-xc8/README.md). It covers the Microchip PIC16F877A, MPLAB X IDE, XC8 compiler, and PICSimLab simulation across 13 progressive register-level steps.
@@ -41,6 +45,16 @@
 ## 📋 The Clickable 8-Step Progress Checklist
 
 Use this interactive checklist to track your progress through the curriculum:
+
+- [ ] ### [Step 0: Prerequisites & Foundation Pre-Checks](PREREQUISITES.md)
+  - [ ] Binary, Hexadecimal, Two's Complement, and Bitmasking fluency ([Guide](PREREQUISITES.md#1-mathematical--number-systems-foundations))
+  - [ ] Circuit physics: Ohm's law, pull-ups, capacitive decoupling, ground loops ([Guide](PREREQUISITES.md#2-electrical-physics--circuit-prereqs))
+  - [ ] Computer architecture: Harvard vs Von Neumann, memory map, peripheral buses ([Guide](PREREQUISITES.md#3-microcontroller--computer-architecture-essentials))
+  - [ ] Embedded C hygiene: Avoid dynamic allocation, pointer safety, volatile ([Guide](PREREQUISITES.md#4-embedded-c-programming-prerequisites))
+  - [ ] Datasheet & register comprehension: TRIS/MODER, PORT/ODR, CR/SR registers ([Guide](PREREQUISITES.md#5-how-to-read-a-silicon-reference-manual))
+  - [ ] Lab equipment setup: Multimeter continuity/voltage, logic analyzer capture ([Guide](PREREQUISITES.md#6-workbench-test-equipment--diagnostic-mindset))
+  - [ ] Master the 7-Step Code Construction Workflow ([Guide](PREREQUISITES.md#7-the-7-step-code-construction-workflow))
+  - [ ] Complete the Pre-Coding Self-Assessment Checklist ([Assessment](PREREQUISITES.md#8-pre-coding-self-assessment-checklist))
 
 - [ ] ### [Step 1: C & Embedded C](curriculum/01-c-embedded-c/README.md)
   - [ ] Pointers, memory addresses, and function pointer callbacks ([Guide](curriculum/01-c-embedded-c/syntax-and-pointers.md))

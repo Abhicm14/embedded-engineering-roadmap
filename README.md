@@ -1,6 +1,7 @@
 # ⚡ Embedded Engineering Roadmap — From Fresher to Advanced
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Prerequisites](https://img.shields.io/badge/Prerequisites-Start%20Here-orange)](PREREQUISITES.md)
 [![Curriculum](https://img.shields.io/badge/Curriculum-8--Step%20Structured-blue)](ROADMAP.md)
 [![Schedule](https://img.shields.io/badge/Schedule-6--Month%20Plan-green)](ROADMAP.md#-the-6-month-structured-plan)
 [![Taxonomy](https://img.shields.io/badge/Taxonomy-3--Pillars-purple)](curriculum/reference/README.md)
@@ -10,13 +11,32 @@
 
 ---
 
-> ### 🛑 THE CORE RULE OF EMBEDDED ENGINEERING
-> **"Do not learn peripherals only as APIs. Understand the register, electrical signal, timing diagram, protocol transaction and failure modes behind each API call."**
+> ### 🛑 THE CORE RULES OF EMBEDDED ENGINEERING
+> 1. **"Do not learn peripherals only as APIs. Understand the register, electrical signal, timing diagram, protocol transaction and failure modes behind each API call."**
+> 2. **"Never copy-paste code. Every driver and peripheral implementation must be constructed step-by-step from electrical specifications and silicon register maps."**
+
+---
+
+## 🧠 Prerequisites: What to Learn Before Writing Code
+
+Before writing code for STM32, PIC, ESP32, or AVR, review our dedicated foundation guide:
+
+👉 [**📘 Master Prerequisites Guide (`PREREQUISITES.md`)**](PREREQUISITES.md)
+
+| Foundational Discipline | What You Must Understand Before Coding |
+| :--- | :--- |
+| **🔢 Mathematical Foundations** | Binary, Hexadecimal, Two's complement, bitwise masks, and fixed-point scaling (no software floats). |
+| **⚡ Electrical Physics** | Ohm's law, pull-up/pull-down resistors, open-drain vs push-pull, decoupling capacitors, slew rates. |
+| **🖥️ Computer Architecture** | Harvard vs Von Neumann, CPU registers (PC, SP, LR), memory map, memory-mapped I/O, endianness. |
+| **💻 Embedded C Hygiene** | Pointer arithmetic, struct padding & `#pragma pack(1)`, `volatile` qualifier, and non-blocking ISR rules. |
+| **📑 Silicon Datasheet Literacy** | Base addresses, offsets, pin multiplexing tables, register reset values, and errata sheets. |
+| **🔨 7-Step Code Construction** | The non-negotiable step-by-step workflow followed across all code examples in this repository. |
 
 ---
 
 ## 🧭 Table of Contents
 
+- [🧠 Prerequisites: What to Learn Before Coding](#-prerequisites-what-to-learn-before-coding)
 - [The 3 Pillars of Embedded Systems Taxonomy](#-the-3-pillars-of-embedded-systems-taxonomy)
 - [The 4-Pillar, 8-Step Guided Learning Path](#-the-4-pillar-8-step-guided-learning-path)
 - [The 6-Month Study Plan](#-the-6-month-study-plan)
@@ -221,6 +241,7 @@ embedded-engineering-roadmap/
 ├── CONTRIBUTING.md                   # Contributor guidelines
 ├── CODE_OF_CONDUCT.md               # Contributor Covenant v2.1
 ├── LICENSE                           # MIT License
+├── PREREQUISITES.md                  # Foundational math, physics, architecture & hygiene guide
 ├── ROADMAP.md                        # Clickable 8-step checklist & 6-month plan
 └── README.md                         # This main roadmap document
 ```
