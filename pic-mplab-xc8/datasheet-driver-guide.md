@@ -24,7 +24,7 @@ To guide you from an absolute beginner to writing your own complete peripheral d
 
 ## 🔍 The Universal 7-Step Method to Read ANY Silicon Datasheet
 
-> 💡 **The 16-Year-Old Secret to Reading Datasheets:**  
+> 💡 **The Beginner Secret to Reading Datasheets:**  
 > When you first open a 500-page datasheet, it looks terrifying—like a legal contract written by aliens!  
 > Here is the secret: **Treat it like a LEGO instruction booklet or a gaming wiki.**  
 > You don't read a Minecraft or Pokémon wiki from page 1 to 500. When you want to find the crafting recipe for a potion or diamond sword, you jump straight to that exact item!  

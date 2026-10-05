@@ -2,7 +2,7 @@
 
 > **Pillar:** FOUNDATION (C + Electronics)  
 > **Core Rule:** *"Do not learn peripherals only as APIs. Understand the register, electrical signal, timing diagram, protocol transaction and failure modes behind each API call."*  
-> **Prerequisites:** Review [**`PREREQUISITES.md`**](../../PREREQUISITES.md) before writing code. Always construct firmware using the **7-Step Code Construction Workflow** ([`code-examples/README.md`](../../code-examples/README.md)) — never copy-paste blindly.
+> **Prerequisites:** Review [**`PREREQUISITES.md`**](../../PREREQUISITES.md) before writing code. If you are an absolute beginner, start with our [**🌱 True Beginner On-Ramp (`beginner-onramp/`)**](../../beginner-onramp/README.md). Look up any confusing term in our [**📖 Beginner Glossary (`cheatsheets/glossary.md`)**](../../cheatsheets/glossary.md). Always construct firmware using the **7-Step Code Construction Workflow** ([`code-examples/README.md`](../../code-examples/README.md)).
 
 ---
 
@@ -19,13 +19,13 @@ Master the programming language that powers 80%+ of bare-metal firmware and oper
 
 ## 🧭 Topic Guides in This Module
 
-| Topic Document | Key Concepts |
-| :--- | :--- |
-| [**1. Syntax & Pointers**](syntax-and-pointers.md) | Pointer arithmetic, `void*`, function pointers for callbacks and jump tables. |
-| [**2. Memory Model & Layout**](memory-model.md) | Flash vs SRAM, stack frames, heap fragmentation, map files, linker placement. |
-| [**3. Structs, Unions & Bitfields**](structs-unions-bitfields.md) | Struct alignment, padding, `#pragma pack(1)`, type-punning, endianness. |
-| [**4. Volatile, Const & Qualifiers**](volatile-const-type-qualifiers.md) | Compiler optimization barriers, hardware registers, ISR flags, read-only tables. |
-| [**5. The C Build Process**](build-process.md) | Preprocessor $\rightarrow$ Compiler $\rightarrow$ Assembler $\rightarrow$ Linker $\rightarrow$ Map file analysis. |
+| Topic Document | Type | Key Concepts |
+| :--- | :---: | :--- |
+| [**1. Syntax & Pointers**](syntax-and-pointers.md) | `[INTUITION]` | Pointer arithmetic, `void*`, double pointers, function pointer callbacks. |
+| [**2. Memory Model & Layout**](memory-model.md) | `[INTUITION]` | Flash vs SRAM, stack frames, heap fragmentation, map files, linker placement. |
+| [**3. Structs, Unions & Bitfields**](structs-unions-bitfields.md) | `[INTUITION]` | Struct alignment, padding, `#pragma pack(1)`, type-punning, endianness. |
+| [**4. Volatile, Const & Qualifiers**](volatile-const-type-qualifiers.md) | `[INTUITION]` | Compiler optimization barriers, hardware registers, ISR flags, read-only tables. |
+| [**5. The C Build Process**](build-process.md) | `[DEEP DIVE]` | Preprocessor $\rightarrow$ Compiler $\rightarrow$ Assembler $\rightarrow$ Linker $\rightarrow$ Map file analysis. |
 
 ---
 

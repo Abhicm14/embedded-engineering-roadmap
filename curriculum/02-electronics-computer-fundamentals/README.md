@@ -1,7 +1,8 @@
 # 🔌 Step 2: Electronics & Computer Fundamentals
 
 > **Pillar:** FOUNDATION (C + Electronics)  
-> **Core Rule:** *"Do not learn peripherals only as APIs. Understand the register, electrical signal, timing diagram, protocol transaction and failure modes behind each API call."*
+> **Core Rule:** *"Do not learn peripherals only as APIs. Understand the register, electrical signal, timing diagram, protocol transaction and failure modes behind each API call."*  
+> **Prerequisites:** Review [**`PREREQUISITES.md`**](../../PREREQUISITES.md). If you haven't wired a circuit yet, check our [**🌱 True Beginner On-Ramp (`beginner-onramp/`)**](../../beginner-onramp/README.md). Unfamiliar with any term? Check our [**📖 Beginner Glossary (`cheatsheets/glossary.md`)**](../../cheatsheets/glossary.md).
 
 ---
 
@@ -19,13 +20,13 @@ Microcontrollers do not operate in a vacuum of pure mathematics; they interact w
 
 ## 🧭 Topic Guides in This Module
 
-| Topic Document | Key Concepts |
-| :--- | :--- |
-| [**1. Circuit Basics & Passive Components**](circuit-basics-and-components.md) | Ohm's law, pull-up/pull-down resistors, capacitor decoupling, diodes, MOSFET switches. |
-| [**2. Digital Logic & Boolean Algebra**](digital-logic-and-gates.md) | Logic gates, truth tables, latches, flip-flops, propagation delays, setup/hold times. |
-| [**3. CPU & Memory Architecture**](cpu-and-memory-architecture.md) | Registers, ALU, PC, SP, pipelining, cache, Flash vs SRAM vs EEPROM, endianness. |
-| [**4. Signals, Noise & Grounding**](signals-and-noise.md) | Frequency, duty cycle, slew rate, ringing, ground bounce, ESD protection. |
-| [**5. Lab Instruments & Probing Mastery**](lab-instruments-and-probing.md) | Multimeter continuity, 10X oscilloscope probe attenuation, logic analyzer triggering. |
+| Topic Document | Type | Key Concepts |
+| :--- | :---: | :--- |
+| [**1. Circuit Basics & Passive Components**](circuit-basics-and-components.md) | `[INTUITION]` | Ohm's law, pull-up/pull-down resistors, capacitor decoupling, diodes, MOSFET switches. |
+| [**2. Digital Logic & Boolean Algebra**](digital-logic-and-gates.md) | `[INTUITION]` | Logic gates, truth tables, latches, flip-flops, propagation delays, setup/hold times. |
+| [**3. CPU & Memory Architecture**](cpu-and-memory-architecture.md) | `[INTUITION]` | Registers, ALU, PC, SP, pipelining, cache, Flash vs SRAM vs EEPROM, endianness. |
+| [**4. Signals, Noise & Grounding**](signals-and-noise.md) | `[DEEP DIVE]` | Frequency, duty cycle, slew rate, ringing, ground bounce, ESD protection. |
+| [**5. Lab Instruments & Probing Mastery**](lab-instruments-and-probing.md) | `[INTUITION]` | Multimeter continuity, 10X oscilloscope probe attenuation, logic analyzer triggering. |
 
 ---
 

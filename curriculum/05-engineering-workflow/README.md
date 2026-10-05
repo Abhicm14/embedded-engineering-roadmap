@@ -1,7 +1,8 @@
 # 🛠️ Step 5: Engineering Workflow, Debugging & Tooling
 
 > **Pillar:** FIRMWARE (STM32 + Peripherals)  
-> **Core Rule:** *"Do not learn peripherals only as APIs. Understand the register, electrical signal, timing diagram, protocol transaction and failure modes behind each API call."*
+> **Core Rule:** *"Do not learn peripherals only as APIs. Understand the register, electrical signal, timing diagram, protocol transaction and failure modes behind each API call."*  
+> **Prerequisites:** Steps 1–4. Refer to our [**📖 Beginner Glossary (`cheatsheets/glossary.md`)**](../../cheatsheets/glossary.md) for testing and debugging terminology.
 
 ---
 
@@ -18,13 +19,13 @@ Great embedded engineering is distinguished not by writing code, but by diagnosi
 
 ## 🧭 Topic Guides in This Module
 
-| Topic Document | Key Concepts |
-| :--- | :--- |
-| [**1. Debugging with GDB & OpenOCD**](debugging-and-gdb.md) | Breakpoints, data watchpoints, memory dumps, inspecting peripheral registers. |
-| [**2. Logic Analyzers vs Oscilloscopes**](logic-analyzers-and-scopes.md) | When to use DSO (voltage/analog) vs Logic Analyzer (protocol decoding). |
-| [**3. HardFault Triage & Map File Analysis**](hard-fault-analysis.md) | Decoding `CFSR`, `BFAR`, unstacking `PC` and `LR`, locating crashing C line. |
-| [**4. Git & Version Control for Firmware**](git-and-version-control.md) | `.gitignore` rules, feature branches, rebasing, code reviews, PR etiquette. |
-| [**5. Testing & Reproducible Builds**](testing-and-builds.md) | Unit testing with Unity/CMock, hardware-in-the-loop (HIL), CI/CD pipelines. |
+| Topic Document | Type | Key Concepts |
+| :--- | :---: | :--- |
+| [**1. Debugging with GDB & OpenOCD**](debugging-and-gdb.md) | `[INTUITION]` | Breakpoints, data watchpoints, memory dumps, inspecting peripheral registers. |
+| [**2. Logic Analyzers vs Oscilloscopes**](logic-analyzers-and-scopes.md) | `[INTUITION]` | When to use DSO (voltage/analog) vs Logic Analyzer (protocol decoding). |
+| [**3. HardFault Triage & Map File Analysis**](hard-fault-analysis.md) | `[DEEP DIVE]` | Decoding `CFSR`, `BFAR`, unstacking `PC` and `LR`, locating crashing C line. |
+| [**4. Git & Version Control for Firmware**](git-and-version-control.md) | `[INTUITION]` | `.gitignore` rules, feature branches, rebasing, code reviews, PR etiquette. |
+| [**5. Testing & Reproducible Builds**](testing-and-builds.md) | `[DEEP DIVE]` | Unit testing with Unity/CMock, hardware-in-the-loop (HIL), CI/CD pipelines. |
 
 ---
 

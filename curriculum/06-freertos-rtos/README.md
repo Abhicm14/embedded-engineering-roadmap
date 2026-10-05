@@ -1,9 +1,12 @@
-# ⏱️ Step 6: Real-Time Operating Systems (FreeRTOS & RTOS Internals)
+# ⏱️ Step 6: Real-Time Operating Systems (FreeRTOS & RTOS Internals) [DEEP DIVE]
 
 > **Pillar:** SYSTEMS (RTOS + Linux)  
-> **Core Rule:** *"Do not learn peripherals only as APIs. Understand the register, electrical signal, timing diagram, protocol transaction and failure modes behind each API call."*
+> **Core Rule:** *"Do not learn peripherals only as APIs. Understand the register, electrical signal, timing diagram, protocol transaction and failure modes behind each API call."*  
+> **Prerequisites:** Steps 1–5 and at least 2 working bare-metal projects. Check our [**Beginner Glossary**](../../cheatsheets/glossary.md) for terminology.
 
----
+> [!WARNING]
+> **DEEP DIVE — come back after you have built a few projects.**  
+> Real-Time Operating System kernel internals (Task Control Blocks, assembly context switching via `PendSV`, memory heap allocation models, and priority inversion recovery) are advanced systems topics. If you are a beginner, master bare-metal GPIO, timers, and UART drivers first before tackling multi-threaded kernels!
 
 ## 🎯 Learning Objectives
 

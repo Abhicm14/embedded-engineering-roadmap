@@ -1,13 +1,43 @@
 # ⚡ Embedded Engineering Roadmap — From Fresher to Advanced
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Beginner On-Ramp](https://img.shields.io/badge/Beginner%20On--Ramp-Start%20Here-brightgreen)](beginner-onramp/README.md)
 [![Prerequisites](https://img.shields.io/badge/Prerequisites-Start%20Here-orange)](PREREQUISITES.md)
 [![Curriculum](https://img.shields.io/badge/Curriculum-8--Step%20Structured-blue)](ROADMAP.md)
 [![Schedule](https://img.shields.io/badge/Schedule-6--Month%20Plan-green)](ROADMAP.md#-the-6-month-structured-plan)
+[![Glossary](https://img.shields.io/badge/Glossary-Plain%20English-blueviolet)](cheatsheets/glossary.md)
 [![Taxonomy](https://img.shields.io/badge/Taxonomy-3--Pillars-purple)](curriculum/reference/README.md)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
 
-> A free, student-focused curriculum, taxonomy, and resource hub for aspiring and practicing embedded systems engineers. Written in simple, friendly, plain English so that **anyone—from a 16-year-old high school student to an undergraduate or career switcher**—can master embedded systems from the ground up without confusion.
+> A free, student-focused curriculum, taxonomy, and resource hub for aspiring and practicing embedded systems engineers. We explain foundational concepts in plain language with intuitive physical analogies, but embedded engineering is a deep, multi-year field. Use this as a guided map; expect to grow into the advanced modules over time through deliberate practice and project building, not in one sitting.
+
+---
+
+### 🎯 Is This For Me? Where Should You Start?
+
+```
+                                  WHERE SHOULD YOU START?
+                                             │
+               ┌─────────────────────────────┴─────────────────────────────┐
+               ▼                                                           ▼
+     ┌───────────────────────────────────┐               ┌───────────────────────────────────┐
+     │      🌱 ABSOLUTE BEGINNER         │               │     ⚡ ALREADY KNOW BASIC C?       │
+     ├───────────────────────────────────┤               ├───────────────────────────────────┤
+     │ • New to C programming            │               │ • Knows variables, loops, arrays  │
+     │ • High school / pre-engineering   │               │ • CS / ECE student or SWE         │
+     │ • Never touched a circuit board   │               │ • Leveling up from Arduino / PIC  │
+     │                                   │               │                                   │
+     │ 👉 Start at:                      │               │ 👉 Start at:                      │
+     │ [Beginner On-Ramp](beginner-onramp/README.md)  │               │ [Prerequisites](PREREQUISITES.md) │
+     │ (Zero-install browser simulator)  │               │ [Step 3: STM32](curriculum/03-stm32-microcontrollers/README.md) │
+     │ [Beginner Glossary](cheatsheets/glossary.md)   │               │ [PIC Track](pic-mplab-xc8/README.md)             │
+     └───────────────────────────────────┘               └───────────────────────────────────┘
+```
+
+| Your Starting Background | What to Expect | Your Immediate Starting Point |
+| :--- | :--- | :--- |
+| **🌱 Absolute Beginner**<br>*(No C experience, pre-engineering, or new to microcontrollers)* | Embedded engineering is challenging and exciting. Don't start with raw 32-bit register maps or linker scripts! Start with small, hands-on visual experiments. | 1. Jump straight into the [**🌱 True Beginner On-Ramp (`beginner-onramp/`)**](beginner-onramp/README.md) using the free, zero-install Wokwi web simulator.<br>2. Read [**Prerequisites (`PREREQUISITES.md`)**](PREREQUISITES.md) and bookmark our [**Beginner Glossary (`cheatsheets/glossary.md`)**](cheatsheets/glossary.md). |
+| **⚡ Learner Who Knows C**<br>*(CS/ECE student, software engineer, or hobbyist leveling up)* | You can move quickly through syntax, but you must master hardware registers, electrical physics, clock trees, and non-blocking ISR rules. | 1. Review [**Advanced C Pointers & Qualifiers**](curriculum/01-c-embedded-c/syntax-and-pointers.md).<br>2. Follow our [**Fast-Track 3-Month Schedule**](ROADMAP.md#-fast-track-variant-if-you-already-know-c) starting at [**Step 3: STM32 Microcontrollers**](curriculum/03-stm32-microcontrollers/README.md) or [**PIC Track**](pic-mplab-xc8/README.md). |
 
 ---
 
@@ -27,11 +57,28 @@ All of those gadgets are powered by **Embedded Systems**!
 
 ---
 
+## 🌱 True Beginner On-Ramp: Gentle & Hands-On
+
+If you have never written embedded code before, start with our zero-prerequisite micro-projects:
+
+👉 [**🌱 Explore the Beginner On-Ramp (`beginner-onramp/README.md`)**](beginner-onramp/README.md)
+
+| Project | What You Learn | Dual Simulator Options |
+| :--- | :--- | :--- |
+| [**01: Blink an LED**](beginner-onramp/01-blink-led.md) | Voltage, current, resistors, and digital outputs. | [Wokwi (Web)](https://wokwi.com) or [PICSimLab](pic-mplab-xc8/installation.md) |
+| [**02: Read a Pushbutton**](beginner-onramp/02-read-button.md) | Digital inputs, floating pins, and pull-up resistors. | [Wokwi (Web)](https://wokwi.com) or [PICSimLab](pic-mplab-xc8/installation.md) |
+| [**03: Serial Hello World**](beginner-onramp/03-serial-hello.md) | UART serial communication and baud rates. | [Wokwi (Web)](https://wokwi.com) or [PICSimLab](pic-mplab-xc8/installation.md) |
+| [**04: Potentiometer & ADC**](beginner-onramp/04-potentiometer-knob.md) | Analog signals, ADC conversion, and voltage scaling. | [Wokwi (Web)](https://wokwi.com) or [PICSimLab](pic-mplab-xc8/installation.md) |
+| [**05: Interactive Controller**](beginner-onramp/05-button-led-serial.md) | Edge detection, debounce, and serial commands. | [Wokwi (Web)](https://wokwi.com) or [PICSimLab](pic-mplab-xc8/installation.md) |
+| [**06: Traffic Light FSM**](beginner-onramp/06-blinking-state-machine.md) | Non-blocking timers and Finite State Machines (no `delay()`). | [Wokwi (Web)](https://wokwi.com) or [PICSimLab](pic-mplab-xc8/installation.md) |
+
+---
+
 ## 🧠 Prerequisites: What to Learn Before Writing Code
 
 Before writing code for STM32, PIC, ESP32, or AVR, review our dedicated foundation guide:
 
-👉 [**📘 Master Prerequisites Guide (`PREREQUISITES.md`)**](PREREQUISITES.md)
+👉 [**📘 Master Prerequisites Guide (`PREREQUISITES.md`)**](PREREQUISITES.md) | [**📖 Beginner Glossary (`cheatsheets/glossary.md`)**](cheatsheets/glossary.md)
 
 | Foundational Discipline | What You Must Understand Before Coding |
 | :--- | :--- |
@@ -46,10 +93,12 @@ Before writing code for STM32, PIC, ESP32, or AVR, review our dedicated foundati
 
 ## 🧭 Table of Contents
 
+- [🎯 Is This For Me? Where to Start](#-is-this-for-me-where-should-you-start)
+- [🌱 True Beginner On-Ramp](#-true-beginner-on-ramp-gentle--hands-on)
 - [🧠 Prerequisites: What to Learn Before Coding](#-prerequisites-what-to-learn-before-coding)
 - [The 3 Pillars of Embedded Systems Taxonomy](#-the-3-pillars-of-embedded-systems-taxonomy)
 - [The 4-Pillar, 8-Step Guided Learning Path](#-the-4-pillar-8-step-guided-learning-path)
-- [The 6-Month Study Plan](#-the-6-month-study-plan)
+- [The 6-Month Structured Plan & Fast-Track](#-the-6-month-structured-plan)
 - [The 7 Production-Grade Portfolio Projects](#-the-7-production-grade-portfolio-projects)
 - [Student Starter Hardware Lab Equipment](#-student-starter-hardware-lab-equipment)
 - [Curated Resources & Cheatsheets](#-curated-resources--cheatsheets)
@@ -170,6 +219,7 @@ You do **not** need expensive commercial equipment to complete this roadmap. Her
   - [🎞️ YouTube & Blogs](resources/youtube-and-blogs.md)
   - [📑 Official Silicon Datasheets](resources/datasheets-and-reference.md)
 - **[Cheatsheets (`cheatsheets/`)](cheatsheets/README.md):**
+  - [Beginner Glossary](cheatsheets/glossary.md)
   - [Embedded C](cheatsheets/c-cheatsheet.md)
   - [Bitwise Operations](cheatsheets/bitwise-cheatsheet.md)
   - [PIC XC8 Cheatsheet](cheatsheets/pic-xc8-cheatsheet.md)
@@ -229,15 +279,23 @@ A dedicated space in this repository for you to write, build, and save your own 
 
 ```
 embedded-engineering-roadmap/
+├── beginner-onramp/                  # 🌱 True Beginner On-Ramp (6 tiny zero-prereq projects)
+│   ├── README.md                     # Beginner guide & dual Wokwi/PICSimLab paths
+│   ├── 01-blink-led.md               # Project 1: Voltage, current & digital outputs
+│   ├── 02-read-button.md             # Project 2: Digital inputs & pull-up resistors
+│   ├── 03-serial-hello.md            # Project 3: UART serial communication & baud rate
+│   ├── 04-potentiometer-knob.md      # Project 4: Analog signals, ADC & voltage math
+│   ├── 05-button-led-serial.md       # Project 5: Interactive controller & edge detection
+│   └── 06-blinking-state-machine.md  # Project 6: Non-blocking traffic light FSM (no delay)
 ├── curriculum/                       # The 8-Step Progressive Learning Path
 │   ├── 01-c-embedded-c/              # Step 1: C, memory model, volatile, advanced pointers
 │   ├── 02-electronics-computer-fundamentals/ # Step 2: Circuits, gates, CPU, scopes, DMM
 │   ├── 03-stm32-microcontrollers/    # Step 3: Cortex-M, vector table, startup, linkers
 │   ├── 04-essential-mcu-peripherals/ # Step 4: GPIO, Timers, PWM, UART, SPI, I2C, ADC
 │   ├── 05-engineering-workflow/      # Step 5: GDB, logic analyzers, HardFaults, Git
-│   ├── 06-freertos-rtos/             # Step 6: FreeRTOS kernel, queues, mutexes, PIP
-│   ├── 07-embedded-linux/            # Step 7: Boot flow, U-Boot, Device Trees, drivers
-│   ├── 08-specialization-career/     # Step 8: Automotive, IoT/Security, TinyML, interviews
+│   ├── 06-freertos-rtos/             # Step 6: FreeRTOS kernel, queues, mutexes, PIP [DEEP DIVE]
+│   ├── 07-embedded-linux/            # Step 7: Boot flow, U-Boot, Device Trees, drivers [DEEP DIVE]
+│   ├── 08-specialization-career/     # Step 8: Automotive, IoT, TinyML, interviews [DEEP DIVE]
 │   └── reference/                    # Broad 3-Pillar Taxonomy Reference
 │       ├── software.md
 │       ├── hardware.md
@@ -276,6 +334,7 @@ embedded-engineering-roadmap/
 │   ├── esp32/                        # ESP32 FreeRTOS Wi-Fi blinky
 │   └── verilog/                      # Verilog clock divider & UART TX module
 ├── cheatsheets/                      # High-density reference cards
+│   ├── glossary.md                   # Beginner's glossary (21 core terms with analogies)
 │   ├── c-cheatsheet.md
 │   ├── bitwise-cheatsheet.md
 │   ├── pic-xc8-cheatsheet.md         # PIC16F877A registers, configuration, peripherals

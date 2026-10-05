@@ -1,9 +1,12 @@
-# 🐧 Step 7: Embedded Linux & System Architecture
+# 🐧 Step 7: Embedded Linux & System Architecture [DEEP DIVE]
 
 > **Pillar:** SYSTEMS (RTOS + Linux)  
-> **Core Rule:** *"Do not learn peripherals only as APIs. Understand the register, electrical signal, timing diagram, protocol transaction and failure modes behind each API call."*
+> **Core Rule:** *"Do not learn peripherals only as APIs. Understand the register, electrical signal, timing diagram, protocol transaction and failure modes behind each API call."*  
+> **Prerequisites:** Fluency in C, POSIX command-line fundamentals, and microcontroller peripherals. Check our [**Beginner Glossary**](../../cheatsheets/glossary.md) for terminology.
 
----
+> [!WARNING]
+> **DEEP DIVE — come back after you have built a few projects.**  
+> Embedded Linux, Device Trees, and Linux Kernel Module (LKM) driver development operate on 32-bit/64-bit Microprocessor Units (MPUs) with MMUs, virtual memory, and multi-stage bootloaders (U-Boot). Complete microcontroller firmware steps (Steps 1–5) and write bare-metal hardware drivers before attempting kernel drivers!
 
 ## 🎯 Learning Objectives
 

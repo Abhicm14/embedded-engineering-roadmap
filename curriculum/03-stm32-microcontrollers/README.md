@@ -2,7 +2,7 @@
 
 > **Pillar:** FIRMWARE (STM32 + Peripherals)  
 > **Core Rule:** *"Do not learn peripherals only as APIs. Understand the register, electrical signal, timing diagram, protocol transaction and failure modes behind each API call."*  
-> **Prerequisites:** Ensure you have mastered [**`PREREQUISITES.md`**](../../PREREQUISITES.md). Every driver must follow the [**7-Step Code Construction Workflow**](../../code-examples/README.md#the-7-step-code-construction-methodology).
+> **Prerequisites:** Ensure you have mastered [**`PREREQUISITES.md`**](../../PREREQUISITES.md). If you're new to hardware registers, practice first in our [**🌱 True Beginner On-Ramp (`beginner-onramp/`)**](../../beginner-onramp/README.md). Look up registers and terms in our [**📖 Beginner Glossary (`cheatsheets/glossary.md`)**](../../cheatsheets/glossary.md). Every driver must follow the [**7-Step Code Construction Workflow**](../../code-examples/README.md#the-7-step-code-construction-methodology).
 
 ---
 
@@ -20,13 +20,13 @@ Transition from generic programming to bare-metal microcontroller engineering us
 
 ## 🧭 Topic Guides in This Module
 
-| Topic Document | Key Concepts |
-| :--- | :--- |
-| [**1. Cortex-M Core & Registers**](cortex-m-core-and-registers.md) | `R0-R15`, `xPSR`, `CONTROL`, Privileged vs Unprivileged, Thread vs Handler mode. |
-| [**2. Clock Trees & Reset Sequences**](clock-tree-and-reset.md) | HSI, HSE, PLL multiplication, AHB/APB prescalers, Flash latency wait-states. |
-| [**3. Vector Table & NVIC Architecture**](vector-table-and-nvic.md) | Exception vectors, VTOR relocation, NVIC priority grouping, tail-chaining. |
-| [**4. Toolchains, Linker Scripts & Makefiles**](toolchains-linkers-makefiles.md) | GNU Arm toolchain, `MEMORY`/`SECTIONS` directives, LMA vs VMA, build automation. |
-| [**5. Layered Firmware Architecture**](firmware-architecture.md) | Hardware Abstraction Layer, Board Support Package (BSP), device drivers, app layers. |
+| Topic Document | Type | Key Concepts |
+| :--- | :---: | :--- |
+| [**1. Cortex-M Core & Registers**](cortex-m-core-and-registers.md) | `[INTUITION]` | `R0-R15`, `xPSR`, `CONTROL`, Privileged vs Unprivileged, Thread vs Handler mode. |
+| [**2. Clock Trees & Reset Sequences**](clock-tree-and-reset.md) | `[INTUITION]` | HSI, HSE, PLL multiplication, AHB/APB prescalers, Flash latency wait-states. |
+| [**3. Vector Table & NVIC Architecture**](vector-table-and-nvic.md) | `[INTUITION]` | Exception vectors, VTOR relocation, NVIC priority grouping, tail-chaining. |
+| [**4. Toolchains, Linker Scripts & Makefiles**](toolchains-linkers-makefiles.md) | `[DEEP DIVE]` | GNU Arm toolchain, `MEMORY`/`SECTIONS` directives, LMA vs VMA, build automation. |
+| [**5. Layered Firmware Architecture**](firmware-architecture.md) | `[INTUITION]` | Hardware Abstraction Layer, Board Support Package (BSP), device drivers, app layers. |
 
 ---
 

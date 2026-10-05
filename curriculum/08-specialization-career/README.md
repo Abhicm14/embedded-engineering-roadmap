@@ -1,9 +1,12 @@
-# 🚀 Step 8: Specialization Tracks, Career & Job Readiness
+# 🚀 Step 8: Specialization Tracks, Career & Job Readiness [DEEP DIVE]
 
 > **Pillar:** CAREER (Projects + Interviews)  
-> **Core Rule:** *"Do not learn peripherals only as APIs. Understand the register, electrical signal, timing diagram, protocol transaction and failure modes behind each API call."*
+> **Core Rule:** *"Do not learn peripherals only as APIs. Understand the register, electrical signal, timing diagram, protocol transaction and failure modes behind each API call."*  
+> **Prerequisites:** Microcontroller driver development, RTOS multitasking, and 3+ working portfolio projects. Check our [**Beginner Glossary**](../../cheatsheets/glossary.md) for terminology.
 
----
+> [!WARNING]
+> **DEEP DIVE — come back after you have built a few projects.**  
+> Specialization tracks (Automotive AUTOSAR / CAN-FD, Secure IoT Cryptographic Bootloaders, and TinyML INT8 quantization) represent specialized, senior industry domains. Focus on building and debugging simpler bare-metal and RTOS projects first before specializing.
 
 ## 🎯 Learning Objectives
 

@@ -1,5 +1,12 @@
 - [🏠 Home](README.md)
-- [🧠 Prerequisites (Start Here)](PREREQUISITES.md)
+- [🌱 Beginner On-Ramp (Start Here)](beginner-onramp/README.md)
+  - [• 01: Blink an LED](beginner-onramp/01-blink-led.md)
+  - [• 02: Read a Pushbutton](beginner-onramp/02-read-button.md)
+  - [• 03: Serial Hello World](beginner-onramp/03-serial-hello.md)
+  - [• 04: Potentiometer & ADC](beginner-onramp/04-potentiometer-knob.md)
+  - [• 05: Interactive Controller](beginner-onramp/05-button-led-serial.md)
+  - [• 06: Traffic Light FSM](beginner-onramp/06-blinking-state-machine.md)
+- [🧠 Prerequisites (Master Guide)](PREREQUISITES.md)
 - [🗺️ Complete Roadmap](ROADMAP.md)
 - [⚙️ Setup & Toolchains](SETUP.md)
 
@@ -52,6 +59,7 @@
 
 - **⚡ Cheatsheets**
   - [Cheatsheets Overview](cheatsheets/README.md)
+  - [Beginner Glossary](cheatsheets/glossary.md)
   - [Embedded C](cheatsheets/c-cheatsheet.md)
   - [Bitwise Operations](cheatsheets/bitwise-cheatsheet.md)
   - [PIC XC8 Cheatsheet](cheatsheets/pic-xc8-cheatsheet.md)

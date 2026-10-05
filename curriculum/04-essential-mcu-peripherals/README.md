@@ -2,7 +2,7 @@
 
 > **Pillar:** FIRMWARE (STM32 + Peripherals)  
 > **Core Rule:** *"Do not learn peripherals only as APIs. Understand the register, electrical signal, timing diagram, protocol transaction and failure modes behind each API call."*  
-> **Prerequisites:** Review [**`PREREQUISITES.md`**](../../PREREQUISITES.md). When writing drivers for any peripheral, construct code line-by-line following the [**7-Step Code Construction Workflow**](../../code-examples/README.md#the-7-step-code-construction-methodology).
+> **Prerequisites:** Review [**`PREREQUISITES.md`**](../../PREREQUISITES.md). Total beginners should first practice with [**🌱 True Beginner On-Ramp (`beginner-onramp/`)**](../../beginner-onramp/README.md). For acronym definitions (GPIO, PWM, ADC, UART, SPI, I2C, DMA), refer to our [**📖 Beginner Glossary (`cheatsheets/glossary.md`)**](../../cheatsheets/glossary.md). When writing drivers for any peripheral, construct code line-by-line following the [**7-Step Code Construction Workflow**](../../code-examples/README.md#the-7-step-code-construction-methodology).
 
 ---
 
@@ -17,15 +17,15 @@ Peripherals are the dedicated silicon hardware engines that allow the CPU to int
 
 ## 🧭 Peripheral Guides & Starter Exercises
 
-| Peripheral | Core Concepts | Starter Exercise |
-| :--- | :--- | :--- |
-| [**1. GPIO**](gpio.md) | Push-pull vs Open-drain, internal pull-ups, slew rate (`OSPEEDR`), atomic `BSRR`. | **Debounced LED Toggle:** Write a state machine reading a noisy button on PA0 to toggle PC13. |
-| [**2. Timers & PWM**](timers-and-pwm.md) | Prescalers, Auto-Reload (`ARR`), input capture, PWM duty cycle calculation. | **Breathing LED:** Generate 1 kHz PWM on TIM2 Ch1, dynamically sweeping duty cycle from 0% to 100%. |
-| [**3. Interrupts & NVIC**](interrupts-and-nvic.md) | External interrupts (`EXTI`), priority grouping, ISR execution time constraints. | **Rotary Encoder Decoder:** Decode quadrature pulses on 2 EXTI lines with zero missed steps. |
-| [**4. UART / USART**](uart.md) | Baud rate divisor ($USARTDIV$), start/stop framing, circular DMA RX/TX buffers. | **Interactive Command Console:** Parse serial strings (`help`, `status`) at 115200 baud without blocking. |
-| [**5. SPI Master/Slave**](spi.md) | The 4 clock modes (CPOL/CPHA), chip select (`CS`), full-duplex shift registers. | **Flash JEDEC ID Reader:** Read manufacturer ID from an external SPI Flash memory (W25Qxx). |
-| [**6. I2C Bus**](i2c.md) | Open-drain, 7-bit addressing, ACK/NACK, pull-up sizing, 9-clock bus lockup recovery. | **BMP280 Sensor Driver:** Read raw temperature/pressure registers and compute factory compensation math. |
-| [**7. ADC & DAC**](adc-dac.md) | Successive Approximation (SAR), sampling time, reference voltage ($V_{REF}$), continuous DMA. | **Analog Battery Monitor:** Sample potentiometer or battery voltage via ADC DMA with rolling average filter. |
+| Peripheral | Type | Core Concepts | Starter Exercise |
+| :--- | :---: | :--- | :--- |
+| [**1. GPIO**](gpio.md) | `[INTUITION]` | Push-pull vs Open-drain, internal pull-ups, slew rate (`OSPEEDR`), atomic `BSRR`. | **Debounced LED Toggle:** Write a state machine reading a noisy button on PA0 to toggle PC13. |
+| [**2. Timers & PWM**](timers-and-pwm.md) | `[INTUITION]` | Prescalers, Auto-Reload (`ARR`), input capture, PWM duty cycle calculation. | **Breathing LED:** Generate 1 kHz PWM on TIM2 Ch1, dynamically sweeping duty cycle from 0% to 100%. |
+| [**3. Interrupts & NVIC**](interrupts-and-nvic.md) | `[INTUITION]` | External interrupts (`EXTI`), priority grouping, ISR execution time constraints. | **Rotary Encoder Decoder:** Decode quadrature pulses on 2 EXTI lines with zero missed steps. |
+| [**4. UART / USART**](uart.md) | `[INTUITION]` | Baud rate divisor ($USARTDIV$), start/stop framing, circular DMA RX/TX buffers. | **Interactive Command Console:** Parse serial strings (`help`, `status`) at 115200 baud without blocking. |
+| [**5. SPI Master/Slave**](spi.md) | `[INTUITION]` | The 4 clock modes (CPOL/CPHA), chip select (`CS`), full-duplex shift registers. | **Flash JEDEC ID Reader:** Read manufacturer ID from an external SPI Flash memory (W25Qxx). |
+| [**6. I2C Bus**](i2c.md) | `[DEEP DIVE]` | Open-drain, 7-bit addressing, ACK/NACK, pull-up sizing, 9-clock bus lockup recovery. | **BMP280 Sensor Driver:** Read raw temperature/pressure registers and compute factory compensation math. |
+| [**7. ADC & DAC**](adc-dac.md) | `[DEEP DIVE]` | Successive Approximation (SAR), sampling time, reference voltage ($V_{REF}$), continuous DMA. | **Analog Battery Monitor:** Sample potentiometer or battery voltage via ADC DMA with rolling average filter. |
 
 ---
 

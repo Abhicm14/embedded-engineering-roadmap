@@ -1,7 +1,8 @@
 # 🧠 Embedded Engineering Prerequisites
 
-> **What Every Aspiring Embedded Engineer (Even a 16-Year-Old!) Must Know Before Writing Code**  
-> *"If you cannot trace the electrical signal, register bit, and memory address behind your code, you are guessing, not engineering."*
+> **What Every Aspiring Embedded Engineer (From True Beginners to Advanced) Must Know Before Writing Code**  
+> *"If you cannot trace the electrical signal, register bit, and memory address behind your code, you are guessing, not engineering."*  
+> 💡 *Total beginner with zero prior code or circuits? Start with our [**🌱 True Beginner On-Ramp (`beginner-onramp/`)**](beginner-onramp/README.md) for 6 tiny hands-on simulator projects! Confused by any term? Check our [**📖 Beginner Glossary (`cheatsheets/glossary.md`)**](cheatsheets/glossary.md).*
 
 ---
 

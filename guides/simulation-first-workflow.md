@@ -11,7 +11,7 @@
 2. **Zero Financial or Shipping Friction:** You can master ARM Cortex-M4 startup code, FreeRTOS dual-core task synchronization, and automotive CAN protocols today without waiting for circuit boards to arrive.
 3. **Perfect Diagnostic Visibility:** Simulators allow you to pause CPU execution, inspect physical register flip-flops, export digital waveforms directly to **PulseView**, and hook up GDB step-debugging with zero cabling issues.
 
-> 💡 **The 16-Year-Old Plain English Analogy:**  
+> 💡 **The Flight Simulator Analogy:**  
 > Before airline pilots fly a real Boeing 747 airplane with passengers, they spend hundreds of hours inside a **Flight Simulator**.  
 > If they make a mistake in the flight simulator, they just hit the **"Restart"** button! No planes crash and nobody gets hurt.  
 > In embedded systems, software simulators (like PICSimLab and Wokwi) are your **Flight Simulator**! You can wire up virtual circuits, test your code, and make all your mistakes safely on your laptop screen before plugging in real physical hardware!
