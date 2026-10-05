@@ -101,7 +101,7 @@ Before writing code for STM32, PIC, ESP32, or AVR, review our dedicated foundati
 
 - [🎯 Is This For Me? Where to Start](#-is-this-for-me-where-should-you-start)
 - [🌱 True Beginner On-Ramp](#-true-beginner-on-ramp-gentle--hands-on)
-- [🧠 Prerequisites: What to Learn Before Coding](#-prerequisites-what-to-learn-before-coding)
+- [🧠 Prerequisites: What to Learn Before Writing Code](#-prerequisites-what-to-learn-before-writing-code)
 - [The 3 Pillars of Embedded Systems Taxonomy](#-the-3-pillars-of-embedded-systems-taxonomy)
 - [The 4-Pillar, 8-Step Guided Learning Path](#-the-4-pillar-8-step-guided-learning-path)
 - [🔬 Bare-Metal GPIO Walkthroughs Across MCUs](#-bare-metal-gpio-walkthroughs-across-mcus)
@@ -158,8 +158,8 @@ The learning path progresses sequentially across **4 Pillars** spanning **8 Step
 | :---: | :--- | :--- | :--- |
 | **01** | [**C & Embedded C**](curriculum/01-c-embedded-c/README.md) | Pointers, memory layout, structs, bitwise manipulation, `volatile`/`const`, MISRA-C. | Circular ring buffer, FSM, and switch debounce in C. |
 | **02** | [**Electronics & Computer Fundamentals**](curriculum/02-electronics-computer-fundamentals/README.md) | Ohm's law, pull-ups, MOSFETs, gates, CPU registers, ALU, scopes, and logic analyzers. | Pull-up calculation, low-side switch wiring, and UART signal decode. |
-| **03** | [**STM32 & Microcontrollers**](curriculum/03-stm32-microcontrollers/README.md) | Cortex-M architecture, vector table, startup code, linker script, Makefiles, RCC clock trees. | [Project 1: Bare-Metal GPIO & SysTick FSM](projects/beginner.md#project-1-gpio-control-board) |
-| **04** | [**Essential MCU Peripherals**](curriculum/04-essential-mcu-peripherals/README.md) | GPIO, Timers, PWM, Interrupts/NVIC, UART, SPI, I2C, ADC, DAC, and failure modes. | [Project 2: UART Command Console](projects/beginner.md#project-2-uart-command-console) |
+| **03** | [**STM32 & Microcontrollers**](curriculum/03-stm32-microcontrollers/README.md) | Cortex-M architecture, vector table, startup code, linker script, Makefiles, RCC clock trees. | [Project 1: Bare-Metal GPIO & SysTick FSM](projects/beginner.md#project-1-gpio-control-board-bare-metal-systick-fsm) |
+| **04** | [**Essential MCU Peripherals**](curriculum/04-essential-mcu-peripherals/README.md) | GPIO, Timers, PWM, Interrupts/NVIC, UART, SPI, I2C, ADC, DAC, and failure modes. | [Project 2: UART Command Console](projects/beginner.md#project-2-uart-command-console-ring-buffer--shell) |
 | **05** | [**Engineering Workflow & Debugging**](curriculum/05-engineering-workflow/README.md) | SWD/JTAG, GDB, watchpoints, logic analyzers, scopes, HardFault triage, Git, and CI/CD. | Decode HardFault stack frame and isolate crashing line in `.map` file. |
 | **06** | [**FreeRTOS & RTOS Internals**](curriculum/06-freertos-rtos/README.md) | Task states, TCB, PendSV context switch, Queues, Mutexes, PIP, and alternative RTOSes. | [Project 5: FreeRTOS Environmental Monitor](projects/intermediate.md#project-5-freertos-environmental-monitor) |
 | **07** | [**Embedded Linux & System Architecture**](curriculum/07-embedded-linux/README.md) | Boot sequence, U-Boot, Device Trees, Kernel modules, character drivers, and POSIX I/O. | Minimal Linux kernel in QEMU + custom character device driver. |
@@ -204,13 +204,13 @@ Month 6: Flagship Capstone, Testing, Resume ─────► Industry Portfoli
 
 Each project includes architecture diagrams, hardware pinouts, register-level analysis, and complete runnable code:
 
-1. [**GPIO Control Board**](projects/beginner.md#project-1-gpio-control-board) (C, Bare-Metal GPIO, SysTick FSM)
-2. [**UART Command Console**](projects/beginner.md#project-2-uart-command-console) (UART, Interrupts, Lock-Free Ring Buffer, CLI Shell)
-3. [**Sensor Data Logger**](projects/intermediate.md#project-3-sensor-data-logger) (I2C BMP280, SPI Flash W25Qxx, DMA)
-4. [**PWM Fan/Motor Controller**](projects/intermediate.md#project-4-pwm-fanmotor-controller) (Timer PWM, Input Capture, Closed-Loop PID)
+1. [**GPIO Control Board**](projects/beginner.md#project-1-gpio-control-board-bare-metal-systick-fsm) (C, Bare-Metal GPIO, SysTick FSM)
+2. [**UART Command Console**](projects/beginner.md#project-2-uart-command-console-ring-buffer--shell) (UART, Interrupts, Lock-Free Ring Buffer, CLI Shell)
+3. [**Sensor Data Logger**](projects/intermediate.md#project-3-sensor-data-logger-i2c-spi--dma) (I2C BMP280, SPI Flash W25Qxx, DMA)
+4. [**PWM Fan/Motor Controller**](projects/intermediate.md#project-4-pwm-fanmotor-controller-with-closed-loop-pid) (Timer PWM, Input Capture, Closed-Loop PID)
 5. [**FreeRTOS Environmental Monitor**](projects/intermediate.md#project-5-freertos-environmental-monitor) (FreeRTOS Tasks, Queues, Mutexes with PIP, Low Power)
-6. [**Connected IoT Node**](projects/advanced.md#project-6-connected-iot-node) (Wi-Fi, TLS 1.3, MQTT, Dual-Bank A/B Fail-Safe OTA)
-7. [**TinyML Edge Device**](projects/advanced.md#project-7-tinyml-edge-device) (6-Axis IMU, CMSIS-NN Quantized INT8 Gesture Classifier)
+6. [**Connected IoT Node**](projects/advanced.md#project-6-connected-iot-node-tls-13-mqtt--fail-safe-ota) (Wi-Fi, TLS 1.3, MQTT, Dual-Bank A/B Fail-Safe OTA)
+7. [**TinyML Edge Device**](projects/advanced.md#project-7-tinyml-edge-device-cmsis-nn-quantized-gesture-classifier) (6-Axis IMU, CMSIS-NN Quantized INT8 Gesture Classifier)
 
 ---
 
@@ -346,23 +346,27 @@ embedded-engineering-roadmap/
 │   ├── esp32/                        # ESP32 FreeRTOS multi-core projects
 │   └── stm32/                        # STM32 bare-metal C drivers & linker scripts
 ├── resources/                        # Quality-Rated Resource Hub
+│   ├── README.md                     # Curated hub overview & rating guide
 │   ├── books.md
 │   ├── courses.md
 │   ├── tools-and-software.md
 │   ├── youtube-and-blogs.md
 │   └── datasheets-and-reference.md
 ├── projects/                         # Portfolio Projects
+│   ├── README.md                     # 7-Project portfolio matrix & guidelines
 │   ├── beginner.md                   # Projects 1 & 2 + PIC Beginner Projects
 │   ├── intermediate.md               # Projects 3, 4 & 5 + PIC Intermediate Projects
 │   └── advanced.md                   # Projects 6 & 7, CAN Node + PIC Advanced Projects
 ├── code-examples/                    # Reference code templates & step-by-step breakdowns
+│   ├── README.md                     # 7-Step Code Construction Workflow guide
 │   ├── c/                            # Ring buffer, FSM, debounce, CRC, bit-ops, parser
 │   ├── xc8/                          # PIC16F877A XC8 register-level examples (8 files)
-│   ├── arduino/                      # Arduino framework & bare-metal AVR GPIO guide
+│   ├── arduino/                      # AVR ATmega328P Timer1 CTC interrupt blinky
 │   ├── stm32/                        # STM32 register-level blinky
-│   ├── esp32/                        # ESP32 FreeRTOS Wi-Fi blinky & register GPIO guide
+│   ├── esp32/                        # ESP32 FreeRTOS Wi-Fi blinky
 │   └── verilog/                      # Verilog clock divider & UART TX module
 ├── cheatsheets/                      # High-density reference cards
+│   ├── README.md                     # Cheatsheets index & quick-reference hub
 │   ├── glossary.md                   # Beginner's glossary (21 core terms with analogies)
 │   ├── c-cheatsheet.md
 │   ├── bitwise-cheatsheet.md
@@ -373,6 +377,8 @@ embedded-engineering-roadmap/
 │   ├── interview-checklist.md
 │   └── common-mistakes.md
 ├── .github/                          # CI workflow and issue templates
+├── _sidebar.md                       # Docsify navigation sidebar
+├── index.html                        # Docsify single-page documentation app
 ├── SETUP.md                          # Local preview and toolchain installation guide
 ├── CONTRIBUTING.md                   # Contributor guidelines
 ├── CODE_OF_CONDUCT.md               # Contributor Covenant v2.1

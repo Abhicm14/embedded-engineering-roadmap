@@ -60,12 +60,12 @@
 Use this interactive checklist to track your progress through the curriculum. Topics are tagged as **`[INTUITION]`** (accessible starting concepts) and **`[DEEP DIVE]`** (advanced systems topics to tackle after building projects).
 
 - [ ] ### [Step 0: Prerequisites & Foundation Pre-Checks [INTUITION]](PREREQUISITES.md)
-  - [ ] Binary, Hexadecimal, Two's Complement, and Bitmasking fluency ([Guide](PREREQUISITES.md#1-mathematical--number-systems-foundations))
-  - [ ] Circuit physics: Ohm's law, pull-ups, capacitive decoupling, ground loops ([Guide](PREREQUISITES.md#2-electrical-physics--circuit-prereqs))
-  - [ ] Computer architecture: Harvard vs Von Neumann, memory map, peripheral buses ([Guide](PREREQUISITES.md#3-microcontroller--computer-architecture-essentials))
-  - [ ] Embedded C hygiene: Avoid dynamic allocation, pointer safety, volatile ([Guide](PREREQUISITES.md#4-embedded-c-programming-prerequisites))
-  - [ ] Datasheet & register comprehension: TRIS/MODER, PORT/ODR, CR/SR registers ([Guide](PREREQUISITES.md#5-how-to-read-a-silicon-reference-manual))
-  - [ ] Lab equipment setup: Multimeter continuity/voltage, logic analyzer capture ([Guide](PREREQUISITES.md#6-workbench-test-equipment--diagnostic-mindset))
+  - [ ] Binary, Hexadecimal, Two's Complement, and Bitmasking fluency ([Guide](PREREQUISITES.md#1-numbers--math-made-simple))
+  - [ ] Circuit physics: Ohm's law, pull-ups, capacitive decoupling, ground loops ([Guide](PREREQUISITES.md#2-electricity--circuits-demystified))
+  - [ ] Computer architecture: Harvard vs Von Neumann, memory map, peripheral buses ([Guide](PREREQUISITES.md#3-inside-the-microcontrollers-brain))
+  - [ ] Embedded C hygiene: Avoid dynamic allocation, pointer safety, volatile ([Guide](PREREQUISITES.md#4-embedded-c-superpowers))
+  - [ ] Datasheet & register comprehension: TRIS/MODER, PORT/ODR, CR/SR registers ([Guide](PREREQUISITES.md#5-how-to-read-a-datasheet-without-your-brain-exploding))
+  - [ ] Lab equipment setup: Multimeter continuity/voltage, logic analyzer capture ([Guide](PREREQUISITES.md#6-workbench-test-equipment-your-superhero-toolkit))
   - [ ] Master the 7-Step Code Construction Workflow ([Guide](PREREQUISITES.md#7-the-7-step-code-construction-workflow))
   - [ ] Complete the Pre-Coding Self-Assessment Checklist ([Assessment](PREREQUISITES.md#8-pre-coding-self-assessment-checklist))
 
@@ -89,11 +89,11 @@ Use this interactive checklist to track your progress through the curriculum. To
 - [ ] ### [Step 3: STM32 & Microcontrollers [INTUITION & BARE-METAL]](curriculum/03-stm32-microcontrollers/README.md)
   - [ ] ARM Cortex-M architecture, core registers, and operating modes ([Guide](curriculum/03-stm32-microcontrollers/cortex-m-core-and-registers.md))
   - [ ] Boot sequence: Reset signal to `Reset_Handler` to `main()` ([Guide](curriculum/03-stm32-microcontrollers/clock-tree-and-reset.md))
-  - [ ] Authoring bare-metal `startup.c` and vector table `[DEEP DIVE]`
+  - [ ] Authoring bare-metal `startup.c` and vector table `[DEEP DIVE]` ([Guide](curriculum/03-stm32-microcontrollers/vector-table-and-nvic.md))
   - [ ] Linker scripts: `MEMORY`, `SECTIONS`, LMA vs VMA `[DEEP DIVE]` ([Guide](curriculum/03-stm32-microcontrollers/toolchains-linkers-makefiles.md))
   - [ ] Configuring RCC clock trees, Phase-Locked Loop (PLL), and Flash latency ([Guide](curriculum/03-stm32-microcontrollers/clock-tree-and-reset.md))
   - [ ] Bare-Metal Register Walkthrough: Configure STM32 GPIO registers by hand ([Walkthrough Guide](curriculum/03-stm32-microcontrollers/gpio-bare-metal-walkthrough.md))
-  - [ ] **Milestone Project:** [Project 1: Bare-Metal GPIO & SysTick FSM](projects/beginner.md#project-1-gpio-control-board)
+  - [ ] **Milestone Project:** [Project 1: Bare-Metal GPIO & SysTick FSM](projects/beginner.md#project-1-gpio-control-board-bare-metal-systick-fsm)
 
 - [ ] ### [Step 4: Essential MCU Peripherals [INTUITION & PROTOCOLS]](curriculum/04-essential-mcu-peripherals/README.md)
   - [ ] GPIO registers: Mode, speed, pull-ups, and atomic `BSRR` ([Guide](curriculum/04-essential-mcu-peripherals/gpio.md))
@@ -106,7 +106,7 @@ Use this interactive checklist to track your progress through the curriculum. To
   - [ ] SPI: The 4 clock modes (CPOL/CPHA) and slave selection ([Guide](curriculum/04-essential-mcu-peripherals/spi.md))
   - [ ] I2C: Open-drain, pull-ups, ACK/NACK, and 9-clock recovery `[DEEP DIVE]` ([Guide](curriculum/04-essential-mcu-peripherals/i2c.md))
   - [ ] ADC/DAC: Successive approximation, sampling time, and DMA `[DEEP DIVE]` ([Guide](curriculum/04-essential-mcu-peripherals/adc-dac.md))
-  - [ ] **Milestone Project:** [Project 2: UART Command Console](projects/beginner.md#project-2-uart-command-console)
+  - [ ] **Milestone Project:** [Project 2: UART Command Console](projects/beginner.md#project-2-uart-command-console-ring-buffer--shell)
 
 - [ ] ### [Step 5: Engineering Workflow & Debugging [INTUITION & WORKFLOW]](curriculum/05-engineering-workflow/README.md)
   - [ ] GDB on-chip debugging: Breakpoints, hardware watchpoints, and memory dumps ([Guide](curriculum/05-engineering-workflow/debugging-and-gdb.md))

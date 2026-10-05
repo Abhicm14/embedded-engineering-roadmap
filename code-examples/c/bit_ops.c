@@ -33,7 +33,7 @@ static uint32_t PopCount(uint32_t n) {
 static uint32_t EndianSwap32(uint32_t x) {
     return (((x & 0x000000FFUL) << 24) |
             ((x & 0x0000FF00UL) << 8)  |
-            ((x & 0x00FF00FFUL) >> 8)  |
+            ((x & 0x00FF0000UL) >> 8)  |
             ((x & 0xFF000000UL) >> 24));
 }
 

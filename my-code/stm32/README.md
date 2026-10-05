@@ -1,7 +1,7 @@
 # 🦾 STM32 ARM Cortex-M4 Custom Workspace
 
 > **Silicon Platform:** STMicroelectronics STM32F4 (ARM Cortex-M4 with FPU, 84/100 MHz, 256/512 KB Flash)  
-> **Simulation First:** [**Wokwi STM32 Simulator**](https://wokwi.com/projects/new/pi-pico) / [**QEMU ARM Cortex-M**](https://www.qemu.org/)
+> **Simulation First:** [**Wokwi STM32 Simulator**](https://wokwi.com/) / [**QEMU ARM Cortex-M**](https://www.qemu.org/)
 
 ---
 

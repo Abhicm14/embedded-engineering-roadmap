@@ -8,17 +8,17 @@
 
 | Level | Project # & Name | Silicon Platform | Core Technologies | Target Guide |
 | :---: | :--- | :--- | :--- | :--- |
-| **Beginner** | **1. GPIO Control Board** | STM32F4 (Cortex-M4) | Bare-metal C (No HAL), Linker script, SysTick timer, Debounced switch FSM. | [`beginner.md`](beginner.md#project-1-gpio-control-board) |
-| **Beginner** | **2. UART Command Console** | STM32F4 / ESP32 | Circular FIFO buffer, interrupt-driven UART, command parser shell. | [`beginner.md`](beginner.md#project-2-uart-command-console) |
-| **Intermediate** | **3. Sensor Data Logger** | STM32F4 / Black Pill | I2C sensor driver (BMP280), SPI Flash memory (W25Qxx), DMA transfers. | [`intermediate.md`](intermediate.md#project-3-sensor-data-logger) |
-| **Intermediate** | **4. PWM Fan/Motor Controller** | STM32F4 / N-FET | Hardware timer PWM, ADC tachometer input, closed-loop PID control. | [`intermediate.md`](intermediate.md#project-4-pwm-fanmotor-controller) |
+| **Beginner** | **1. GPIO Control Board** | STM32F4 (Cortex-M4) | Bare-metal C (No HAL), Linker script, SysTick timer, Debounced switch FSM. | [`beginner.md`](beginner.md#project-1-gpio-control-board-bare-metal-systick-fsm) |
+| **Beginner** | **2. UART Command Console** | STM32F4 / ESP32 | Circular FIFO buffer, interrupt-driven UART, command parser shell. | [`beginner.md`](beginner.md#project-2-uart-command-console-ring-buffer--shell) |
+| **Intermediate** | **3. Sensor Data Logger** | STM32F4 / Black Pill | I2C sensor driver (BMP280), SPI Flash memory (W25Qxx), DMA transfers. | [`intermediate.md`](intermediate.md#project-3-sensor-data-logger-i2c-spi--dma) |
+| **Intermediate** | **4. PWM Fan/Motor Controller** | STM32F4 / N-FET | Hardware timer PWM, ADC tachometer input, closed-loop PID control. | [`intermediate.md`](intermediate.md#project-4-pwm-fanmotor-controller-with-closed-loop-pid) |
 | **Intermediate** | **5. FreeRTOS Environmental Monitor** | STM32 / FreeRTOS | Preemptive multitasking, Queues, Mutex with Priority Inheritance, low-power. | [`intermediate.md`](intermediate.md#project-5-freertos-environmental-monitor) |
-| **Advanced** | **6. Connected IoT Node** | ESP32 / STM32+WiFi | TLS 1.3 encryption, MQTT pub/sub, Dual-bank Flash A/B fail-safe OTA updates. | [`advanced.md`](advanced.md#project-6-connected-iot-node) |
-| **Advanced** | **7. TinyML Edge Device** | Cortex-M4F / IMU | TensorFlow Lite Micro, CMSIS-NN Quantized INT8, real-time gesture classification. | [`advanced.md`](advanced.md#project-7-tinyml-edge-device) |
+| **Advanced** | **6. Connected IoT Node** | ESP32 / STM32+WiFi | TLS 1.3 encryption, MQTT pub/sub, Dual-bank Flash A/B fail-safe OTA updates. | [`advanced.md`](advanced.md#project-6-connected-iot-node-tls-13-mqtt--fail-safe-ota) |
+| **Advanced** | **7. TinyML Edge Device** | Cortex-M4F / IMU | TensorFlow Lite Micro, CMSIS-NN Quantized INT8, real-time gesture classification. | [`advanced.md`](advanced.md#project-7-tinyml-edge-device-cmsis-nn-quantized-gesture-classifier) |
 
 > [!TIP]
 > **Looking for 8-Bit Architecture Projects?**  
-> Check out the [**PIC Microcontroller Projects**](beginner.md#pic-beginner-projects) covering the PIC16F877A, including Digital I/O, Timers, ADC, PWM, UART, I2C, and EEPROM storage.
+> Check out the [**PIC Microcontroller Projects**](beginner.md#-pic-beginner-track-projects-p1--p2) covering the PIC16F877A, including Digital I/O, Timers, ADC, PWM, UART, I2C, and EEPROM storage.
 >
 > 🛑 **Construction Rule:** Build every project using the [**7-Step Code Construction Workflow**](../code-examples/README.md#the-7-step-code-construction-methodology). Do not copy-paste code; write it register-by-register after inspecting the hardware schematic and datasheet.
 

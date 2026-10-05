@@ -1,4 +1,4 @@
-# PIC Microcontroller Installation Guide
+# 🔌 PIC Microcontroller Installation Guide
 
 > A step-by-step guide to installing the MPLAB X IDE, XC8 Compiler, and PICSimLab simulator for the PIC16F877A microcontroller.
 
@@ -68,7 +68,7 @@ To test the firmware on real hardware:
 2. **Pinout Reference:**
    - **RB0** (Pin 33) → LED (with 220Ω resistor)
    - **RB1** (Pin 34) → Button (with 10k pull-up)
-   - **RA0** (Pin 29) → Potentiometer wiper (analog input)
+   - **RA0** (Pin 2) → Potentiometer wiper (analog input)
 3. **Power Supply:** 5V DC (3.6V–5.5V acceptable)
 4. **Connect PICSimLab** to the hardware via USB or JTAG
 

@@ -31,9 +31,9 @@ Peripherals are the dedicated silicon hardware engines that allow the CPU to int
 
 ## 🛠️ Associated Projects
 
-- **[Project 2: UART Command Console](../../projects/beginner.md#project-2-uart-command-console)**
-- **[Project 3: Sensor Data Logger](../../projects/intermediate.md#project-3-sensor-data-logger)**
-- **[Project 4: PWM Fan/Motor Controller](../../projects/intermediate.md#project-4-pwm-fanmotor-controller)**
+- **[Project 2: UART Command Console](../../projects/beginner.md#project-2-uart-command-console-ring-buffer--shell)**
+- **[Project 3: Sensor Data Logger](../../projects/intermediate.md#project-3-sensor-data-logger-i2c-spi--dma)**
+- **[Project 4: PWM Fan/Motor Controller](../../projects/intermediate.md#project-4-pwm-fanmotor-controller-with-closed-loop-pid)**
 
 ---
 

@@ -31,18 +31,18 @@ Transform from a generalist into an industry-ready embedded systems specialist. 
 
 ## 🛠️ Associated Capstone Projects
 
-- **[Project 4: Automotive CAN Bus Gateway](../../projects/intermediate.md#project-4-automotive-can-bus-gateway--telemetry-node)**
-- **[Project 6: Connected IoT Node](../../projects/advanced.md#project-6-connected-iot-node)**
-- **[Project 7: TinyML Edge Device](../../projects/advanced.md#project-7-tinyml-edge-device)**
+- **[Automotive CAN Bus Gateway Node](../../projects/advanced.md#specialization-add-on-automotive-can-bus-gateway-node)**
+- **[Project 6: Connected IoT Node](../../projects/advanced.md#project-6-connected-iot-node-tls-13-mqtt--fail-safe-ota)**
+- **[Project 7: TinyML Edge Device](../../projects/advanced.md#project-7-tinyml-edge-device-cmsis-nn-quantized-gesture-classifier)**
 
 ---
 
 ## 🏆 The Job-Ready Milestone
 
 You are ready to apply for junior-to-mid level Embedded Software / Firmware Engineering roles when:
-1. You can code a lock-free circular FIFO ring buffer and FSM in C without looking up syntax.
-2. You have built and documented **at least three flagship projects**:
-   - One bare-metal STM32 register project.
-   - One FreeRTOS multi-threaded synchronization project.
-   - One specialization capstone project (Automotive CAN, Secure IoT, or TinyML).
-3. Your GitHub repository contains clean code, circuit schematics, build instructions, and oscilloscope / logic analyzer capture traces.
+- [ ] You can code a lock-free circular FIFO ring buffer and FSM in C without looking up syntax.
+- [ ] You have built and documented **at least three flagship projects**:
+  - [ ] One bare-metal STM32 register project.
+  - [ ] One FreeRTOS multi-threaded synchronization project.
+  - [ ] One specialization capstone project (Automotive CAN, Secure IoT, or TinyML).
+- [ ] Your GitHub repository contains clean code, circuit schematics, build instructions, and oscilloscope / logic analyzer capture traces.
