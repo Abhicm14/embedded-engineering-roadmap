@@ -27,6 +27,7 @@ Transition from generic programming to bare-metal microcontroller engineering us
 | [**3. Vector Table & NVIC Architecture**](vector-table-and-nvic.md) | `[INTUITION]` | Exception vectors, VTOR relocation, NVIC priority grouping, tail-chaining. |
 | [**4. Toolchains, Linker Scripts & Makefiles**](toolchains-linkers-makefiles.md) | `[DEEP DIVE]` | GNU Arm toolchain, `MEMORY`/`SECTIONS` directives, LMA vs VMA, build automation. |
 | [**5. Layered Firmware Architecture**](firmware-architecture.md) | `[INTUITION]` | Hardware Abstraction Layer, Board Support Package (BSP), device drivers, app layers. |
+| [**6. Bare-Metal GPIO Walkthrough (`PB12`)**](gpio-bare-metal-walkthrough.md) | `[INTUITION]` | Register-by-register manual configuration: AHB1 clock, MODER, OTYPER, OSPEEDR, and atomic BSRR. |
 
 ---
 

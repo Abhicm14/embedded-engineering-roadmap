@@ -15,7 +15,8 @@ This track teaches PIC microcontroller programming at the register level, focusi
 
 > [!IMPORTANT]
 > **Writing Your Own Drivers from the Datasheet:**  
-> Before writing code, study our dedicated master guide: [**📖 How to Read Any Silicon Datasheet & Write Custom Peripheral Drivers (`datasheet-driver-guide.md`)**](datasheet-driver-guide.md). It breaks down the universal 7-step datasheet navigation method and provides register blueprints for every peripheral.  
+> Before writing code, study our dedicated master guide: [**📖 How to Read Any Silicon Datasheet & Write Custom Peripheral Drivers (`datasheet-driver-guide.md`)**](datasheet-driver-guide.md).  
+> Looking for the complete register-by-register breakdown for Port B? Read our [**🔌 Bare-Metal PIC GPIO Walkthrough (`gpio-bare-metal-walkthrough.md`)**](gpio-bare-metal-walkthrough.md).  
 > Ready to write your own drivers? Use your personal workspace: [**`my-code/pic16f877a/`**](../my-code/pic16f877a/README.md).
 
 ## 🛠️ Toolchain

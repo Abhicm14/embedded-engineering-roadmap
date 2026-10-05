@@ -98,6 +98,7 @@ Before writing code for STM32, PIC, ESP32, or AVR, review our dedicated foundati
 - [🧠 Prerequisites: What to Learn Before Coding](#-prerequisites-what-to-learn-before-coding)
 - [The 3 Pillars of Embedded Systems Taxonomy](#-the-3-pillars-of-embedded-systems-taxonomy)
 - [The 4-Pillar, 8-Step Guided Learning Path](#-the-4-pillar-8-step-guided-learning-path)
+- [🔬 Bare-Metal GPIO Walkthroughs Across MCUs](#-bare-metal-gpio-walkthroughs-across-mcus)
 - [The 6-Month Structured Plan & Fast-Track](#-the-6-month-structured-plan)
 - [The 7 Production-Grade Portfolio Projects](#-the-7-production-grade-portfolio-projects)
 - [Student Starter Hardware Lab Equipment](#-student-starter-hardware-lab-equipment)
@@ -157,6 +158,23 @@ The learning path progresses sequentially across **4 Pillars** spanning **8 Step
 | **06** | [**FreeRTOS & RTOS Internals**](curriculum/06-freertos-rtos/README.md) | Task states, TCB, PendSV context switch, Queues, Mutexes, PIP, and alternative RTOSes. | [Project 5: FreeRTOS Environmental Monitor](projects/intermediate.md#project-5-freertos-environmental-monitor) |
 | **07** | [**Embedded Linux & System Architecture**](curriculum/07-embedded-linux/README.md) | Boot sequence, U-Boot, Device Trees, Kernel modules, character drivers, and POSIX I/O. | Minimal Linux kernel in QEMU + custom character device driver. |
 | **08** | [**Specialization, Career & Job Readiness**](curriculum/08-specialization-career/README.md) | Automotive CAN/AUTOSAR, Secure IoT & OTA, TinyML Edge AI, and interview prep. | Flagship GitHub portfolio + 50+ interview questions drill. |
+
+---
+
+## 🔬 Bare-Metal GPIO Walkthroughs Across MCUs
+
+The non-negotiable rule of firmware engineering is: **never program peripherals only as abstract library APIs**. A professional embedded engineer opens the silicon reference manual, traces the peripheral's internal bus matrix routing, ungates the peripheral clock, configures physical direction and electrical drive modes, and commands atomic bit modifications.
+
+To bridge the gap between theoretical reference manuals and compilable C code, we provide deep-dive, step-by-step register configuration walkthroughs for all four microcontrollers in this curriculum:
+
+| Target Architecture | Microcontroller | Reference Manual Chapter | Target Pin | Key Registers Configured | Deep-Dive Walkthrough |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **ARM Cortex-M4** | **STM32F411 / F401** | RM0383 Ch. 6 (RCC) & Ch. 8 (GPIO) | `PB12` | `RCC_AHB1ENR`, `GPIOB_MODER`, `OTYPER`, `OSPEEDR`, `PUPDR`, `BSRR` | [**STM32 GPIO Walkthrough**](curriculum/03-stm32-microcontrollers/gpio-bare-metal-walkthrough.md) |
+| **8-Bit PIC** | **PIC16F877A** | DS39582C Ch. 4 (I/O Ports) | `RB0` | `TRISB` (inv. polarity), `PORTB`, `OPTION_REG` (weak pull-up) | [**PIC16F877A GPIO Walkthrough**](pic-mplab-xc8/gpio-bare-metal-walkthrough.md) |
+| **8-Bit AVR** | **ATmega328P (Arduino Uno)** | ATmega328P Ch. 14 (I/O Ports) | `PB5` (Pin 13) | `DDRB`, `PORTB`, `PINB` (1-cycle atomic hardware toggle) | [**AVR ATmega328P Walkthrough**](curriculum/reference/gpio-bare-metal-walkthrough-avr.md) |
+| **Dual-Core Xtensa** | **ESP32** | ESP32 TRM Ch. 4 (IO MUX / GPIO) | `GPIO2` (LED) | `IO_MUX_GPIO2_REG`, `GPIO_ENABLE_W1TS_REG`, `GPIO_OUT_W1TS_REG`, `W1TC` | [**ESP32 GPIO Walkthrough**](curriculum/reference/gpio-bare-metal-walkthrough-esp32.md) |
+
+👉 **Read the Silicon Comparison**: [**Cross-MCU GPIO Register Comparison Table & Architectural Lessons (`curriculum/reference/gpio-registers-across-mcus.md`)**](curriculum/reference/gpio-registers-across-mcus.md)
 
 ---
 
@@ -291,17 +309,22 @@ embedded-engineering-roadmap/
 │   ├── 01-c-embedded-c/              # Step 1: C, memory model, volatile, advanced pointers
 │   ├── 02-electronics-computer-fundamentals/ # Step 2: Circuits, gates, CPU, scopes, DMM
 │   ├── 03-stm32-microcontrollers/    # Step 3: Cortex-M, vector table, startup, linkers
+│   │   └── gpio-bare-metal-walkthrough.md # Step-by-step STM32 register walkthrough
 │   ├── 04-essential-mcu-peripherals/ # Step 4: GPIO, Timers, PWM, UART, SPI, I2C, ADC
 │   ├── 05-engineering-workflow/      # Step 5: GDB, logic analyzers, HardFaults, Git
 │   ├── 06-freertos-rtos/             # Step 6: FreeRTOS kernel, queues, mutexes, PIP [DEEP DIVE]
 │   ├── 07-embedded-linux/            # Step 7: Boot flow, U-Boot, Device Trees, drivers [DEEP DIVE]
 │   ├── 08-specialization-career/     # Step 8: Automotive, IoT, TinyML, interviews [DEEP DIVE]
-│   └── reference/                    # Broad 3-Pillar Taxonomy Reference
+│   └── reference/                    # Broad 3-Pillar Taxonomy Reference & Silicon Walkthroughs
 │       ├── software.md
 │       ├── hardware.md
-│       └── soft-skills.md
+│       ├── soft-skills.md
+│       ├── gpio-registers-across-mcus.md       # Cross-architecture silicon comparison
+│       ├── gpio-bare-metal-walkthrough-avr.md   # ATmega328P register walkthrough
+│       └── gpio-bare-metal-walkthrough-esp32.md # ESP32 register walkthrough
 ├── pic-mplab-xc8/                    # PIC Microcontroller Track (MPLAB X, XC8, PICSimLab)
 │   ├── README.md                     # Overview, toolchain, and 13-step learning sequence
+│   ├── gpio-bare-metal-walkthrough.md # Step-by-step PIC16F register walkthrough
 │   ├── datasheet-driver-guide.md     # How to read any datasheet and write custom drivers
 │   ├── installation.md               # MPLAB X / XC8 / PICSimLab setup guide
 │   ├── beginner.md                   # Steps 1-3: blink, GPIO, timers
@@ -329,9 +352,9 @@ embedded-engineering-roadmap/
 ├── code-examples/                    # Reference code templates & step-by-step breakdowns
 │   ├── c/                            # Ring buffer, FSM, debounce, CRC, bit-ops, parser
 │   ├── xc8/                          # PIC16F877A XC8 register-level examples (8 files)
-│   ├── arduino/                      # Arduino framework blinky
+│   ├── arduino/                      # Arduino framework & bare-metal AVR GPIO guide
 │   ├── stm32/                        # STM32 register-level blinky
-│   ├── esp32/                        # ESP32 FreeRTOS Wi-Fi blinky
+│   ├── esp32/                        # ESP32 FreeRTOS Wi-Fi blinky & register GPIO guide
 │   └── verilog/                      # Verilog clock divider & UART TX module
 ├── cheatsheets/                      # High-density reference cards
 │   ├── glossary.md                   # Beginner's glossary (21 core terms with analogies)

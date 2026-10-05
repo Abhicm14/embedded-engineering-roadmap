@@ -51,7 +51,7 @@
 
 > [!TIP]
 > **Alternative 8-Bit Architecture Path: PIC Microcontrollers**  
-> If your curriculum or industry focus starts with 8-bit Harvard microcontrollers before 32-bit ARM Cortex-M, explore our dedicated [**PIC Microcontroller Track (`pic-mplab-xc8/`)**](pic-mplab-xc8/README.md). It covers the Microchip PIC16F877A, MPLAB X IDE, XC8 compiler, and PICSimLab simulation across 13 progressive register-level steps.
+> If your curriculum or industry focus starts with 8-bit Harvard microcontrollers before 32-bit ARM Cortex-M, explore our dedicated [**PIC Microcontroller Track (`pic-mplab-xc8/`)**](pic-mplab-xc8/README.md) and its [**PIC Bare-Metal GPIO Walkthrough**](pic-mplab-xc8/gpio-bare-metal-walkthrough.md). It covers the Microchip PIC16F877A, MPLAB X IDE, XC8 compiler, and PICSimLab simulation across 13 progressive register-level steps.
 
 ---
 
@@ -92,10 +92,14 @@ Use this interactive checklist to track your progress through the curriculum. To
   - [ ] Authoring bare-metal `startup.c` and vector table `[DEEP DIVE]`
   - [ ] Linker scripts: `MEMORY`, `SECTIONS`, LMA vs VMA `[DEEP DIVE]` ([Guide](curriculum/03-stm32-microcontrollers/toolchains-linkers-makefiles.md))
   - [ ] Configuring RCC clock trees, Phase-Locked Loop (PLL), and Flash latency ([Guide](curriculum/03-stm32-microcontrollers/clock-tree-and-reset.md))
+  - [ ] Bare-Metal Register Walkthrough: Configure STM32 GPIO registers by hand ([Walkthrough Guide](curriculum/03-stm32-microcontrollers/gpio-bare-metal-walkthrough.md))
   - [ ] **Milestone Project:** [Project 1: Bare-Metal GPIO & SysTick FSM](projects/beginner.md#project-1-gpio-control-board)
 
 - [ ] ### [Step 4: Essential MCU Peripherals [INTUITION & PROTOCOLS]](curriculum/04-essential-mcu-peripherals/README.md)
   - [ ] GPIO registers: Mode, speed, pull-ups, and atomic `BSRR` ([Guide](curriculum/04-essential-mcu-peripherals/gpio.md))
+  - [ ] Cross-MCU GPIO Register Comparison (STM32, PIC, AVR, ESP32) ([Comparison Guide](curriculum/reference/gpio-registers-across-mcus.md))
+  - [ ] AVR ATmega328P Bare-Metal GPIO Walkthrough ([Guide](curriculum/reference/gpio-bare-metal-walkthrough-avr.md))
+  - [ ] ESP32 Bare-Metal GPIO Walkthrough ([Guide](curriculum/reference/gpio-bare-metal-walkthrough-esp32.md))
   - [ ] Hardware Timers & PWM generation ([Guide](curriculum/04-essential-mcu-peripherals/timers-and-pwm.md))
   - [ ] External interrupts (`EXTI`) and ISR design rules ([Guide](curriculum/04-essential-mcu-peripherals/interrupts-and-nvic.md))
   - [ ] UART: Asynchronous framing, baud calculation, and circular DMA ([Guide](curriculum/04-essential-mcu-peripherals/uart.md))

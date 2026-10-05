@@ -14,14 +14,18 @@
   - [Step 1: C & Embedded C](curriculum/01-c-embedded-c/README.md)
   - [Step 2: Electronics & Computer Fundamentals](curriculum/02-electronics-computer-fundamentals/README.md)
   - [Step 3: STM32 & Microcontrollers](curriculum/03-stm32-microcontrollers/README.md)
+    - [• Bare-Metal STM32 GPIO Walkthrough](curriculum/03-stm32-microcontrollers/gpio-bare-metal-walkthrough.md)
   - [Step 4: Essential MCU Peripherals](curriculum/04-essential-mcu-peripherals/README.md)
   - [Step 5: Engineering Workflow](curriculum/05-engineering-workflow/README.md)
   - [Step 6: FreeRTOS & RTOS](curriculum/06-freertos-rtos/README.md)
   - [Step 7: Embedded Linux](curriculum/07-embedded-linux/README.md)
   - [Step 8: Specializations & Career](curriculum/08-specialization-career/README.md)
 
-- **🏛️ Broad Taxonomy Reference**
+- **🏛️ Broad Taxonomy & Hardware Reference**
   - [Taxonomy Overview](curriculum/reference/README.md)
+  - [🗺️ GPIO Across Microcontrollers](curriculum/reference/gpio-registers-across-mcus.md)
+  - [• AVR ATmega328P GPIO Walkthrough](curriculum/reference/gpio-bare-metal-walkthrough-avr.md)
+  - [• ESP32 GPIO Walkthrough](curriculum/reference/gpio-bare-metal-walkthrough-esp32.md)
   - [💻 Software Taxonomy](curriculum/reference/software.md)
   - [🔌 Hardware Taxonomy](curriculum/reference/hardware.md)
   - [🧠 Soft Skills Taxonomy](curriculum/reference/soft-skills.md)
@@ -43,6 +47,7 @@
 - **🔌 PIC Microcontrollers (XC8)**
   - [PIC Track Overview](pic-mplab-xc8/README.md)
   - [📖 Datasheet & Driver Guide](pic-mplab-xc8/datasheet-driver-guide.md)
+  - [• Bare-Metal PIC GPIO Walkthrough](pic-mplab-xc8/gpio-bare-metal-walkthrough.md)
   - [Installation Guide](pic-mplab-xc8/installation.md)
   - [Beginner Steps (1-3)](pic-mplab-xc8/beginner.md)
   - [Intermediate Steps (4-8)](pic-mplab-xc8/intermediate.md)
