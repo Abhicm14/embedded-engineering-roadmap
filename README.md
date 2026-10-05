@@ -16,23 +16,29 @@
 ### 🎯 Is This For Me? Where Should You Start?
 
 ```
-                                  WHERE SHOULD YOU START?
-                                             │
-               ┌─────────────────────────────┴─────────────────────────────┐
-               ▼                                                           ▼
-     ┌───────────────────────────────────┐               ┌───────────────────────────────────┐
-     │      🌱 ABSOLUTE BEGINNER         │               │     ⚡ ALREADY KNOW BASIC C?       │
-     ├───────────────────────────────────┤               ├───────────────────────────────────┤
-     │ • New to C programming            │               │ • Knows variables, loops, arrays  │
-     │ • High school / pre-engineering   │               │ • CS / ECE student or SWE         │
-     │ • Never touched a circuit board   │               │ • Leveling up from Arduino / PIC  │
-     │                                   │               │                                   │
-     │ 👉 Start at:                      │               │ 👉 Start at:                      │
-     │ [Beginner On-Ramp](beginner-onramp/README.md)  │               │ [Prerequisites](PREREQUISITES.md) │
-     │ (Zero-install browser simulator)  │               │ [Step 3: STM32](curriculum/03-stm32-microcontrollers/README.md) │
-     │ [Beginner Glossary](cheatsheets/glossary.md)   │               │ [PIC Track](pic-mplab-xc8/README.md)             │
-     └───────────────────────────────────┘               └───────────────────────────────────┘
+                          WHERE SHOULD YOU START?
+                                     │
+                 ┌───────────────────┴───────────────────┐
+                 ▼                                       ▼
+┌─────────────────────────────────┐     ┌─────────────────────────────────┐
+│        ABSOLUTE BEGINNER        │     │      ALREADY KNOW BASIC C?      │
+├─────────────────────────────────┤     ├─────────────────────────────────┤
+│ • New to C or programming       │     │ • Knows variables, loops, arrays│
+│ • High school / pre-engineering │     │ • CS / ECE student or developer │
+│ • Never touched circuit boards  │     │ • Leveling up from Arduino/PIC  │
+│ • Wants visual hands-on labs    │     │ • Wants bare-metal & registers  │
+│                                 │     │                                 │
+│ Recommended Starting Point:     │     │ Recommended Starting Point:     │
+│ 1. Beginner On-Ramp (6 Labs)    │     │ 1. Master Prerequisites Guide   │
+│ 2. Beginner Glossary (21 Terms) │     │ 2. Step 3: STM32 (or PIC Track) │
+│ 3. Wokwi Browser Simulator      │     │ 3. Fast-Track 3-Month Plan      │
+└─────────────────────────────────┘     └─────────────────────────────────┘
 ```
+
+> 🚀 **Quick Jump:**
+> - **🌱 Absolute Beginner Track:** 👉 [**Beginner On-Ramp (`beginner-onramp/`)**](beginner-onramp/README.md) • [**Beginner Glossary (`cheatsheets/glossary.md`)**](cheatsheets/glossary.md) • [**Wokwi Web Simulator**](https://wokwi.com)
+> - **⚡ Fast-Track (Know C):** 👉 [**Prerequisites Guide (`PREREQUISITES.md`)**](PREREQUISITES.md) • [**Step 3: STM32**](curriculum/03-stm32-microcontrollers/README.md) • [**PIC Track**](pic-mplab-xc8/README.md) • [**Fast-Track Schedule**](ROADMAP.md#-fast-track-variant-if-you-already-know-c)
+
 
 | Your Starting Background | What to Expect | Your Immediate Starting Point |
 | :--- | :--- | :--- |
