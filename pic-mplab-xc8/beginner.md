@@ -20,6 +20,12 @@ Create your first MPLAB X project, configure the hardware fuses for the PIC16F87
 
 ### Concept Explanation
 
+> 💡 **In Plain English:**  
+> Think of `TRIS` like setting a traffic sign on a one-way street:  
+> - `1` looks like the letter **I** for **Input** (listen to a sensor or button).  
+> - `0` looks like the letter **O** for **Output** (drive electricity out to an LED or motor).  
+> `PORTB` is the physical light switch: `1` pushes 5 Volts (LED lights up!), `0` connects to Ground (LED turns off).
+
 #### Microcontroller Hardware Configuration
 We use the **PIC16F877A** as our learning platform because:
 - Well-documented with a clean 40-pin DIP datasheet.
@@ -107,6 +113,10 @@ void main(void) {
 Read a physical pushbutton switch on RB1, eliminate mechanical switch contact bounce in firmware, and control the LED on RB0.
 
 ### Concept Explanation
+
+> 💡 **In Plain English:**  
+> Mechanical pushbuttons are made of flexible metal strips. When you press a button, the metal strips don't just touch smoothly—they physically slam together and bounce like a dropped basketball for 5 to 20 milliseconds!  
+> To a microcontroller running at millions of cycles a second, that bouncing looks like a human tapping the button 30 times in an instant! **Debouncing** is code that says: *"Wait until the basketball stops bouncing before deciding the button was pressed!"*
 
 #### The TRIS and PORT Registers
 - **TRISB (Tri-State Register)**: Sets electrical direction. `0` = Output, `1` = Input.
@@ -197,6 +207,10 @@ void main(void) {
 Replace blocking software delays with a deterministic Timer0 hardware interrupt to achieve non-blocking execution.
 
 ### Concept Explanation
+
+> 💡 **In Plain English:**  
+> Using `__delay_ms(500)` is like freezing the CPU and making it sit twiddling its thumbs doing nothing for half a second.  
+> A **Hardware Timer** is like setting a kitchen egg-timer alarm! You can go play games or calculate math, and when the egg-timer dings (`T0IF == 1`), the CPU quickly pauses, flips the LED, and goes right back to what it was doing!
 
 #### Timer0 Architecture (PIC16F877A)
 - 8-bit hardware up-counter (`TMR0`, 0 to 255).

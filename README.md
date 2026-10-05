@@ -7,7 +7,17 @@
 [![Taxonomy](https://img.shields.io/badge/Taxonomy-3--Pillars-purple)](curriculum/reference/README.md)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
 
-> A free, student-focused curriculum, taxonomy, and resource hub for aspiring and practicing embedded systems engineers. Designed for undergraduates, career switchers, and engineers leveling up from bare-metal to operating systems.
+> A free, student-focused curriculum, taxonomy, and resource hub for aspiring and practicing embedded systems engineers. Written in simple, friendly, plain English so that **anyone—from a 16-year-old high school student to an undergraduate or career switcher**—can master embedded systems from the ground up without confusion.
+
+---
+
+### 👋 What is Embedded Engineering? (In Plain English!)
+
+Have you ever wondered how a drone balances in the sky, how a microwave counts down and beeps, or how a video game controller registers your button presses?  
+All of those gadgets are powered by **Embedded Systems**!
+
+- A **regular computer** (like a PC or phone) is like a brilliant professor sitting at a desk doing math homework behind a screen.
+- An **embedded microcontroller** is like an athletic robot with hands and eyes: it has tiny metal pins that can physically flip light switches, listen to temperature sensors, spin electric motors, and talk to radios in the real physical world!
 
 ---
 

@@ -21,6 +21,10 @@ Implement ultra-low-power sleep modes on the PIC16F877A, configure the hardware 
 
 ### Concept Explanation
 
+> 💡 **In Plain English:**  
+> - **Sleep Mode:** Imagine your smartphone turning its screen off when you slip it into your pocket. The battery lasts for days instead of hours! In `SLEEP()`, the microcontroller freezes its internal clock and draws almost zero electrical power until a button click wakes it up.  
+> - **Watchdog Timer (WDT):** Imagine you have a loyal pet guard dog that expects a snack from you every 2 seconds (`CLRWDT()`). If your code ever freezes, gets stuck in an infinite loop, or crashes, you stop feeding the dog. The dog barks loudly and presses the hard RESET button on the computer to restart your device safely!
+
 #### Sleep Mode Architecture
 When the PIC16F executes the `SLEEP` assembly instruction:
 - The on-chip crystal oscillator stops running.
@@ -120,6 +124,10 @@ Master the single-vector interrupt controller on the PIC16F877A, manage peripher
 
 ### Concept Explanation
 
+> 💡 **In Plain English:**  
+> Imagine your house has **one front desk receptionist**. When a phone call rings, a visitor knocks on the door, and a delivery driver honks, they all ring the exact same front bell (`0x0004`)!  
+> The receptionist has to quickly check: *'Was it Timer0? Was it the Button? Was it UART serial?'* (Checking the interrupt flags). That is **Interrupt Demuxing**!
+
 #### The PIC16F Interrupt Pipeline
 Unlike ARM Cortex-M which features a nested NVIC with dozens of independent vectors, the PIC16F877A has **one single interrupt vector located at address `0x0004`**.
 
@@ -216,6 +224,10 @@ void __interrupt() isr(void) {
 Use the dual analog comparator module (`CMCON`) for hardware voltage-level detection and write/read persistent calibration values into the on-chip 256-byte Data EEPROM.
 
 ### Concept Explanation
+
+> 💡 **In Plain English:**  
+> Imagine having a tiny indestructible safe inside your microcontroller (256 bytes).  
+> Even if you pull the power plug out or the battery dies completely, whatever you locked inside the EEPROM (like the user's high score or temperature calibration) stays there forever! To prevent accidental writes, the chip requires a secret password sequence (`0x55` then `0xAA`) to unlock the safe door before saving!
 
 #### Comparator Module (`CMCON`) & Voltage Reference (`VRCON`)
 The PIC16F877A includes two analog comparators connected to pins RA0–RA3:

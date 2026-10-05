@@ -1,6 +1,15 @@
 # 🗺️ Embedded Engineering Roadmap & 6-Month Study Plan
 
-> A clickable, progressive 8-step checklist merged with a structured 6-month study schedule.
+> A clickable, progressive 8-step checklist merged with a structured 6-month study schedule. Written simply so that **anyone—even a 16-year-old beginner**—can level up from zero to advanced!
+
+---
+
+> 🎮 **How to Play This Roadmap (Think of It Like Leveling Up in a Video Game!):**  
+> You don't have to learn everything in a single weekend. Take it one quest at a time:  
+> - **Level 1 (Foundation):** Learn the secret language of chips (C programming, 8-switch binary, resistors, and water pipes).  
+> - **Level 2 (Firmware):** Talk to real silicon chips (STM32 & PIC) to blink lights, turn volume knobs, and beep buzzers.  
+> - **Level 3 (Systems):** Juggle multiple tasks simultaneously with FreeRTOS and dive into Embedded Linux.  
+> - **Level 4 (Career):** Build awesome showcase projects for your GitHub portfolio (smart IoT nodes, robots, and Edge AI)!
 
 ---
 
